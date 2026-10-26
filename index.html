@@ -10,7 +10,7 @@
   --paper:#f2f3f7; --sheet:#ffffff; --ink:#12141a; --ink2:#5b6173; --hair:#e2e5ed; --fill:#eceef4; --ledge:#d3d7e1;
   --signal:#ffcd1f; --signal-edge:#d3a300; --on-signal:#12141a;
   --good:#16834a; --bad:#d4313d; --warn:#b86b00; --info:#2b59d6;
-  --stage-hi:#ffffff; --stage-lo:#dfe3ec; --floor:rgba(18,20,26,.28); --glass:rgba(255,255,255,.72);
+  --stage-hi:#ffffff; --stage-lo:#dfe3ec; --floor:rgba(18,20,26,.28); --glass:rgba(255,255,255,.72); --glass-solid:rgba(255,255,255,.93);
   --plastic:#15161b; --blank-a:#4a4f5c; --blank-b:#353944;
   --f-display:"Unbounded","Arial Black",system-ui,sans-serif;
   --f-ui:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -25,13 +25,13 @@
   --paper:#0b0c10; --sheet:#14161d; --ink:#f1f2f6; --ink2:#989eb1; --hair:#242834; --fill:#1c1f28; --ledge:#07080b;
   --signal:#ffd23f; --signal-edge:#a88300; --on-signal:#12141a;
   --good:#3fcf80; --bad:#ff6b74; --warn:#ffb547; --info:#82a8ff;
-  --stage-hi:#262c3d; --stage-lo:#0c0e14; --floor:rgba(0,0,0,.6); --glass:rgba(20,22,29,.72);
+  --stage-hi:#262c3d; --stage-lo:#0c0e14; --floor:rgba(0,0,0,.6); --glass:rgba(20,22,29,.72); --glass-solid:rgba(20,22,29,.94);
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#0b0c10; --sheet:#14161d; --ink:#f1f2f6; --ink2:#989eb1; --hair:#242834; --fill:#1c1f28; --ledge:#07080b;
   --signal:#ffd23f; --signal-edge:#a88300; --on-signal:#12141a;
   --good:#3fcf80; --bad:#ff6b74; --warn:#ffb547; --info:#82a8ff;
-  --stage-hi:#262c3d; --stage-lo:#0c0e14; --floor:rgba(0,0,0,.6); --glass:rgba(20,22,29,.72);
+  --stage-hi:#262c3d; --stage-lo:#0c0e14; --floor:rgba(0,0,0,.6); --glass:rgba(20,22,29,.72); --glass-solid:rgba(20,22,29,.94);
   color-scheme:dark}
 
 *,*::before,*::after{box-sizing:border-box}
@@ -66,7 +66,7 @@ svg.i .f{fill:currentColor;stroke:none}
 /* ---------- barra de pestañas ---------- */
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(4,1fr);
   padding:6px max(10px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px));
-  background:var(--glass);-webkit-backdrop-filter:blur(18px) saturate(1.4);backdrop-filter:blur(18px) saturate(1.4);border-top:1px solid var(--hair)}
+  background:var(--glass-solid);border-top:1px solid var(--hair)}
 .tabs button{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:14px;font:600 11px/1.1 var(--f-ui);min-width:0;color:var(--ink2)}
 .tabs button .ic{display:grid;place-items:center;width:46px;height:30px;border-radius:10px;transition:background .18s,color .18s}
 .tabs button.on{color:var(--ink)}
@@ -85,11 +85,11 @@ svg.i .f{fill:currentColor;stroke:none}
 .hud .up b{color:var(--ink);font-weight:500}
 .stools{position:absolute;top:12px;right:12px;z-index:2;display:flex;gap:8px}
 .stools button,.ib{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;border:0;padding:0}
-.stools button{background:var(--glass);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--ink);box-shadow:inset 0 0 0 1px var(--hair)}
+.stools button{background:var(--glass-solid);color:var(--ink);box-shadow:inset 0 0 0 1px var(--hair)}
 .stools button.on{background:var(--ink);color:var(--paper)}
 #letters .lt{display:grid;place-items:center;width:20px;height:20px;border-radius:6px;box-shadow:inset 0 0 0 1.8px currentColor;font:800 11px/1 var(--f-display)}
-.hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:2;margin:0;padding:6px 12px;border-radius:999px;background:var(--glass);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);font:500 12px/1.2 var(--f-ui);color:var(--ink2);white-space:nowrap;pointer-events:none;transition:opacity .5s;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis}
+.hint{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);z-index:2;margin:0;padding:6px 12px;border-radius:999px;background:var(--glass-solid);
+  font:500 12px/1.2 var(--f-ui);color:var(--ink2);white-space:nowrap;pointer-events:none;transition:opacity .5s;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis}
 .hint.gone{opacity:0}
 .lbls{position:absolute;inset:0;z-index:1;pointer-events:none}
 .lbls span{position:absolute;left:0;top:0;width:26px;height:26px;margin:-13px 0 0 -13px;display:grid;place-items:center;border-radius:8px;
@@ -2534,7 +2534,8 @@ const bodyG = new THREE.BoxGeometry(0.97, 0.97, 0.97);
 const bodyM = new THREE.MeshPhongMaterial({color: 0x101116, specular: 0x1c1d22, shininess: 30});
 const stG = roundRect(0.86, 0.17);
 const mats = {};
-for (const k in COL) mats[k] = new THREE.MeshPhongMaterial({color: COL[k], specular: 0x2a2a2a, shininess: 55, side: THREE.DoubleSide});
+// las pegatinas se dibujan siempre por delante del plástico (evita el parpadeo por «z-fighting», sobre todo en el 5×5 y en celulares)
+for (const k in COL) mats[k] = new THREE.MeshPhongMaterial({color: COL[k], specular: 0x2a2a2a, shininess: 55, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4});
 const Z = new THREE.Vector3(0, 0, 1);
 const stk = [], cubies = [];
 if (flat) THREE.__FI = FI;
@@ -2551,7 +2552,7 @@ function buildCube() {
     for (const [f, nx, ny, nz] of fs) {
       const n = new THREE.Vector3(nx, ny, nz);
       const s = new THREE.Mesh(stG, mats[f]);
-      s.position.copy(n).multiplyScalar(0.487);
+      s.position.copy(n).multiplyScalar(0.491);
       s.quaternion.setFromUnitVectors(Z, n);
       s.userData.f = f; s.userData.i = FI(f, X, Y, W); stk.push(s);
       c.add(s);
@@ -2570,6 +2571,9 @@ const LOOKY = () => 0.3 * N / 3;
 function place() {
   const d = base * view.zoom, cp = Math.cos(view.pitch);
   cam.position.set(d * cp * Math.sin(view.yaw), d * Math.sin(view.pitch), d * cp * Math.cos(view.yaw));
+  // planos cercano y lejano ajustados al cubo: más precisión de profundidad (sin parpadeo al girar la vista)
+  const nr = Math.max(0.3, d - 0.95 * N - 1), fr = d + 0.95 * N + 1;
+  if (Math.abs(cam.near - nr) > 0.05 || Math.abs(cam.far - fr) > 0.05) { cam.near = nr; cam.far = fr; if (cam.updateProjectionMatrix) cam.updateProjectionMatrix(); }
   if (cam.lookAt) cam.lookAt(0, LOOKY(), 0);
   dl.position.set(cam.position.x + 3, cam.position.y + 6, cam.position.z + 2);
 }
