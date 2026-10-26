@@ -394,13 +394,14 @@ body.tt .hud{display:none}
   .wm small{display:none}
 }
 .net.n2{max-width:340px}
+.net.n5{max-width:520px;gap:5px}.net.n5 .face{gap:1.5px;padding:2px;border-radius:7px}.net.n5 .cell{border-radius:2px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
 </style>
 <div class="app" id="app">
 <header class="top">
   <div class="brand"><svg viewBox="0 0 34 34" aria-hidden="true"><path fill="#15161b" d="M17 .8 31.6 9v16.8L17 34 2.4 25.8V9z"/><path fill="#ffffff" d="M4.40 9.70 L8.07 7.60 L11.73 9.70 L8.07 11.80 z"/><path fill="#ffffff" d="M8.87 12.27 L12.53 10.16 L16.20 12.27 L12.53 14.37 z"/><path fill="#ffffff" d="M13.34 14.83 L17.00 12.73 L20.66 14.83 L17.00 16.94 z"/><path fill="#ffffff" d="M8.87 7.13 L12.53 5.03 L16.20 7.13 L12.53 9.24 z"/><path fill="#ffffff" d="M13.34 9.70 L17.00 7.60 L20.66 9.70 L17.00 11.80 z"/><path fill="#ffffff" d="M17.80 12.27 L21.47 10.16 L25.13 12.27 L21.47 14.37 z"/><path fill="#ffffff" d="M13.34 4.57 L17.00 2.46 L20.66 4.57 L17.00 6.67 z"/><path fill="#ffffff" d="M17.80 7.13 L21.47 5.03 L25.13 7.13 L21.47 9.24 z"/><path fill="#ffffff" d="M22.27 9.70 L25.93 7.60 L29.60 9.70 L25.93 11.80 z"/><path fill="#1fa64a" d="M4.00 10.39 L7.66 12.49 L7.66 16.68 L4.00 14.57 z"/><path fill="#1fa64a" d="M4.00 15.49 L7.66 17.59 L7.66 21.78 L4.00 19.67 z"/><path fill="#1fa64a" d="M4.00 20.59 L7.66 22.69 L7.66 26.88 L4.00 24.77 z"/><path fill="#1fa64a" d="M8.47 12.96 L12.13 15.06 L12.13 19.24 L8.47 17.14 z"/><path fill="#1fa64a" d="M8.47 18.06 L12.13 20.16 L12.13 24.34 L8.47 22.24 z"/><path fill="#1fa64a" d="M8.47 23.16 L12.13 25.26 L12.13 29.44 L8.47 27.34 z"/><path fill="#1fa64a" d="M12.94 15.52 L16.60 17.63 L16.60 21.81 L12.94 19.71 z"/><path fill="#1fa64a" d="M12.94 20.62 L16.60 22.73 L16.60 26.91 L12.94 24.81 z"/><path fill="#1fa64a" d="M12.94 25.72 L16.60 27.83 L16.60 32.01 L12.94 29.91 z"/><path fill="#d62828" d="M17.40 17.62 L21.06 15.52 L21.06 19.68 L17.40 21.78 z"/><path fill="#d62828" d="M17.40 22.69 L21.06 20.59 L21.06 24.74 L17.40 26.85 z"/><path fill="#d62828" d="M17.40 27.76 L21.06 25.65 L21.06 29.81 L17.40 31.91 z"/><path fill="#d62828" d="M21.87 15.06 L25.53 12.95 L25.53 17.11 L21.87 19.21 z"/><path fill="#d62828" d="M21.87 20.12 L25.53 18.02 L25.53 22.18 L21.87 24.28 z"/><path fill="#d62828" d="M21.87 25.19 L25.53 23.09 L25.53 27.24 L21.87 29.35 z"/><path fill="#d62828" d="M26.34 12.49 L30.00 10.39 L30.00 14.54 L26.34 16.65 z"/><path fill="#d62828" d="M26.34 17.56 L30.00 15.45 L30.00 19.61 L26.34 21.71 z"/><path fill="#d62828" d="M26.34 22.62 L30.00 20.52 L30.00 24.68 L26.34 26.78 z"/></svg><span class="wm">Cubo de Rubik<small>3D · visor · solucionador</small></span></div>
   <button class="inst" id="inst" hidden title="Instalar la app en este aparato"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v11"/><path d="M7.5 10.2 12 14.7l4.5-4.5"/><path d="M4.5 16.5v2.2c0 1 .8 1.8 1.8 1.8h11.4c1 0 1.8-.8 1.8-1.8v-2.2"/></svg><span>Instalar app</span></button>
-  <div class="seg" id="size" role="group" aria-label="Tamaño del cubo"><button data-n="2">2×2</button><button class="on" data-n="3">3×3</button><button data-n="4">4×4</button></div>
+  <div class="seg" id="size" role="group" aria-label="Tamaño del cubo"><button data-n="2">2×2</button><button class="on" data-n="3">3×3</button><button data-n="4">4×4</button><button data-n="5">5×5</button></div>
   <nav class="tabs" id="tabs" aria-label="Secciones">
     <button class="on" id="t1" data-tab="1"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l7.6 4.4v8.8L12 20.8l-7.6-4.4V7.6z"/><path d="M12 12l7.6-4.4M12 12v8.8M12 12L4.4 7.6"/></svg></span>Visor</button>
     <button id="t2" data-tab="2"><span class="ic"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3.2"/><path d="M9.33 4v16M14.67 4v16M4 9.33h16M4 14.67h16"/></svg></span>Resolver</button>
@@ -1589,6 +1590,332 @@ const dumpTables = () => { initTPR(); const parts = [E3, pack4(TP1), pack4(TP2),
 return {solveAsync, init, relabel, pieceList, setE3};
 })();
 </script>
+<script id="s5">
+/* Solucionador del 5×5: centros en 3 fases con tablas exactas, emparejado de aristas con macros que conservan los centros, y 3×3 con Kociemba */
+/* Solucionador del 5×5 por reducción:
+   1) centros en 3 fases con tablas exactas de distancia (cada órbita de centros por separado, «x» y «+»):
+      A: los centros R/L a las caras R/L (todos los giros) · B: R en R, L en L y U/D en U/D (grupo con capas y/z en ½)
+      C: todos los centros (U, D, F, B en ¼; R2, L2; capas internas y anchas en ½)
+   2) emparejado de aristas con «macros» que dejan los centros intactos (capa interna · giros de caras · capa de vuelta),
+      elegidas con una búsqueda en haz
+   3) el 3×3 que queda se resuelve con Kociemba (el mismo del 3×3)
+   No se usan las capas del medio (3R, M…): así los centros fijos nunca se mueven. */
+const Solver5 = (() => {
+const LET = 'URFDLB', NF = 150, Q = 25;
+const NRM = [[0, 1, 0], [1, 0, 0], [0, 0, 1], [0, -1, 0], [-1, 0, 0], [0, 0, -1]];
+function FIn(f, x, y, z) {
+  const m = 4, a = (x + m) / 2, b = (y + m) / 2, c = (z + m) / 2; let r, k;
+  if (f === 0) { r = c; k = a; } else if (f === 3) { r = m - c; k = a; }
+  else if (f === 2) { r = m - b; k = a; } else if (f === 5) { r = m - b; k = m - a; }
+  else if (f === 1) { r = m - b; k = m - c; } else { r = m - b; k = c; }
+  return f * Q + r * 5 + k;
+}
+const POS = [], KEY = new Map();
+for (let f = 0; f < 6; f++) for (let a = 0; a < 5; a++) for (let b = 0; b < 5; b++) for (let d = 0; d < 5; d++) {
+  const p = [2 * a - 4, 2 * b - 4, 2 * d - 4], n = NRM[f];
+  if (n[0] * p[0] + n[1] * p[1] + n[2] * p[2] !== 4) continue;
+  const i = FIn(f, p[0], p[1], p[2]); POS[i] = {p, n, f}; KEY.set(p.join() + '|' + n.join(), i);
+}
+const rot = (v, ax, q) => { let [x, y, z] = v; q = ((q % 4) + 4) % 4; for (let i = 0; i < q; i++) { if (ax === 0) [y, z] = [-z, y]; else if (ax === 1) [x, z] = [z, -x]; else [x, y] = [-y, x]; } return [x, y, z]; };
+// caras U R F D L B: eje, signo de la capa y sentido del giro horario (como en la página)
+const FAX = [1, 0, 2, 1, 0, 2], FSG = [1, 1, 1, -1, -1, -1], FROT = [-1, -1, -1, 1, 1, 1];
+// movimiento m = (cara*3 + bloque)*3 + giro; bloque 0 = cara, 1 = capa interna (2R), 2 = ancho (Rw); giro 0 = ¼, 1 = ½, 2 = ¼ al revés
+const NM = 54, MP = [], MNAME = [], MAX = [], MBLK = [], MFACE = [], MT = [];
+for (let f = 0; f < 6; f++) for (let bl = 0; bl < 3; bl++) for (let t = 0; t < 3; t++) {
+  const m = (f * 3 + bl) * 3 + t, ax = FAX[f], lay = (bl === 0 ? [0] : bl === 1 ? [1] : [0, 1]).map(j => FSG[f] * (4 - 2 * j));
+  const q = FROT[f] * (t === 0 ? 1 : t === 1 ? 2 : -1), P = new Uint8Array(NF);
+  for (let i = 0; i < NF; i++) P[i] = i;
+  for (let i = 0; i < NF; i++) { const g = POS[i]; if (!lay.includes(g.p[ax])) continue; P[KEY.get(rot(g.p, ax, q).join() + '|' + rot(g.n, ax, q).join())] = i; }
+  MP[m] = P; MAX[m] = ax; MBLK[m] = bl; MFACE[m] = f; MT[m] = t;
+  MNAME[m] = (bl === 1 ? '2' : '') + LET[f] + (bl === 2 ? 'w' : '') + (t === 1 ? '2' : t === 2 ? "'" : '');
+}
+const inv = m => m - MT[m] + (2 - MT[m]);
+const ap = (s, m) => { const P = MP[m], r = new Uint8Array(NF); for (let i = 0; i < NF; i++) r[i] = s[P[i]]; return r; };
+const apAll = (s, path) => { for (const m of path) s = ap(s, m); return s; };
+const SOLVED = Uint8Array.from({length: NF}, (_, i) => i / Q | 0);
+// orden canónico: en giros seguidos del mismo eje, bloques en orden creciente (conmutan)
+const ABLK = m => (FSG[MFACE[m]] > 0 ? 0 : 3) + MBLK[m];
+const canNext = (l, m) => l < 0 || MAX[l] !== MAX[m] || ABLK(m) > ABLK(l);
+
+/* ---------- centros: dos órbitas de 24 piezas ---------- */
+const XC = [[1, 1], [1, 3], [3, 1], [3, 3]], TC = [[1, 2], [2, 1], [2, 3], [3, 2]];
+const ORB = [XC, TC].map(L => { const fl = []; for (let f = 0; f < 6; f++) for (const [r, k] of L) fl.push(f * Q + r * 5 + k); return fl; });
+// tablas de traslado de máscaras de 24 bits: TT[o][m*768 + byte*256 + valor]
+const TT = ORB.map(fl => {
+  const of = new Int16Array(NF).fill(-1); fl.forEach((i, o) => { of[i] = o; });
+  const T = new Uint32Array(NM * 768);
+  for (let m = 0; m < NM; m++) {
+    const P = MP[m], dest = new Int8Array(24); for (let j = 0; j < NF; j++) if (of[j] >= 0) dest[of[P[j]]] = of[j];
+    for (let by = 0; by < 3; by++) for (let v = 0; v < 256; v++) { let o = 0; for (let b = 0; b < 8; b++) if (v >> b & 1) o |= 1 << dest[by * 8 + b]; T[m * 768 + by * 256 + v] = o >>> 0; }
+  }
+  return T;
+});
+const tr = (T, m, mk) => (T[m * 768 + (mk & 255)] | T[m * 768 + 256 + (mk >>> 8 & 255)] | T[m * 768 + 512 + (mk >>> 16 & 255)]) >>> 0;
+const CB = Array.from({length: 25}, () => new Int32Array(25));
+for (let n = 0; n < 25; n++) { CB[n][0] = 1; for (let k = 1; k <= n; k++) CB[n][k] = CB[n - 1][k - 1] + (k <= n - 1 ? CB[n - 1][k] : 0); }
+function rnk(mk) { let r = 0, k = 0; while (mk) { const b = 31 - Math.clz32(mk & -mk); r += CB[b][++k]; mk &= mk - 1; } return r; }
+// rangos por tabla (rápidos): R8/R16 para subconjuntos de 8 y 16 posiciones; RB[byte][valor][bits ya vistos] para 24 posiciones
+const R8 = new Int32Array(256), R16 = new Int32Array(65536), PC = new Uint8Array(256), RB = new Int32Array(3 * 256 * 9);
+for (let v = 0; v < 256; v++) { R8[v] = rnk(v); let c = 0; for (let b = 0; b < 8; b++) c += v >> b & 1; PC[v] = c; }
+for (let v = 0; v < 65536; v++) R16[v] = rnk(v);
+for (let by = 0; by < 3; by++) for (let v = 0; v < 256; v++) for (let k0 = 0; k0 < 9; k0++) { let r = 0, k = k0; for (let b = 0; b < 8; b++) if (v >> b & 1) r += CB[by * 8 + b][++k] || 0; RB[(by * 256 + v) * 9 + k0] = r; }
+const rk24 = mk => { const b0 = mk & 255, b1 = mk >>> 8 & 255, b2 = mk >>> 16 & 255, p0 = PC[b0]; return RB[b0 * 9] + RB[(256 + b1) * 9 + p0] + RB[(512 + b2) * 9 + p0 + PC[b1]]; };
+// caras en la máscara: bits 4f..4f+3
+const cUD = mk => (mk & 15) | ((mk >>> 12 & 15) << 4), cRL = mk => (mk >>> 4 & 15) | ((mk >>> 16 & 15) << 4), cFB = mk => (mk >>> 8 & 15) | ((mk >>> 20 & 15) << 4);
+const iA = mk => rk24(mk);
+const iB = mk => R8[cRL(mk)] * 12870 + R16[cUD(mk) | cFB(mk) << 8];
+const iC = mk => (R8[cUD(mk)] * 70 + R8[cFB(mk)]) * 70 + R8[cRL(mk)];
+const FMASK = f => 15 << (4 * f);
+const GA = FMASK(1) | FMASK(4), GB = FMASK(1) | FMASK(0) | FMASK(3), GC = FMASK(0) | FMASK(2) | FMASK(1);
+// máscaras de un estado: A = piezas R/L; B = piezas R o U/D; C = piezas U, F o R
+const maskOf = (s, o, cols) => { let mk = 0; ORB[o].forEach((i, b) => { if (cols.includes(s[i])) mk |= 1 << b; }); return mk >>> 0; };
+// ¿la fase C puede terminar desde este estado? (sus giros no alcanzan todas las combinaciones de centros)
+const cReach = s => TAB.C[0][iC(maskOf(s, 0, [0, 2, 1]))] >= 0 && TAB.C[1][iC(maskOf(s, 1, [0, 2, 1]))] >= 0;
+const ids = (fs, bls, ts) => { const o = []; for (const f of fs) for (const b of bls) for (const t of ts) o.push((f * 3 + b) * 3 + t); return o; };
+const MA = ids([0, 1, 2, 3, 4, 5], [0, 1, 2], [0, 1, 2]);
+const MB = [...ids([1, 4], [0, 1, 2], [0, 1, 2]), ...ids([0, 2, 3, 5], [0], [0, 1, 2]), ...ids([0, 2, 3, 5], [1, 2], [1])];
+const MC = [...ids([0, 2, 3, 5], [0], [0, 1, 2]), ...ids([1, 4], [0], [1]), ...ids([0, 1, 2, 3, 4, 5], [1, 2], [1])];
+function bfs(size, goal, moves, idx, T) {
+  const D = new Int8Array(size).fill(-1), q = new Uint32Array(size); let h = 0, t = 0;
+  for (const g of [].concat(goal)) { if (D[idx(g)] < 0) { D[idx(g)] = 0; q[t++] = g; } }
+  while (h < t) { const mk = q[h++], d = D[idx(mk)]; for (const m of moves) { const n = tr(T, m, mk), j = idx(n); if (D[j] < 0) { D[j] = d + 1; q[t++] = n; } } }
+  return D;
+}
+let TAB = null;
+function init() {
+  if (TAB) return;
+  const C = [0, 1].map(o => bfs(343000, GC, MC, iC, TT[o]));
+  // la fase B termina en cualquier reparto de R/L que la fase C sepa resolver (12 de 70 en los «x», 36 en los «+»)
+  const subs = []; for (let v = 0; v < 256; v++) { let c = 0; for (let b = 0; b < 8; b++) c += v >> b & 1; if (c === 4) subs.push(v); }
+  const expRL = v => (((v & 15) << 4) | ((v >> 4 & 15) << 16)) >>> 0;
+  const goalsB = o => subs.filter(v => C[o][R8[v]] >= 0).map(v => (expRL(v) | FMASK(0) | FMASK(3)) >>> 0);
+  TAB = {A: [0, 1].map(o => bfs(735471, GA, MA, iA, TT[o])), B: [0, 1].map(o => bfs(900900, goalsB(o), MB, iB, TT[o])), C};
+}
+// fases: tablas por órbita (null = esa órbita no cuenta en la fase)
+const ST = {A: {moves: MA, idx: iA, t: () => TAB.A},
+  B: {moves: MB, idx: iB, t: () => TAB.B}, C: {moves: MC, idx: iC, t: () => TAB.C}};
+// IDA* de una fase: hasta `want` soluciones de longitud mínima (+slack); `ok` filtra las hojas
+function stage(name, mx, mt, want, slack, rand, ok, cap) {
+  const S = ST[name], D = S.t(), D0 = D[0], D1 = D[1], idx = S.idx, T0 = TT[0], T1 = TT[1], out = [], path = [];
+  let moves = S.moves.slice(); if (rand) for (let i = moves.length - 1; i > 0; i--) { const j = rand() * (i + 1) | 0; [moves[i], moves[j]] = [moves[j], moves[i]]; }
+  const NMv = moves.length, MV = Int32Array.from(moves), AX = Int8Array.from(moves.map(m => MAX[m])), AB = Int8Array.from(moves.map(m => ABLK(m)));
+  const h0x = D0[idx(mx)], h0t = D1[idx(mt)]; if (h0x < 0 || h0t < 0) return out;
+  let nodes = 0, lim = 0, found = -1, d = 0;
+  function dfs(a, b, g, lax, lab) {
+    for (let k = 0; k < NMv; k++) {
+      if (AX[k] === lax && AB[k] <= lab) continue;
+      const m = MV[k], o = m * 768, a2 = (T0[o + (a & 255)] | T0[o + 256 + (a >>> 8 & 255)] | T0[o + 512 + (a >>> 16)]) >>> 0;
+      const x = D0[idx(a2)]; if (x < 0 || g + 1 + x > d) continue;
+      const b2 = (T1[o + (b & 255)] | T1[o + 256 + (b >>> 8 & 255)] | T1[o + 512 + (b >>> 16)]) >>> 0;
+      const y = D1[idx(b2)]; nodes++; if (y < 0 || g + 1 + y > d) continue;
+      path.push(m);
+      if (x === 0 && y === 0) { if (!ok || ok(path)) { out.push(path.slice()); if (found < 0) found = g + 1; } }
+      else if (g + 1 < d) dfs(a2, b2, g + 1, AX[k], AB[k]);
+      path.pop();
+      if (out.length >= want || nodes > lim) return;
+    }
+  }
+  if (h0x === 0 && h0t === 0) return [[]];
+  for (d = Math.max(h0x, h0t); d <= 30 && out.length < want; d++) {
+    if (found >= 0 && d > found + slack) break;
+    lim = nodes + cap; dfs(mx, mt, 0, -1, -1); // si esta profundidad se agota sin terminar, se pasa a la siguiente (soluciones más fáciles de hallar)
+    if (nodes > cap * 12) break;
+  }
+  return out;
+}
+// búsqueda en haz para una fase (rápida; casi siempre la longitud óptima o 1–2 giros más): se guardan los W estados
+// más prometedores en cada paso, ordenados por la distancia exacta de cada órbita (máximo y suma)
+function beam(name, mx, mt, W, want, ok, rand, extra) {
+  const S = ST[name], D = S.t(), T0 = TT[0], T1 = TT[1], hx = a => D[0][S.idx(a)], ht = b => D[1][S.idx(b)];
+  let cur = [{a: mx, b: mt, last: -1, par: null, m: -1}]; const out = []; let firstD = -1;
+  const pathOf = n => { const p = []; while (n && n.m >= 0) { p.push(n.m); n = n.par; } return p.reverse(); };
+  if (hx(mx) === 0 && ht(mt) === 0) return [[]];
+  for (let d = 1; d <= 40; d++) {
+    const nxt = new Map();
+    for (const n of cur) for (const m of S.moves) {
+      if (!canNext(n.last, m)) continue;
+      const a = tr(T0, m, n.a), b = tr(T1, m, n.b), x = hx(a), y = ht(b); if (x < 0 || y < 0) continue;
+      const k = a * 16777216 + b; if (nxt.has(k)) continue;
+      nxt.set(k, {a, b, last: m, par: n, m, x, y, key: Math.max(x, y) * 64 + (x + y) * 4 + (rand ? rand() * 3.9 : 0)});
+    }
+    const all = [...nxt.values()];
+    for (const n of all) if (n.x === 0 && n.y === 0) { const p = pathOf(n); if (!ok || ok(p)) { out.push(p); if (firstD < 0) firstD = d; } }
+    if (out.length >= want || (firstD >= 0 && d >= firstD + (extra || 0))) break;
+    all.sort((p, q) => p.key - q.key); cur = all.slice(0, W);
+    if (!cur.length) break;
+  }
+  return out;
+}
+
+/* ---------- aristas: 12 ranuras × (ala, central, ala) ---------- */
+const SLOTS = [];
+{ const seen = new Set();
+  for (let i = 0; i < NF; i++) { const g = POS[i], p = g.p, outer = p.filter(v => Math.abs(v) === 4).length; if (outer !== 2) continue;
+    const e = [0, 1, 2].find(k => Math.abs(p[k]) !== 4), base = p.map((v, k) => k === e ? 0 : v), kk = base.join();
+    if (seen.has(kk)) continue; seen.add(kk);
+    const fl = [-2, 0, 2].map(c => { const q = base.slice(); q[e] = c; return [...Array(NF).keys()].filter(j => POS[j].p.join() === q.join()).sort((x, y) => POS[x].f - POS[y].f); });
+    SLOTS.push({e, fl, fa: POS[fl[0][0]].f, fb: POS[fl[0][1]].f, base});
+  } }
+const EST = []; SLOTS.forEach(s => s.fl.forEach(([a, b]) => EST.push(a, b))); // 72 casillas de aristas: por ranura [ala-, ala-, central, central, ala+, ala+]
+const pairScore = e => { let n = 0; for (let k = 0; k < 72; k += 6) { const a = e[k + 2], b = e[k + 3]; if (e[k] === a && e[k + 1] === b) n++; if (e[k + 4] === a && e[k + 5] === b) n++; } return n; };
+const edgesOf = s => { const e = new Uint8Array(72); for (let j = 0; j < 72; j++) e[j] = s[EST[j]]; return e; };
+// alas: cada pieza tiene «mano» fija; su posición de origen sale de sus colores y su mano
+const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
+const hand = (fa, fb, p) => { const c = cross(NRM[fa], NRM[fb]); return Math.sign(c[0] * p[0] + c[1] * p[1] + c[2] * p[2]); };
+const WING = []; SLOTS.forEach(s => [0, 2].forEach(k => { const [a, b] = s.fl[k]; WING.push({a, b, p: POS[a].p}); }));
+const HOME = new Map(); WING.forEach((w, i) => HOME.set(POS[w.a].f + ',' + POS[w.b].f + ',' + hand(POS[w.a].f, POS[w.b].f, w.p), i));
+function wingHomes(s) {
+  return WING.map(w => { const ca = s[w.a], cb = s[w.b], h = hand(POS[w.a].f, POS[w.b].f, w.p);
+    return HOME.has(ca + ',' + cb + ',' + h) ? HOME.get(ca + ',' + cb + ',' + h) : HOME.has(cb + ',' + ca + ',' + (-h)) ? HOME.get(cb + ',' + ca + ',' + (-h)) : -1; });
+}
+function wingParity(s) { const h = wingHomes(s); if (h.includes(-1)) return -1; const seen = new Uint8Array(24); let p = 0; for (let i = 0; i < 24; i++) { if (seen[i]) continue; let j = i, L = 0; while (!seen[j]) { seen[j] = 1; j = h[j]; L++; } p ^= (L - 1) & 1; } return p; }
+
+// macros que conservan los centros: s · W · s⁻¹ (s = capa interna; W = 1 o 2 giros de caras), y además los propios giros de caras
+let MACROS = null;
+function buildMacros(wmax) {
+  const outer = ids([0, 1, 2, 3, 4, 5], [0], [0, 1, 2]), slices = ids([0, 1, 2, 3, 4, 5], [1], [0, 1, 2]);
+  const Ws = []; (function gen(seq) { if (seq.length) Ws.push(seq.slice()); if (seq.length >= wmax) return; for (const m of outer) { const l = seq[seq.length - 1]; if (l !== undefined && (MFACE[l] === MFACE[m] || (MAX[l] === MAX[m] && MFACE[m] < MFACE[l]))) continue; seq.push(m); gen(seq); seq.pop(); } })([]);
+  const ID = Uint8Array.from({length: NF}, (_, i) => i), best = new Map();
+  const addM = (seq, cost) => {
+    const P = apAll(ID, seq); // P[i] = de dónde viene lo que queda en i
+    for (let f = 0; f < 6; f++) for (let r = 1; r < 4; r++) for (let k = 1; k < 4; k++) { const i = f * Q + r * 5 + k; if ((P[i] / Q | 0) !== f) return; }
+    const src = new Uint8Array(72); for (let j = 0; j < 72; j++) src[j] = P[EST[j]];
+    const key = src.join(','); const o = best.get(key); if (!o || o.cost > cost) best.set(key, {src, cost, seq});
+  };
+  for (const m of outer) addM([m], 1);
+  for (const s of slices) for (const W of Ws) addM([s, ...W, inv(s)], W.length + 2);
+  MACROS = [...best.values()];
+}
+
+/* ---------- simplificación: giros seguidos del mismo eje → la menor cantidad de bloques ---------- */
+function simplify(path) {
+  const out = []; let ax = -1, v = [0, 0, 0, 0, 0];
+  const flush = () => {
+    if (ax < 0) return;
+    const fp = ax === 0 ? 1 : ax === 1 ? 0 : 2, fm = fp + 3; // cara + (R/U/F) y cara − (L/D/B)
+    const emit = (f, bl, q) => { q = ((q % 4) + 4) % 4; if (!q) return; const t = ((q * FROT[f]) % 4 + 4) % 4; out.push((f * 3 + bl) * 3 + (t === 1 ? 0 : t === 2 ? 1 : 2)); };
+    const side = (f, o, i) => { o = ((o % 4) + 4) % 4; i = ((i % 4) + 4) % 4; if (o === i) emit(f, 2, o); else if (i === 0) emit(f, 0, o); else if (o === 0) emit(f, 1, i); else { emit(f, 2, i); emit(f, 0, o - i); } };
+    side(fp, v[4], v[3]); side(fm, v[0], v[1]);
+    ax = -1; v = [0, 0, 0, 0, 0];
+  };
+  for (const m of path) {
+    if (MAX[m] !== ax) { flush(); ax = MAX[m]; }
+    const f = MFACE[m], bl = MBLK[m], q = FROT[f] * (MT[m] === 0 ? 1 : MT[m] === 1 ? 2 : -1);
+    for (const j of (bl === 0 ? [0] : bl === 1 ? [1] : [0, 1])) { const L = (FSG[f] * (4 - 2 * j) + 4) / 2; v[L] += q; }
+  }
+  flush(); return out;
+}
+const SUB = []; for (let f = 0; f < 6; f++) for (const r of [0, 2, 4]) for (const c of [0, 2, 4]) SUB.push(f * Q + r * 5 + c);
+const reduce3 = s => SUB.map(i => s[i]);
+const NAMEID = new Map(MNAME.map((n, m) => [n, m]));
+
+/* ---------- comprobación del estado ---------- */
+function check(st) {
+  if (!st || st.length !== NF) return 2;
+  const n = Array(6).fill(0); for (const c of st) { if (c < 0 || c > 5) return 2; n[c]++; }
+  if (n.some(v => v !== Q)) return 1;
+  for (let f = 0; f < 6; f++) if (st[f * Q + 12] !== f) return 2;
+  const c3 = typeof Solver !== 'undefined' ? Solver.check(reduce3(st)) : 0; if (c3) return c3;
+  const h = wingHomes(st); if (h.includes(-1) || new Set(h).size !== 24) return 2;
+  return 0;
+}
+
+/* ---------- emparejado de aristas: búsqueda en haz sobre macros ---------- */
+let SETUPS = null;
+function pairEdges(s0, width, maxSteps, deadline) {
+  if (!MACROS) buildMacros(3);
+  if (!SETUPS) { // preparaciones de 0, 1 o 2 giros de caras antes de cada macro
+    const outer = ids([0, 1, 2, 3, 4, 5], [0], [0, 1, 2]); SETUPS = [[]];
+    for (const a of outer) SETUPS.push([a]);
+    for (const a of outer) for (const b of outer) if (MFACE[a] !== MFACE[b] && !(MAX[a] === MAX[b] && MFACE[b] < MFACE[a])) SETUPS.push([a, b]);
+  }
+  let beam = [{s: s0, sc: pairScore(edgesOf(s0)), cost: 0, path: []}];
+  if (beam[0].sc === 24) return beam[0];
+  const e = new Uint8Array(72);
+  for (let step = 0; step < maxSteps; step++) {
+    const cand = [];
+    for (let tier = 0; tier < 2 && !cand.length; tier++) for (const nd of beam) { // primero con 0–1 giro de preparación; si nada mejora, con 2
+      for (let pi = tier ? 19 : 0; pi < (tier ? SETUPS.length : 19); pi++) {
+        const P = SETUPS[pi], sp = P.length ? apAll(nd.s, P) : nd.s;
+        for (let k = 0; k < MACROS.length; k++) {
+          const M = MACROS[k]; if (M.cost === 1) continue;
+          const src = M.src; for (let j = 0; j < 72; j++) e[j] = sp[src[j]];
+          const sc = pairScore(e); if (sc <= nd.sc) continue;
+          const cost = nd.cost + M.cost + P.length;
+          cand.push({sc, cost, nd, pi, k, key: sc * 3 - cost});
+        }
+      }
+      if (deadline && Date.now() > deadline) return null;
+    }
+    cand.sort((a, b) => b.key - a.key || a.cost - b.cost);
+    const nb = [], seen = new Set();
+    for (const c of cand) {
+      if (nb.length >= width) break;
+      const pre = SETUPS[c.pi], seq = pre.concat(MACROS[c.k].seq), path = c.nd.path.concat(seq);
+      const s = apAll(c.nd.s, seq), sig = edgesOf(s).join('');
+      if (seen.has(sig)) continue; seen.add(sig);
+      nb.push({s, sc: c.sc, cost: c.cost, path});
+    }
+    if (pairEdges.dbg) console.log(' paso', step, nb.map(x => x.sc + '/' + x.cost).join(' '));
+    const done = nb.filter(x => x.sc === 24).sort((a, b) => a.cost - b.cost);
+    if (done.length) return done[0];
+    beam = nb; if (!beam.length) return null;
+  }
+  return null;
+}
+
+/* ---------- una solución completa ---------- */
+function rng(seed) { let x = seed >>> 0 || 1; return () => { x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }; }
+function attempt(st, rand, opt) {
+  const s0 = Uint8Array.from(st);
+  const solsA = stage('A', maskOf(s0, 0, [1, 4]), maskOf(s0, 1, [1, 4]), opt.kA, 0, rand, null, opt.cap);
+  let best = null;
+  for (const pa of solsA) {
+    const sA = apAll(s0, pa);
+    const solsB = stage('B', maskOf(sA, 0, [1, 0, 3]), maskOf(sA, 1, [1, 0, 3]), opt.kB, 0, rand, p => wingParity(apAll(sA, p)) === 0, opt.cap);
+    for (const pb of solsB) {
+      const sB = apAll(sA, pb);
+      const solsC = stage('C', maskOf(sB, 0, [0, 2, 1]), maskOf(sB, 1, [0, 2, 1]), 1, 0, rand, null, opt.cap);
+      if (!solsC.length) continue;
+      const path = pa.concat(pb, solsC[0]), len = simplify(path).length;
+      if (!best || len < best.len) best = {len, path};
+    }
+  }
+  return best;
+}
+function finish(st, cpath, ms3, deadline) {
+  const s1 = apAll(Uint8Array.from(st), cpath);
+  const ed = pairEdges(s1, 6, 26, deadline); if (!ed) return null;
+  const f54 = reduce3(ed.s); let t3 = typeof Solver !== 'undefined' ? Solver.solve(f54, ms3) : null;
+  if (!Array.isArray(t3)) return null;
+  const m3 = t3.map(t => NAMEID.get(t)); if (m3.includes(undefined)) return null;
+  const full = simplify(cpath.concat(ed.path, m3));
+  const fin = apAll(Uint8Array.from(st), full);
+  for (let i = 0; i < NF; i++) if (fin[i] !== (i / Q | 0)) return null; // comprobación final
+  return {moves: full, parts: [simplify(cpath).length, ed.path.length, m3.length]};
+}
+async function solveAsync(st, ms, onProg, ctl) {
+  ctl = ctl || {};
+  const c = check(st); if (c) return c === 1 ? 1 : 2;
+  if (st.every((v, i) => v === (i / Q | 0))) return [];
+  init();
+  const t0 = Date.now(), deadline = t0 + Math.max(1500, ms), rand = rng((ctl.wid || 0) * 7919 + 1 + (Date.now() & 0xffff));
+  let best = null, tries = 0;
+  const opt = {kA: 2, kB: 2, cap: 4e6};
+  while (Date.now() < deadline || !best) {
+    if (ctl.stop && ctl.stop() && best) break;
+    const a = attempt(st, rand, opt); tries++;
+    if (a) { const r = finish(st, a.path, 250, best ? deadline : Date.now() + Math.max(8000, ms)); if (r && (!best || r.moves.length < best.moves.length)) best = r; }
+    if (onProg) onProg(Date.now() - t0, {best: best ? best.moves.length : 0, tries, frac: Math.min(1, (Date.now() - t0) / ms)});
+    await new Promise(r => setTimeout(r, 0));
+    if (tries > 400 && !best) break;
+  }
+  return best ? best.moves.map(m => MNAME[m]) : 6;
+}
+const api = {init, check, solveAsync, _d: () => ({cReach, beam, MNAME, MP, apAll, simplify, attempt, finish, pairEdges, wingParity, edgesOf, pairScore, stage, maskOf, buildMacros, get MACROS() { return MACROS; }, TAB: () => TAB, SOLVED, NAMEID, reduce3, rng})};
+return api;
+})();
+</script>
 <script id="scs">
 /* Escáner: detección de la cara (rejilla girada, juntas y bordes) y sesión de escaneo continuo */
 /* ================= núcleo del escáner: detección de la cara y lectura de colores (sin DOM) ================= */
@@ -1826,9 +2153,14 @@ const SS = (() => {
     S.faces.forEach((f, i) => { const v = match(S, labs, f); if (v > bv) { bv = v; b = i; } });
     return bv >= (S.N === 2 ? 1 : 0.75) ? b : -1;
   }
+  // un reflejo pasajero vuelve una casilla blanquecina en algunos cuadros: por casilla se usan los cuadros con más color
+  // (la mitad más saturada); en una casilla blanca todos los cuadros son blancos, así que no cambia nada
   function combine(S) {
-    const H = S.hist, n = S.N * S.N, raw = [];
-    for (let i = 0; i < n; i++) raw.push([0, 1, 2].map(q => med(H.map(h => h.raw[i][q]))));
+    const H = S.hist, n = S.N * S.N, raw = [], k = Math.max(1, Math.ceil(H.length / 2));
+    for (let i = 0; i < n; i++) {
+      const fr = H.map(h => h.raw[i]).sort((a, b) => (Math.max(...b) - Math.min(...b)) - (Math.max(...a) - Math.min(...a))).slice(0, k);
+      raw.push([0, 1, 2].map(q => fr.reduce((t, c) => t + c[q], 0) / fr.length));
+    }
     const gain = H[H.length - 1].gain;
     return {raw, gain, labs: labsOf(raw, gain), g: H[H.length - 1].g};
   }
@@ -1947,7 +2279,7 @@ class Renderer {
   setN(n) {
     this.n = n; this.sig = '';
     this.el.innerHTML = POS.map(([c, r]) => `<div class="face" style="grid-column:${c};grid-row:${r};grid-template-columns:repeat(${n},1fr)">` +
-      Array.from({length: n * n}, (_, j) => `<div class="cell${n === 3 && j === 4 ? ' ctr' : ''}"></div>`).join('') + '</div>').join('');
+      Array.from({length: n * n}, (_, j) => `<div class="cell${n % 2 === 1 && j === (n * n - 1) / 2 ? ' ctr' : ''}"></div>`).join('') + '</div>').join('');
     this.cells = [...this.el.querySelectorAll('.cell')];
   }
   setPixelRatio() {} setSize() {}
@@ -2017,7 +2349,8 @@ const FACES = [['R',1,0,0],['L',-1,0,0],['U',0,1,0],['D',0,-1,0],['F',0,0,1],['B
 const NRM = {U:[0,1,0], R:[1,0,0], F:[0,0,1], D:[0,-1,0], L:[-1,0,0], B:[0,0,-1]};
 // cara: [eje, capa, signo del giro horario visto desde esa cara]
 const MV = {U:['y',1,-1], D:['y',-1,1], R:['x',1,-1], L:['x',-1,1], F:['z',1,-1], B:['z',-1,1]};
-let N = [2, 3, 4].includes(prefs.n) ? prefs.n : 3;
+let N = [2, 3, 4, 5].includes(prefs.n) ? prefs.n : 3;
+const ctrIdx = (k, NN = N) => NN % 2 === 1 && k % (NN * NN) === (NN * NN - 1) / 2; // centro fijo (cubos impares)
 const SLC = {M:['x',[0],1], E:['y',[0],1], S:['z',[0],-1], x:['x','all',-1], y:['y','all',-1], z:['z','all',-1]};
 // Coordenadas dobles: con N=3 valen -2,0,2 y con N=4 valen -3,-1,1,3. La capa k (0 = exterior) de una cara con signo s está en s*(N-1-2k).
 function mdef(n, NN = N) {
@@ -2098,11 +2431,15 @@ const applyMv = (s, mvv, NN = N) => { const P = perm(NN, mvv), o = new Array(s.l
 const applyAllMv = (s, ms, NN = N) => ms.reduce((a, m) => applyMv(a, m, NN), s);
 const solvedSt = (NN = N) => Array.from({length: 6 * NN * NN}, (_, k) => k / (NN * NN) | 0);
 const uniformSt = (s, NN = N) => { const q = NN * NN; for (let f = 0; f < 6; f++) for (let j = 1; j < q; j++) if (s[f * q + j] !== s[f * q]) return false; return true; };
-function centersOk4(s) { for (let f = 0; f < 6; f++) { const c = s[f * 16 + 5]; for (const j of [6, 9, 10]) if (s[f * 16 + j] !== c) return false; } return true; }
-function edgesOk4(s) {
-  const G = geo(4), byFaces = new Map();
+function centersOk4(s, NN = 4) { // todas las casillas interiores de cada cara del mismo color
+  const q = NN * NN;
+  for (let f = 0; f < 6; f++) { const c = s[f * q + NN + 1]; for (let r = 1; r < NN - 1; r++) for (let k = 1; k < NN - 1; k++) if (s[f * q + r * NN + k] !== c) return false; }
+  return true;
+}
+function edgesOk4(s, NN = 4) { // cada arista (todas sus piezas) de un solo par de colores
+  const G = geo(NN), byFaces = new Map();
   for (const pc of G.pieces) if (pc.fl.length === 2) { const k = pc.fl.map(i => G.pos[i].f).sort().join(); (byFaces.get(k) || byFaces.set(k, []).get(k)).push(pc.fl.slice().sort((a, b) => G.pos[a].f - G.pos[b].f)); }
-  for (const [a, b] of byFaces.values()) if (s[a[0]] !== s[b[0]] || s[a[1]] !== s[b[1]]) return false;
+  for (const L of byFaces.values()) for (let j = 1; j < L.length; j++) if (s[L[j][0]] !== s[L[0][0]] || s[L[j][1]] !== s[L[0][1]]) return false;
   return true;
 }
 function inG1(s) { // 3×3: fin de la fase 1 de Kociemba (U/D orientadas y aristas del medio en su capa)
@@ -2116,9 +2453,10 @@ function phasesOf(start, ms) {
   if (N === 2) return null;
   let s = start.slice(); const n = ms.length, states = [s];
   for (const m of ms) { s = applyMv(s, m); states.push(s); }
-  if (N === 4) {
-    let c = states.findIndex(centersOk4); if (c < 0) return null;
-    let e = -1; for (let j = c; j <= n; j++) if (centersOk4(states[j]) && edgesOk4(states[j])) { e = j; break; }
+  if (N >= 4) {
+    const cOk = x => centersOk4(x, N), eOk = x => edgesOk4(x, N);
+    let c = states.findIndex(cOk); if (c < 0) return null;
+    let e = -1; for (let j = c; j <= n; j++) if (cOk(states[j]) && eOk(states[j])) { e = j; break; }
     if (e < 0) return null;
     if (e - c <= 3) return [['Centros y aristas', 0, e, 0xffffff], ['Como un 3×3', e, n, 0xd62828]].filter(p => p[2] > p[1]);
     return [['Centros', 0, c, 0xffffff], ['Aristas', c, e, 0x1fa64a], ['Como un 3×3', e, n, 0xd62828]].filter(p => p[2] > p[1]);
@@ -2422,7 +2760,7 @@ $('tl').addEventListener('input', () => { fillRange($('tl')); jumpTo(+$('tl').va
 function load(start, opt = {}) {
   let m;
   try { m = parse($('seq').value); }
-  catch (t) { $('err').textContent = `«${t}» no es un giro válido. Usa U D L R F B, anchos (Rw o r), ${N === 4 ? 'capas (2R, 3Rw)' : N === 3 ? 'capas del medio (M E S)' : 'capas (2R)'} o giros del cubo (x y z), con ' o 2.`; return false; }
+  catch (t) { $('err').textContent = `«${t}» no es un giro válido. Usa U D L R F B, anchos (Rw o r), ${N === 5 ? 'capas (2R, 3R, 3Rw) o del medio (M E S)' : N === 4 ? 'capas (2R, 3Rw)' : N === 3 ? 'capas del medio (M E S)' : 'capas (2R)'} o giros del cubo (x y z), con ' o 2.`; return false; }
   if (!m.length) { $('err').textContent = 'Escribe al menos un giro.'; return false; }
   $('err').textContent = ''; $('note').textContent = opt.note || '';
   pause(); skip = true;
@@ -2481,7 +2819,7 @@ function randomMoves(n, NN) {
   while (out.length < n) {
     const f = F[Math.random() * 6 | 0], a = AX[f];
     let name = f;
-    if (NN === 4) name = Math.random() < 0.45 ? f + 'w' : f;
+    if (NN >= 4) name = Math.random() < 0.45 ? f + 'w' : f;
     if (a === la && used.has(name)) continue;
     if (a !== la) { la = a; used = new Set(); }
     used.add(name); out.push([name, Math.random() < 1 / 3 ? 2 : 1, Math.random() < 0.5 ? 1 : -1]);
@@ -2499,7 +2837,7 @@ async function scrambleFor(NN) {
     if (Array.isArray(r) && r.length) return invMoves(parse(r.join(' '), 3));
     return randomMoves(25, 3);
   }
-  return randomMoves(40, NN);
+  return randomMoves(NN === 5 ? 60 : 40, NN); // 4×4: 40 giros; 5×5: 60 giros con caras y capas anchas, como en competencia
 }
 $('rnd').onclick = async () => {
   const b = $('rnd'); if (b.disabled) return; b.disabled = true;
@@ -2551,6 +2889,14 @@ const ERR4 = {
   2: 'El estado del 4×4 no es válido: cada esquina y cada arista debe existir una sola vez. Revisa los colores.',
   3: 'No encontré solución: revisa que los colores estén bien pintados o prueba con más tiempo de búsqueda.'
 };
+const ERR5 = {
+  1: 'Cada color debe aparecer 25 veces.',
+  2: 'El estado del 5×5 no es válido: revisa los colores de esquinas y aristas.',
+  3: 'Una esquina está girada sobre sí misma: así no se puede resolver. Revisa sus tres colores.',
+  4: 'Una arista central está volteada: así no se puede resolver. Revisa sus dos colores.',
+  5: 'Hay dos piezas intercambiadas: así no se puede resolver. Revisa esquinas y aristas centrales.',
+  6: 'No encontré solución: revisa los colores o prueba con más tiempo de búsqueda.'
+};
 const ERR2 = {
   1: 'Cada color debe aparecer 4 veces.',
   2: 'Hay esquinas imposibles o repetidas. Revisa los colores de cada esquina.',
@@ -2558,7 +2904,7 @@ const ERR2 = {
 };
 const POS = [[2,1], [3,2], [2,2], [2,3], [1,2], [4,2]]; // U R F D L B → [columna, fila]
 const st = [];
-function resetSt(blank) { st.length = 0; for (let k = 0; k < 6 * N * N; k++) st.push(blank && !(N === 3 && k % 9 === 4) ? BLANK : k / (N * N) | 0); }
+function resetSt(blank) { st.length = 0; for (let k = 0; k < 6 * N * N; k++) st.push(blank && !ctrIdx(k) ? BLANK : k / (N * N) | 0); }
 resetSt();
 let brush = 0;
 const msg = t => { $('smsg').textContent = t; };
@@ -2594,12 +2940,12 @@ function drawNet() {
   counts(); queueCheck(); saveWS();
 }
 function buildNet() {
-  $('net').className = 'net' + (N === 4 ? ' n4' : N === 2 ? ' n2' : '');
+  $('net').className = 'net' + (N >= 4 ? ' n4' : N === 2 ? ' n2' : '') + (N === 5 ? ' n5' : '');
   $('net').innerHTML = POS.map(([c, r], f) =>
     `<div class="face" style="grid-column:${c};grid-row:${r};grid-template-columns:repeat(${N},1fr)">` +
     Array.from({length: N * N}, (_, j) => {
       const i = f * N * N + j;
-      return `<button class="cell${N === 3 && j === 4 ? ' ctr' : ''}" data-i="${i}" aria-label="Cara ${LET[f]}, casilla ${j + 1}"></button>`;
+      return `<button class="cell${ctrIdx(i) ? ' ctr' : ''}" data-i="${i}" aria-label="Cara ${LET[f]}, casilla ${j + 1}"></button>`;
     }).join('') + '</div>').join('');
   drawNet();
 }
@@ -2632,7 +2978,7 @@ function setAll(blank, text) {
   dud.clear(); drawNet(); msg(text || ''); syncPaint();
 }
 $('solved').onclick = () => setAll(false);
-$('blank').onclick = () => setAll(true, N === 3 ? 'Casillas vacías: los centros ya indican el color de cada cara. Pinta las demás.' : 'Casillas vacías: pinta las 96 casillas de tu cubo.');
+$('blank').onclick = () => setAll(true, N % 2 ? 'Casillas vacías: los centros ya indican el color de cada cara. Pinta las demás.' : `Casillas vacías: pinta las ${6 * N * N} casillas de tu cubo.`);
 
 /* ---------- comprobación en vivo de las piezas ---------- */
 const OPP0 = [3, 4, 5, 0, 1, 2];
@@ -2647,7 +2993,7 @@ function validate() {
   for (const pc of full) for (const a of pc.fl) for (const b of pc.fl) if (st[a] !== st[b]) adj[st[a]].add(st[b]);
   let OPP = OPP0;
   const der = [0, 1, 2, 3, 4, 5].map(c => { const o = [0, 1, 2, 3, 4, 5].filter(x => x !== c && !adj[c].has(x)); return o.length === 1 ? o[0] : -1; });
-  if (N !== 3 && der.every((o, c) => o >= 0 && der[o] === c)) OPP = der;
+  if (N % 2 === 0 && der.every((o, c) => o >= 0 && der[o] === c)) OPP = der;
   const seen = new Map(), wing = new Map(), cornerSign = [];
   for (const pc of full) {
     const cs = pc.fl.map(i => st[i]);
@@ -2662,7 +3008,7 @@ function validate() {
     if (cs.length === 3) { // orden de los colores alrededor de la esquina comparado con el cubo resuelto
       cornerSign.push({pc, key, cs});
     }
-    if (cs.length === 2 && N === 4) { // cada arista del 4×4 tiene dos piezas «zurda» y «diestra»
+    if (cs.length === 2 && N >= 4) { // cada arista del 4×4 y del 5×5 tiene piezas «zurda» y «diestra» (y en el 5×5 una central)
       const [ia, ib] = cs[0] < cs[1] ? pc.fl : [pc.fl[1], pc.fl[0]], na = G.pos[ia].n, nb = G.pos[ib].n;
       const cr = [na[1] * nb[2] - na[2] * nb[1], na[2] * nb[0] - na[0] * nb[2], na[0] * nb[1] - na[1] * nb[0]];
       const e = [0, 1, 2].find(k => na[k] === 0 && nb[k] === 0), h = Math.sign(cr[e] * pc.p[e]);
@@ -2674,14 +3020,14 @@ function validate() {
     const ref = new Map(); for (const pc of G.pieces) if (pc.fl.length === 3) { const s = pc.fl.map(i => G.pos[i].f); for (let r = 0; r < 3; r++) ref.set([s[r], s[(r + 1) % 3], s[(r + 2) % 3]].join(), 1); }
     const mir = cornerSign.filter(c => !ref.has(c.cs.join()) && !ref.has([c.cs[1], c.cs[2], c.cs[0]].join()) && !ref.has([c.cs[2], c.cs[0], c.cs[1]].join()));
     const okC = cornerSign.length - mir.length;
-    const flag = N === 3 || mir.length < okC ? mir : mir.length > okC ? cornerSign.filter(c => !mir.includes(c)) : [];
+    const flag = N % 2 === 1 || mir.length < okC ? mir : mir.length > okC ? cornerSign.filter(c => !mir.includes(c)) : [];
     for (const c of flag) add('Una esquina tiene sus colores en un orden imposible (como reflejada en un espejo).', c.pc.fl);
   }
   for (const [key, list] of seen) {
-    const lim = list[0].fl.length === 2 && N === 4 ? 2 : 1;
+    const lim = list[0].fl.length === 2 ? Math.max(1, N - 2) : 1;
     if (list.length > lim) { const nm = key.split(',').map(k => NAME[k]).join('-'); add(`La ${list[0].fl.length === 3 ? 'esquina' : 'arista'} ${nm} aparece ${list.length} veces${lim > 1 ? ` (deben ser ${lim})` : ''}.`, list.flatMap(p => p.fl)); }
   }
-  for (const list of wing.values()) if (list.length > 1 && (seen.get(list[0].fl.map(i => st[i]).sort().join()) || []).length <= 2)
+  for (const list of wing.values()) if (list.length > 1 && (seen.get(list[0].fl.map(i => st[i]).sort().join()) || []).length <= N - 2)
     add('Una arista tiene una de sus dos piezas pintada al revés.', list.flatMap(p => p.fl));
   const wrong = [0, 1, 2, 3, 4, 5].filter(k => n[k] > q || (!n[BLANK] && n[k] !== q));
   const res = {n, bad: badS, issues: [...issues].map(([t, c]) => c > 1 ? `${t.replace(/\.$/, '')} (${c} veces).` : t), blanks: n[BLANK], wrong, ok: false, code: 0};
@@ -2689,6 +3035,7 @@ function validate() {
   if (!res.issues.length && !res.blanks) {
     if (N === 3) { res.code = Solver.check(st); if (res.code) res.issues.push(ERR[res.code] || ERR[2]); }
     else if (N === 4) { const r = Solver4.relabel(st); if (typeof r === 'number') { res.code = 2; res.issues.push(ERR4[2]); } }
+    else if (N === 5) { res.code = typeof Solver5 === 'object' && Solver5.check ? Solver5.check(st) : 0; if (res.code) res.issues.push(ERR5[res.code] || ERR5[2]); }
     else { res.code = Solver2.check(st); if (res.code) res.issues.push(ERR2[res.code] || ERR2[2]); }
     res.ok = !res.code;
   }
@@ -2718,9 +3065,9 @@ function facelet(s) {
 }
 function readCube() {
   stk.forEach(s => { st[facelet(s)] = s.userData.c; });
-  if (N === 3) { // si hubo giros de todo el cubo, los centros se mueven: se renombran los colores por su centro
-    const cen = [4, 13, 22, 31, 40, 49].map(i => st[i]);
-    if (new Set(cen).size === 6 && !cen.includes(BLANK)) for (let k = 0; k < 54; k++) if (st[k] !== BLANK) st[k] = cen.indexOf(st[k]);
+  if (N % 2 === 1) { // si hubo giros de todo el cubo, los centros se mueven: se renombran los colores por su centro
+    const q = N * N, cen = [0, 1, 2, 3, 4, 5].map(f => st[f * q + (q - 1) / 2]);
+    if (new Set(cen).size === 6 && !cen.includes(BLANK)) for (let k = 0; k < 6 * q; k++) if (st[k] !== BLANK) st[k] = cen.indexOf(st[k]);
   }
 }
 function enterPaint() { // el cubo 3D queda sin giros y muestra el estado de st (editable)
@@ -2753,7 +3100,7 @@ function tap3D(x, y) {
   enq(() => {
     if (!paintMode) { readCube(); enterPaint(); }
     const k = pickFacelet(x, y);
-    if (k < 0 || (N === 3 && k % 9 === 4) || st[k] === brush) return;
+    if (k < 0 || ctrIdx(k) || st[k] === brush) return;
     const prev = st.slice(); st[k] = brush; dud.delete(k); snap(prev); recolor(); drawNet();
   });
 }
@@ -2762,11 +3109,12 @@ $('grab').onclick = () => { pause(); enq(() => { const prev = st.slice(); readCu
 /* ================= cálculo en segundo plano (Web Workers) ================= */
 const GLUE = `let STOP=false;onmessage=async e=>{const d=e.data;if(d.op==='stop'){STOP=true;return}let r;
 try{if(d.op==='tables'){Solver4.setE3(d.buf);r=1}
-else if(d.op==='warm'){if(d.n===2)Solver2.init();else if(d.n!==4)Solver.init();r=1}
+else if(d.op==='warm'){if(d.n===2)Solver2.init();else if(d.n===5){Solver.init();Solver5.init()}else if(d.n!==4)Solver.init();r=1}
 else if(d.op==='solve3')r=Solver.solve(d.st,d.ms);
 else if(d.op==='solve3v')r=Solver.solveVariant(d.st,d.ms,d.v);
 else if(d.op==='solve2')r=Solver2.solve(d.st);
-else if(d.op==='solve4'){STOP=false;r=await Solver4.solveAsync(d.st,d.ms,(t,p)=>postMessage({id:d.id,prog:1,p}),{stop:()=>STOP,wid:d.wid})}}
+else if(d.op==='solve4'){STOP=false;r=await Solver4.solveAsync(d.st,d.ms,(t,p)=>postMessage({id:d.id,prog:1,p}),{stop:()=>STOP,wid:d.wid})}
+else if(d.op==='solve5'){STOP=false;Solver.init();r=await Solver5.solveAsync(d.st,d.ms,(t,p)=>postMessage({id:d.id,prog:1,p}),{stop:()=>STOP,wid:d.wid})}}
 catch(err){r=0}postMessage({id:d.id,r})}`;
 const Pool = (() => {
   let url = null, failed = false, seq = 0; const ws = [];
@@ -2775,7 +3123,7 @@ const Pool = (() => {
   function mk() {
     if (failed || typeof Worker !== 'function') return null;
     try {
-      if (!url) url = URL.createObjectURL(new Blob([$('s3').textContent + '\n' + $('s4').textContent + '\n' + $('s2').textContent + '\n' + GLUE], {type: 'text/javascript'}));
+      if (!url) url = URL.createObjectURL(new Blob([$('s3').textContent + '\n' + $('s4').textContent + '\n' + $('s2').textContent + '\n' + $('s5').textContent + '\n' + GLUE], {type: 'text/javascript'}));
       const w = new Worker(url); w.jobs = new Map();
       w.onmessage = e => { const d = e.data, j = w.jobs.get(d.id); if (!j) return; if (d.prog) { if (j.prog) j.prog(d.p); } else { w.jobs.delete(d.id); j.res(d.r); } };
       w.onerror = e => { if (e.preventDefault) e.preventDefault(); failed = true; w.dead = true; for (const j of w.jobs.values()) j.res(undefined); w.jobs.clear(); };
@@ -2808,7 +3156,7 @@ const Pool = (() => {
   async function giveTables(w) { const buf = await loadTables(); if (buf && w && !w.t4) { w.t4 = 1; await call(w, {op: 'tables', buf}); } return !!buf; }
   return {
     k4, loadTables,
-    warm(n) { if (n === 4) { loadTables().then(b => { if (b) for (let j = 0; j < k4; j++) { const w = get(j); if (w) giveTables(w); } }); return; } const w = get(0); if (w && !w['w' + n]) { w['w' + n] = 1; call(w, {op: 'warm', n}); } },
+    warm(n) { if (n === 5) { for (let j = 0; j < k4; j++) { const w = get(j); if (w && !w.w5) { w.w5 = 1; call(w, {op: 'warm', n: 5}); } } return; } if (n === 4) { loadTables().then(b => { if (b) for (let j = 0; j < k4; j++) { const w = get(j); if (w) giveTables(w); } }); return; } const w = get(0); if (w && !w['w' + n]) { w['w' + n] = 1; call(w, {op: 'warm', n}); } },
     async solve2(s) {
       const w = get(0);
       if (w) { const r = await call(w, {op: 'solve2', st: s}); if (r !== undefined) return r; }
@@ -2848,6 +3196,20 @@ const Pool = (() => {
       const ok = rs.filter(Array.isArray).sort((a, b) => a.length - b.length);
       return ok.length ? ok[0] : rs.includes(2) ? 2 : rs.find(r => typeof r === 'number' && r) || 3;
     },
+    // 5×5: cada núcleo busca por su cuenta (mezclas de fases distintas) y se queda la solución más corta
+    async solve5(s, ms, onProg) {
+      const k = k4, prog = Array(k).fill(null), tell = () => {
+        const ps = prog.filter(Boolean); if (!ps.length) return;
+        const bs = ps.map(p => p.best).filter(b => b > 0);
+        onProg({best: bs.length ? Math.min(...bs) : 0, tries: ps.reduce((a, p) => a + p.tries, 0), frac: Math.max(...ps.map(p => p.frac))});
+      };
+      const jobs = [];
+      for (let j = 0; j < k; j++) { const w = get(j); if (!w) break; busy.add(w); jobs.push(call(w, {op: 'solve5', st: s, ms, wid: j}, p => { prog[j] = p; tell(); }).finally(() => busy.delete(w))); }
+      let rs = jobs.length ? await Promise.all(jobs) : [];
+      if (!rs.some(r => r !== undefined)) { this.local = {stop: false}; const loc = this.local; rs = [await Solver5.solveAsync(s, ms, (t, p) => { prog[0] = p; tell(); }, {stop: () => loc.stop})]; }
+      const ok = rs.filter(Array.isArray).sort((a, b) => a.length - b.length);
+      return ok.length ? ok[0] : rs.find(r => typeof r === 'number' && r) || 6;
+    },
     stop() { for (const w of busy) w.postMessage({op: 'stop'}); if (this.local) this.local.stop = true; }
   };
 })();
@@ -2856,7 +3218,8 @@ const Pool = (() => {
 const TMS = {
   2: [[0, 'Óptima', 'al instante', 1]],
   3: [[1000, 'Rápida', '1 s'], [3000, 'Normal', '3 s', 1], [8000, 'Profunda', '8 s']],
-  4: [[8000, 'Rápida', '8 s'], [20000, 'Normal', '20 s', 1], [60000, 'Profunda', '60 s']]
+  4: [[8000, 'Rápida', '8 s'], [20000, 'Normal', '20 s', 1], [60000, 'Profunda', '60 s']],
+  5: [[10000, 'Rápida', '10 s'], [30000, 'Normal', '30 s', 1], [90000, 'Profunda', '90 s']]
 };
 let tmsVal = 0;
 function setTms() {
@@ -2865,7 +3228,7 @@ function setTms() {
   tmsVal = pick[0];
   $('tms').innerHTML = list.map(([v, t, s]) => `<button role="radio" data-ms="${v}" class="${v === tmsVal ? 'on' : ''}" aria-checked="${v === tmsVal}">${t}<small>${s}</small></button>`).join('');
   $('tms').hidden = N === 2;
-  $('tmsl').textContent = N === 2 ? 'El 2×2 se resuelve de forma óptima: siempre con la menor cantidad de giros posible (11 como máximo).' : N === 4 ? 'Tiempo de búsqueda · con más tiempo, la solución del 4×4 sale más corta' : 'Tiempo de búsqueda · más tiempo puede dar una solución más corta';
+  $('tmsl').textContent = N === 2 ? 'El 2×2 se resuelve de forma óptima: siempre con la menor cantidad de giros posible (11 como máximo).' : N >= 4 ? `Tiempo de búsqueda · con más tiempo, la solución del ${N}×${N} sale más corta` : 'Tiempo de búsqueda · más tiempo puede dar una solución más corta';
 }
 $('tms').onclick = e => {
   const b = e.target.closest('button'); if (!b) return;
@@ -2884,8 +3247,8 @@ $('solve').onclick = async () => {
   }
   if (uniformSt(st)) { msg('Ese cubo ya está resuelto.'); return; }
   const ms = tmsVal, s0 = st.slice(), NN = N;
-  solving = true; msg(''); $('solve').disabled = true; $('bar').hidden = false; $('stop').hidden = NN !== 4; $('stop').disabled = true;
-  $('pbest').textContent = NN === 4 ? 'Preparando las tablas del 4×4…' : NN === 2 ? 'Calculando la solución óptima…' : 'Buscando la solución más corta…';
+  solving = true; msg(''); $('solve').disabled = true; $('bar').hidden = false; $('stop').hidden = NN < 4; $('stop').disabled = true;
+  $('pbest').textContent = NN === 5 ? 'Preparando las tablas del 5×5 (unos segundos)…' : NN === 4 ? 'Preparando las tablas del 4×4…' : NN === 2 ? 'Calculando la solución óptima…' : 'Buscando la solución más corta…';
   wake('solve', true);
   const t0 = performance.now(), fillT = setInterval(() => { $('barfill').style.width = Math.min(100, (performance.now() - t0) / ms * 100) + '%'; }, 200);
   $('barfill').style.width = '0%';
@@ -2895,17 +3258,20 @@ $('solve').onclick = async () => {
       if (p.best) { $('pbest').textContent = `Mejor: ${p.best} giros · ${p.tries} intento${p.tries > 1 ? 's' : ''}` + (Pool.k4 > 1 ? ` · ${Pool.k4} núcleos` : ''); $('stop').disabled = false; }
       else if (p.dl !== undefined) $('pbest').textContent = `Descargando las tablas del 4×4 (solo la primera vez)… ${Math.round(p.dl)} %`;
       else $('pbest').textContent = `Buscando… intento ${p.tries + 1}`;
+    }) : NN === 5 ? await Pool.solve5(s0, ms, p => {
+      if (p.best) { $('pbest').textContent = `Mejor: ${p.best} giros · ${p.tries} intento${p.tries > 1 ? 's' : ''}` + (Pool.k4 > 1 ? ` · ${Pool.k4} núcleos` : ''); $('stop').disabled = false; }
+      else $('pbest').textContent = `Buscando… intento ${p.tries + 1}`;
     }) : NN === 2 ? await Pool.solve2(s0) : await Pool.solve3(s0, ms);
   } catch (e) { r = 0; }
   clearInterval(fillT); wake('solve', false);
   solving = false; $('solve').disabled = false; $('bar').hidden = true;
   if (NN !== N) return;
-  if (!Array.isArray(r)) { msg((NN === 4 ? ERR4[r] : NN === 2 ? ERR2[r] : ERR[r]) || 'No se pudo calcular la solución.'); return; }
+  if (!Array.isArray(r)) { msg((NN === 5 ? ERR5[r] : NN === 4 ? ERR4[r] : NN === 2 ? ERR2[r] : ERR[r]) || 'No se pudo calcular la solución.'); return; }
   if (!r.length) { msg('Ese cubo ya está resuelto.'); return; }
   msg('');
   const ms2 = parse(r.join(' ')), ph = phasesOf(s0, ms2);
   $('seq').value = r.join(' ');
-  load(s0, {phases: ph, note: NN === 4
+  load(s0, {phases: ph, note: NN >= 4
     ? `Solución de ${r.length} movimientos (notación estándar: cada giro de capas anchas como Rw o 3Rw cuenta como 1). Pulsa Reproducir para seguirla paso a paso.`
     : NN === 2 ? `Solución óptima: ${r.length} movimientos, la más corta posible. Pulsa Reproducir para seguirla paso a paso.`
     : `Solución casi óptima: ${r.length} movimientos. Pulsa Reproducir para seguirla paso a paso.`});
@@ -2936,9 +3302,11 @@ function tab(n) {
   if (n !== prev) scrollTo({top: 0, behavior: 'auto'});
 }
 $('tabs').onclick = e => { const b = e.target.closest('button'); if (b) tab(+b.dataset.tab); };
-const SEQ = {2: "R U2 F' R2 U' F R' U F2", 3: "B F U F D R' F D L B2 U' B2 D B' R' F2 L2 R2 U'", 4: "Rw2 U' Fw2 L' D2 Uw B' R2 Fw Dw' L U2 Rw F' Lw2 D Bw2 U' 3Rw"};
+const SEQ = {2: "R U2 F' R2 U' F R' U F2", 3: "B F U F D R' F D L B2 U' B2 D B' R' F2 L2 R2 U'", 4: "Rw2 U' Fw2 L' D2 Uw B' R2 Fw Dw' L U2 Rw F' Lw2 D Bw2 U' 3Rw",
+  5: "Rw2 Bw' U Lw2 Fw D' Uw2 Bw R2 2R' Dw L' Fw2 U' Bw2 Rw D2 Lw' 3R2 Uw' F Bw2 Dw Rw' 2U2 L Fw'"};
 function helpText() {
   $('hlp').textContent = N === 2 ? 'Elige un color y toca las casillas, aquí o sobre el cubo 3D. El 2×2 no tiene centros: pinta las 24 casillas, 4 de cada color.' : N === 3 ? 'Elige un color y toca las casillas para pintar tu cubo, aquí o sobre el cubo 3D. Los centros son fijos: blanco arriba, verde al frente y rojo a la derecha.'
+    : N === 5 ? 'Elige un color y toca las casillas, aquí o sobre el cubo 3D. La casilla del medio de cada cara es fija (blanco arriba, verde al frente, rojo a la derecha): pinta las demás, 25 de cada color.'
     : 'Elige un color y toca las casillas, aquí o sobre el cubo 3D. En el 4×4 los centros no son fijos: pinta las 96 casillas, 16 de cada color.';
 }
 function setSize(n) {
@@ -3566,7 +3934,55 @@ function finish4(sh) {
   for (let f = 0; f < 6; f++) { const [p, rr] = r.asn[f]; rotK(mrs[p], rr).forEach((v, j) => { if (v) dudIdx.add(f * q + j); }); }
   applyScan(r.f96, [...dudIdx], r.cost ? 'Resultado aproximado.' : (r.score === 3 ? 'Escaneo completo: detecté sola la cara y el giro de cada foto, en el orden que sea. ' : 'Escaneo completo (esquema de colores distinto del habitual). ') + 'Pulsa «Calcular solución».');
 }
-function finishScan() { const sh = scn.shots; return N === 3 ? finish3(sh) : finish4(sh); }
+// ---- 5×5: como el 3×3, el centro fijo de cada foto dice qué cara es; el giro de cada foto sale de las esquinas y aristas centrales
+// (forman un 3×3 que debe ser posible) y, si hay varias opciones, de las alas
+function finish5(sh) {
+  const q = N * N, c0 = (q - 1) / 2, m = N - 1, h = m / 2, SUB = [];
+  for (const r of [0, h, m]) for (const c of [0, h, m]) SUB.push(r * N + c);
+  const cen = sh.map(s => lab(s.raw[c0]));
+  let bestP = null, bestC = 1e9;
+  (function perm(a, used, cost) {
+    if (a.length === 6) { if (cost < bestC) { bestC = cost; bestP = a.slice(); } return; }
+    for (let f = 0; f < 6; f++) if (!used[f]) { used[f] = 1; a.push(f); perm(a, used, cost + ldist(cen[a.length - 1], CAN[f])); a.pop(); used[f] = 0; }
+  })([], [], 0);
+  if (Math.max(...bestP.map((f, p) => ldist(cen[p], CAN[f]))) > 60) {
+    $('scmsg').textContent = 'No reconozco bien los centros: parece que hay una cara repetida o el color de un centro se lee mal. Toca la cara dudosa abajo, quítala y escanéala de nuevo con buena luz.';
+    return;
+  }
+  const face = Array(6), ref = Array(6); sh.forEach((s, p) => { face[bestP[p]] = p; ref[bestP[p]] = cen[p]; });
+  const raws = [], shotOf = [], fixed = new Map();
+  for (let f = 0; f < 6; f++) for (let j = 0; j < q; j++) { raws.push(sh[face[f]].raw[j]); shotOf.push(f); if (j === c0) fixed.set(f * q + c0, f); }
+  const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, ref);
+  const g = Array.from({length: 6}, (_, f) => asg.slice(f * q, f * q + q));
+  const dd = Array.from({length: 6}, (_, f) => margin.slice(f * q, f * q + q).map(v => v < DUDT ? 1 : 0));
+  const G = geo(N), wings = G.pieces.filter(pc => pc.fl.length === 2 && pc.p.some((v, k) => Math.abs(v) !== m && v !== 0) ), corners = G.pieces.filter(pc => pc.fl.length === 3);
+  const badOf = full => { let n = 0; for (const pc of wings.concat(corners)) { const cs = pc.fl.map(i => full[i]); for (let a = 0; a < cs.length; a++) for (let b = a + 1; b < cs.length; b++) if (cs[a] === cs[b] || (cs[a] + 3) % 6 === cs[b]) { n++; a = b = 9; } } return n; };
+  const search = gg => {
+    const rots = gg.map(a => [a, rotK(a, 1), rotK(a, 2), rotK(a, 3)]); let best = null, nOk = 0;
+    for (let n = 0; n < 4096; n++) {
+      const f54 = []; for (let f = 0; f < 6; f++) { const a = rots[f][(n >> (2 * f)) & 3]; for (const j of SUB) f54.push(a[j]); }
+      if (Solver.check(f54)) continue;
+      nOk++; const full = []; for (let f = 0; f < 6; f++) full.push(...rots[f][(n >> (2 * f)) & 3]);
+      const cost = badOf(full); if (!best || cost < best.cost) best = {full, n, cost};
+    }
+    return best && {...best, amb: nOk > 1};
+  };
+  let hit = search(g), fixedCells = [], gg = g;
+  if (!hit || hit.cost) { // reparación: las casillas menos seguras pasan a su segunda opción hasta que el cubo sea posible
+    const cand = margin.map((v, i) => [v, i]).filter(([, i]) => i % q !== c0).sort((a, b) => a[0] - b[0]).slice(0, 8).map(x => x[1]);
+    const subs = []; for (let a = 0; a < cand.length; a++) { subs.push([a]); for (let b = a + 1; b < cand.length; b++) subs.push([a, b]); }
+    for (const sb of subs) {
+      const t = g.map(a => a.slice()); sb.forEach(x => { const i = cand[x]; t[i / q | 0][i % q] = alt[i]; });
+      const h2 = search(t); if (h2 && (!hit || h2.cost < hit.cost)) { hit = h2; gg = t; fixedCells = sb.map(x => cand[x]); if (!h2.cost) break; }
+    }
+  }
+  if ((!hit || hit.cost) && !scn.forced) { scn.forced = true; $('scmsg').textContent = FAILMSG; return; }
+  if (!hit) return applyScan([].concat(...g), [], 'Resultado aproximado: corrige las casillas tocándolas.');
+  const dudIdx = new Set();
+  for (let f = 0; f < 6; f++) { const r = (hit.n >> (2 * f)) & 3, d = dd[f].slice(); fixedCells.forEach(i => { if ((i / q | 0) === f) d[i % q] = 1; }); rotK(d, r).forEach((v, j) => { if (v) dudIdx.add(f * q + j); }); }
+  applyScan(hit.full, [...dudIdx], (hit.cost ? 'Resultado aproximado: revisa las casillas marcadas. ' : fixedCells.length ? `Corregí ${fixedCells.length} color${fixedCells.length > 1 ? 'es' : ''} mal leído${fixedCells.length > 1 ? 's' : ''} usando la estructura del cubo. ` : 'Escaneo completo: detecté sola la cara y el giro de cada foto. ') + 'Pulsa «Calcular solución».');
+}
+function finishScan() { const sh = scn.shots; return N === 3 ? finish3(sh) : N === 5 ? finish5(sh) : finish4(sh); }
 
 /* ================= escenario prestado (cronómetro y Aprende) ================= */
 let saved = null;
@@ -3586,7 +4002,7 @@ function giveBack() {
 function showState(s) { startState = s; recolor(); resetCube(); }
 
 /* ================= cronómetro ================= */
-const T = {state: 'idle', t0: 0, i0: 0, holdT: 0, raf: 0, scr: null, next: null, sel: -1, pen: 0, list: {2: [], 3: [], 4: []}, del: []};
+const T = {state: 'idle', t0: 0, i0: 0, holdT: 0, raf: 0, scr: null, next: null, sel: -1, pen: 0, list: {2: [], 3: [], 4: [], 5: []}, del: []};
 const eff = e => e.p < 0 ? Infinity : e.t + (e.p === 2 ? 2000 : 0);
 const fmtT = ms => { if (!isFinite(ms)) return 'DNF'; const cs = Math.floor(ms / 10), s = Math.floor(cs / 100), m = Math.floor(s / 60); return (m ? m + ':' + String(s % 60).padStart(2, '0') : String(s)) + '.' + String(cs % 100).padStart(2, '0'); };
 const fmtE = e => e.p < 0 ? 'DNF' : fmtT(eff(e)) + (e.p === 2 ? '+' : '');
@@ -3600,8 +4016,8 @@ const bestAvg = (arr, n) => { let b = null; for (let e = n; e <= arr.length; e++
 const TS = (() => {
   let ref = null, busy = false, again = false;
   const pk = n => T.list[n].map(e => [e.t, e.p, e.d, e.s]), un = a => (a || []).map(([t, p, dd, s]) => ({t, p, d: dd, s}));
-  const pack = () => ({v: 1, s2: pk(2), s3: pk(3), s4: pk(4), del: T.del.slice(-300)});
-  const unpack = d => ({2: un(d.s2), 3: un(d.s3), 4: un(d.s4), del: d.del || []});
+  const pack = () => ({v: 1, s2: pk(2), s3: pk(3), s4: pk(4), s5: pk(5), del: T.del.slice(-300)});
+  const unpack = d => ({2: un(d.s2), 3: un(d.s3), 4: un(d.s4), 5: un(d.s5), del: d.del || []});
   async function push() {
     if (!ref) return; if (busy) { again = true; return; }
     busy = true; try { await ref.set(pack()); } catch (_) {} busy = false;
@@ -3609,12 +4025,12 @@ const TS = (() => {
   }
   function merge(a, b) { // unión por fecha, sin los borrados
     const del = new Set([...(a.del || []), ...(b.del || [])]), out = {del: [...del].slice(-300)};
-    for (const n of [2, 3, 4]) { const m = new Map(); for (const e of (b[n] || [])) m.set(e.d, e); for (const e of (a[n] || [])) m.set(e.d, e); out[n] = [...m.values()].filter(e => !del.has(e.d)).sort((x, y) => x.d - y.d).slice(-500); }
+    for (const n of [2, 3, 4, 5]) { const m = new Map(); for (const e of (b[n] || [])) m.set(e.d, e); for (const e of (a[n] || [])) m.set(e.d, e); out[n] = [...m.values()].filter(e => !del.has(e.d)).sort((x, y) => x.d - y.d).slice(-500); }
     return out;
   }
   return {
     load(cb) {
-      const l = store.get('times', null); if (l) { T.list = {2: l[2] || [], 3: l[3] || [], 4: l[4] || []}; T.del = l.del || []; }
+      const l = store.get('times', null); if (l) { T.list = {2: l[2] || [], 3: l[3] || [], 4: l[4] || [], 5: l[5] || []}; T.del = l.del || []; }
       cb();
       (async () => {
         try {
@@ -3623,14 +4039,14 @@ const TS = (() => {
           const id = await user.id(); if (!id) return;
           ref = db.doc('data/users/' + id + '/timer');
           const snap = await ref.get();
-          const remote = snap.exists ? unpack(snap.data() || {}) : {2: [], 3: [], 4: [], del: []};
-          const m = merge(remote, {2: T.list[2], 3: T.list[3], 4: T.list[4], del: T.del});
-          T.list = {2: m[2], 3: m[3], 4: m[4]}; T.del = m.del; store.set('times', {2: T.list[2], 3: T.list[3], 4: T.list[4], del: T.del}); cb();
-          if (!snap.exists || [2, 3, 4].some(n => m[n].length !== remote[n].length)) push();
+          const remote = snap.exists ? unpack(snap.data() || {}) : {2: [], 3: [], 4: [], 5: [], del: []};
+          const m = merge(remote, {2: T.list[2], 3: T.list[3], 4: T.list[4], 5: T.list[5], del: T.del});
+          T.list = {2: m[2], 3: m[3], 4: m[4], 5: m[5]}; T.del = m.del; store.set('times', {2: T.list[2], 3: T.list[3], 4: T.list[4], 5: T.list[5], del: T.del}); cb();
+          if (!snap.exists || [2, 3, 4, 5].some(n => m[n].length !== remote[n].length)) push();
         } catch (_) { ref = null; }
       })();
     },
-    save() { for (const n of [2, 3, 4]) if (T.list[n].length > 500) T.list[n] = T.list[n].slice(-500); store.set('times', {2: T.list[2], 3: T.list[3], 4: T.list[4], del: T.del}); push(); }
+    save() { for (const n of [2, 3, 4, 5]) if (T.list[n].length > 500) T.list[n] = T.list[n].slice(-500); store.set('times', {2: T.list[2], 3: T.list[3], 4: T.list[4], 5: T.list[5], del: T.del}); push(); }
   };
 })();
 const tl = () => T.list[N];
@@ -3787,9 +4203,10 @@ function learnBuild() {
   const cards = [
     ['Las seis caras', 'U arriba, D abajo, R derecha, L izquierda, F frente y B atrás (de sus nombres en inglés). La letra sola es un cuarto de vuelta en el sentido del reloj, mirando esa cara de frente.', 'U D R L F B'],
     ['Sentido y media vuelta', 'Con apóstrofo gira al revés: R\' va contra el reloj. Con un 2 da media vuelta: R2.', "R R' R2 U U' U2"],
-    N === 2 ? null : ['Capas anchas', N === 4 ? 'Rw (o r) gira la cara y la capa de al lado juntas; 3Rw gira tres capas.' : 'Rw (o r) gira la cara y la capa del medio juntas.', N === 4 ? "Rw Rw' Uw 3Rw 3Fw'" : "Rw r' Uw Fw2"],
-    N === 2 ? null : N === 4 ? ['Capas internas', '2R gira solo la segunda capa desde la derecha; 2U, la segunda desde arriba. Así se mueven los centros del 4×4.', "2R 2R' 2U 2F2"]
+    N === 2 ? null : ['Capas anchas', N >= 4 ? 'Rw (o r) gira la cara y la capa de al lado juntas; 3Rw gira tres capas.' : 'Rw (o r) gira la cara y la capa del medio juntas.', N >= 4 ? "Rw Rw' Uw 3Rw 3Fw'" : "Rw r' Uw Fw2"],
+    N === 2 ? null : N >= 4 ? ['Capas internas', N === 5 ? '2R gira solo la segunda capa desde la derecha y 3R la del medio (igual que M pero como R). Así se mueven los centros y las aristas del 5×5.' : '2R gira solo la segunda capa desde la derecha; 2U, la segunda desde arriba. Así se mueven los centros del 4×4.', N === 5 ? "2R 2R' 3R 2U 2F2" : "2R 2R' 2U 2F2"]
       : ['Capas del medio', 'M es la capa entre L y R y gira como L; E está entre U y D y gira como D; S está entre F y B y gira como F.', "M M' E S"],
+    N === 5 ? ['Capas del medio', 'Como en el 3×3: M es la capa central entre L y R y gira como L; E gira como D y S como F.', "M M' E S"] : null,
     ['Girar todo el cubo', 'x gira el cubo entero como R, y como U, z como F. No cambia la mezcla: solo cambia cómo lo sostienes.', "x x' y y' z"]
   ];
   $('lnot').innerHTML = cards.filter(Boolean).map(([h, p, ms]) => `<div class="lcard"><h3>${h}</h3><p>${p}</p><div class="lchips">${ms.split(' ').map(t => `<button data-m="${t}">${t}</button>`).join('')}</div></div>`).join('');
@@ -3798,7 +4215,7 @@ function learnBuild() {
 function buildKeys() {
   const w = LR.wide ? 'w' : '', faces = 'URFDLB'.split('');
   let h = faces.map(f => `<button data-m="${f}${w}" class="f">${f}${w}</button>`).join('') + faces.map(f => `<button data-m="${f}${w}'">${f}${w}'</button>`).join('') + faces.map(f => `<button data-m="${f}${w}2">${f}${w}2</button>`).join('');
-  if (N !== 2) h += (N === 4 ? ["2R", "2R'", "2U", "2U'", "2F", "2F'"] : ["M", "M'", "E", "E'", "S", "S'"]).map(t => `<button data-m="${t}">${t}</button>`).join('');
+  if (N !== 2) h += (N >= 4 ? ["2R", "2R'", "2U", "2U'", "2F", "2F'"] : []).concat(N % 2 ? ["M", "M'", "E", "E'", "S", "S'"] : []).map(t => `<button data-m="${t}">${t}</button>`).join('');
   h += ["x", "x'", "y", "y'", "z", "z'"].map(t => `<button data-m="${t}">${t}</button>`).join('');
   if (N === 2) LR.wide = false; $('kwide').hidden = N === 2;
   $('keys').innerHTML = h; $('kwide').classList.toggle('on', LR.wide); $('kwide').setAttribute('aria-pressed', LR.wide);
@@ -3814,7 +4231,7 @@ document.addEventListener('keydown', e => {
   if (curTab !== 4 || e.ctrlKey || e.metaKey || e.altKey) return;
   const tg = e.target; if (tg && (tg.tagName === 'TEXTAREA' || tg.tagName === 'INPUT')) return;
   const k = e.key.toLowerCase(); if (!'udrlfbxyzmes'.includes(k) || k.length !== 1) return;
-  if (N !== 3 && 'mes'.includes(k)) return;
+  if (N % 2 === 0 && 'mes'.includes(k)) return;
   e.preventDefault();
   const name = 'xyz'.includes(k) ? k : k.toUpperCase() + (LR.wide && 'udrlfb'.includes(k) ? 'w' : '');
   practice([name, 1, e.shiftKey ? -1 : 1]);
@@ -3829,7 +4246,10 @@ const PATS = {
       ['Anaconda', "L U B' U' R L' B R' F B' D R D' F'", 'Una serpiente que recorre las caras.'], ['Superflip', "U R2 F B R B2 R U2 L B2 R U' D' R2 F R' L B2 U2 F2", 'Todas las aristas volteadas. Fue la primera posición demostrada que necesita 20 giros.']],
   4: [['Ajedrez', 'R2 L2 U2 D2 F2 B2', 'El borde y el centro de cada cara cambian de color.'], ['Ventanas', '2R2 2L2 2U2 2R2 2L2 2U2', 'Una ventana de otro color en el centro de dos caras.'],
       ['Mosaico', "2U 2D' 2R 2L' 2F 2B' 2U 2D'", 'Centros y aristas de colores cruzados.'], ['Cubo en cubo', "Fw Lw Fw Uw' Rw Uw Fw2 Lw2 Uw' Lw' Bw Dw' Bw' Lw2 Uw", 'Un bloque de 2×2×2 de otro color en una esquina.'],
-      ['Cubo grande en cubo', "F L F U' R U F2 L2 U' L' B D' B' L2 U", 'Un bloque de 3×3×3 dentro del 4×4.']]
+      ['Cubo grande en cubo', "F L F U' R U F2 L2 U' L' B D' B' L2 U", 'Un bloque de 3×3×3 dentro del 4×4.']],
+  5: [['Ajedrez', 'M2 E2 S2 R2 L2 U2 D2 F2 B2', 'Un tablero de dos colores en cada cara.'], ['Cruz grande', "3R2 3U2 3F2", 'La fila y la columna del medio de cada cara cambian de color: una cruz grande.'],
+      ['Ventanas', "2R2 2L2 2U2 2D2 2F2 2B2", 'Un marco de otro color alrededor del centro de cada cara.'],
+      ['Cubo en cubo', "F L F U' R U F2 L2 U' L' B D' B' L2 U", 'Un bloque de 4×4×4 dentro del 5×5.'], ['Cubo pequeño', "Fw Lw Fw Uw' Rw Uw Fw2 Lw2 Uw' Lw' Bw Dw' Bw' Lw2 Uw", 'Un bloque de 3×3×3 de otro color en una esquina.']]
 };
 function isoSVG(s, NN) { // vista isométrica con U arriba, F a la izquierda y R a la derecha
   const T0 = [17, 2], L0 = [3.6, 9.7], R0 = [30.4, 9.7], C0 = [17, 17.4], BL = [3.6, 25], B0 = [17, 32.6];
@@ -3870,7 +4290,7 @@ function restoreWS() {
   const w = WS[N], q = 6 * N * N; if (!w || typeof w !== 'object') return false;
   if (Array.isArray(w.st) && w.st.length === q && w.st.every(v => Number.isInteger(v) && v >= 0 && v <= BLANK && (N !== 3 || true))) {
     w.st.forEach((v, k) => { st[k] = v; });
-    if (N === 3) [4, 13, 22, 31, 40, 49].forEach((k, f) => { st[k] = f; });
+    if (N % 2 === 1) for (let f = 0; f < 6; f++) st[f * N * N + (N * N - 1) / 2] = f;
   }
   drawNet();
   let ok = false;
