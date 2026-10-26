@@ -1875,14 +1875,18 @@ function pairEdges(s0, width, maxSteps, deadline) {
       if (deadline && Date.now() > deadline) return null;
     }
     cand.sort((a, b) => b.key - a.key || a.cost - b.cost);
-    const nb = [], seen = new Set();
+    // los mejores candidatos se vuelven a medir con su costo real (los giros que se cancelan con el paso anterior no cuentan)
+    const pool = [], seen = new Set();
     for (const c of cand) {
-      if (nb.length >= width) break;
+      if (pool.length >= width * 4) break;
       const pre = SETUPS[c.pi], seq = pre.concat(c.M.seq), path = c.nd.path.concat(seq);
       const s = apAll(c.nd.s, seq), sig = edgesOf(s).join('');
       if (seen.has(sig)) continue; seen.add(sig);
-      nb.push({s, sc: c.sc, cost: c.cost, path});
+      const cost = simplify(path).length;
+      pool.push({s, sc: c.sc, cost, path, key: c.sc * 3 - cost});
     }
+    pool.sort((a, b) => b.key - a.key || a.cost - b.cost);
+    const nb = pool.slice(0, width);
     if (pairEdges.dbg) console.log(' paso', step, nb.map(x => x.sc + '/' + x.cost).join(' '));
     const done = nb.filter(x => x.sc === 24).sort((a, b) => a.cost - b.cost);
     if (done.length) return done[0];
@@ -1912,9 +1916,9 @@ function attempt(st, rand, opt) {
   }
   return best;
 }
-function finish(st, cpath, ms3, deadline) {
+function finish(st, cpath, ms3, deadline, width) {
   const s1 = apAll(Uint8Array.from(st), cpath);
-  const ed = pairEdges(s1, 4, 30, deadline); if (!ed) return null;
+  const ed = pairEdges(s1, width || 4, 30, deadline); if (!ed) return null;
   return solve3(st, cpath, ed, ms3, 0);
 }
 // 3×3 final (y el total ya simplificado); con más tiempo se prueban las 6 variantes del 3×3 y se queda la más corta
@@ -1940,11 +1944,12 @@ async function solveAsync(st, ms, onProg, ctl) {
   init(); if (!MACROS) loadMacros();
   const t0 = Date.now(), deadline = t0 + Math.max(1500, ms * 0.85), rand = rng((ctl.wid || 0) * 7919 + 1 + (Date.now() & 0xffff));
   let best = null, tries = 0;
-  const opt = {kA: 2, kB: 4, cap: 4e6};
+  // con más tiempo, búsquedas más anchas (más soluciones de centros por intento y un haz más ancho en las aristas)
+  const opt = {kA: ms >= 100000 ? 3 : 2, kB: 4, cap: 4e6, w: ms >= 100000 ? 7 : ms >= 40000 ? 5 : 4};
   while (Date.now() < deadline || !best) {
     if (ctl.stop && ctl.stop() && best) break;
     const a = attempt(st, rand, best ? opt : {kA: 1, kB: 4, cap: opt.cap}); tries++;
-    if (a) { const r = finish(st, a.path, 200, best ? deadline : Date.now() + Math.max(15000, ms)); if (r && (!best || r.moves.length < best.moves.length)) best = r; }
+    if (a) { const r = finish(st, a.path, 200, best ? deadline : Date.now() + Math.max(15000, ms), best ? opt.w : 4); if (r && (!best || r.moves.length < best.moves.length)) best = r; }
     if (onProg) onProg(Date.now() - t0, {best: best ? best.moves.length : 0, tries, frac: Math.min(1, (Date.now() - t0) / ms)});
     await new Promise(r => setTimeout(r, 0));
     if (tries > 300 && !best) break;
@@ -3638,7 +3643,7 @@ async function startLive() {
       if (scn !== me || me.src !== 'live') { s.getTracks().forEach(t => t.stop()); return; }
       stream = s; const v = $('vid'); v.srcObject = s; await v.play().catch(() => {});
       camTune(s.getVideoTracks()[0]);
-      await SCW.opt({K: 4, throttle: 0});
+      await SCW.opt({K: N >= 5 ? 6 : 4, throttle: 0});
       pill('search', stateText(null)[1]); barUI();
       if (!scn.shots.length) $('scmsg').textContent = TIP;
       return;
@@ -3662,7 +3667,7 @@ async function openScan() {
   try { if (!beepCtx && (window.AudioContext || window.webkitAudioContext)) beepCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (_) {}
   $('scan').hidden = false; document.body.classList.add('scanning'); $('scopen').classList.add('on'); $('mpaint').classList.remove('on');
   $('sctitle').textContent = 'Escanear el cubo'; $('scmsg').textContent = '';
-  await SCW.start(N, {K: 4, throttle: 0});
+  await SCW.start(N, {K: N >= 5 ? 6 : 4, throttle: 0});
   if (scn !== me) return;
   slotsUI(); cancelAnimationFrame(raf); drawScan(); setSrc('live'); try { $('scclose').focus({preventScroll: true}); } catch (_) {}
 }
@@ -3764,7 +3769,7 @@ async function runVideo(file) {
   }
   URL.revokeObjectURL(url); v.removeAttribute('src'); try { v.load(); } catch (_) {}
   if (scn !== me) return;
-  me.vrun = false; $('scprog').hidden = true; dctx.drawImage(pcv, 0, 0); scDirty(); await SCW.opt({K: 4, throttle: 0});
+  me.vrun = false; $('scprog').hidden = true; dctx.drawImage(pcv, 0, 0); scDirty(); await SCW.opt({K: N >= 5 ? 6 : 4, throttle: 0});
   const got = me.shots.length - before;
   if (me.shots.length >= 6) { barUI(); autoFinish(); return; }
   me.show = got > 0 || me.show; barUI(); slotsUI();
