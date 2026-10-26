@@ -1893,7 +1893,7 @@ function pairEdges(s0, width, maxSteps, deadline) {
     const nb = pool.slice(0, width);
     if (pairEdges.dbg) console.log(' paso', step, nb.map(x => x.sc + '/' + x.cost).join(' '));
     const done = nb.filter(x => x.sc === 24).sort((a, b) => a.cost - b.cost);
-    if (done.length) return done[0];
+    if (done.length) { done[0].alts = done.slice(1, 3); return done[0]; } // otras terminaciones parecidas: el 3×3 puede salir más corto con alguna
     if (!nb.length) pairEdges.stuck = beam[0];
     beam = nb; if (!beam.length) return null;
   }
@@ -1930,7 +1930,7 @@ function attempt(st, rand, opt) {
     for (const pb of solsB) {
       const sB = apAll(sA, pb);
       // la fase C a veces necesita muchos más giros que lo que dice cada órbita por separado: se prueba poco y, si no sale, otra B
-      const solsC = stage('C', maskOf(sB, 0, [0, 2, 1]), maskOf(sB, 1, [0, 2, 1]), opt.kC || 1, opt.kC > 1 ? 2 : 0, rand, null, opt.cap >> 2, opt.cap);
+      const solsC = stage('C', maskOf(sB, 0, [0, 2, 1]), maskOf(sB, 1, [0, 2, 1]), opt.kC || 1, opt.kC > 1 ? (opt.slC || 2) : 0, rand, null, opt.cap >> 2, opt.cap * (opt.capC || 1));
       if (!solsC.length) continue;
       // entre varias soluciones de centros parecidas, conviene la que deja más alas ya emparejadas (cada ala cuesta ~2 giros después)
       for (const pc of solsC) {
@@ -1944,7 +1944,9 @@ function attempt(st, rand, opt) {
 function finish(st, cpath, ms3, deadline, width) {
   const s1 = apAll(Uint8Array.from(st), cpath);
   const ed = pairEdges(s1, width || 4, 30, deadline); if (!ed) return null;
-  return solve3(st, cpath, ed, ms3, 0);
+  let best = solve3(st, cpath, ed, ms3, 0);
+  for (const e2 of ed.alts || []) { if (e2.cost > ed.cost + 2) continue; const r = solve3(st, cpath, e2, ms3, 0); if (r && (!best || r.moves.length < best.moves.length)) best = r; }
+  return best;
 }
 // 3×3 final (y el total ya simplificado); con más tiempo se prueban las 6 variantes del 3×3 y se queda la más corta
 function solve3(st, cpath, ed, ms3, variants) {
