@@ -1713,7 +1713,7 @@ function stage(name, mx, mt, want, slack, rand, ok, cap, tot) {
       const b2 = (T1[o + (b & 255)] | T1[o + 256 + (b >>> 8 & 255)] | T1[o + 512 + (b >>> 16)]) >>> 0;
       const y = D1[idx(b2)]; nodes++; if (y < 0 || g + 1 + y > d) continue;
       path.push(m);
-      if (x === 0 && y === 0) { if (!ok || ok(path)) { out.push(path.slice()); if (found < 0) { found = g + 1; lim = Math.min(lim, nodes + (cap >> 4)); } } } // tras la primera, poco más para buscar otras
+      if (x === 0 && y === 0) { if (!ok || ok(path)) { out.push(path.slice()); if (found < 0) { found = g + 1; lim = Math.min(lim, nodes + (want > 4 ? cap : cap >> 4)); } } } // tras la primera, poco más para buscar otras (más si se piden muchas)
       else if (g + 1 < d) dfs(a2, b2, g + 1, AX[k], AB[k]);
       path.pop();
       if (out.length >= want || nodes > lim) return;
@@ -1722,7 +1722,7 @@ function stage(name, mx, mt, want, slack, rand, ok, cap, tot) {
   if (h0x === 0 && h0t === 0) return [[]];
   for (d = Math.max(h0x, h0t); d <= 30 && out.length < want; d++) {
     if (found >= 0 && d > found + slack) break;
-    lim = found >= 0 ? nodes + (cap >> 4) : nodes + cap; dfs(mx, mt, 0, -1, -1); // si esta profundidad se agota sin terminar, se pasa a la siguiente (soluciones más fáciles de hallar)
+    lim = found >= 0 ? nodes + (want > 4 ? cap : cap >> 4) : nodes + cap; dfs(mx, mt, 0, -1, -1); // si esta profundidad se agota sin terminar, se pasa a la siguiente (soluciones más fáciles de hallar)
     if (nodes > (tot || cap * 12)) break;
   }
   return out;
@@ -1970,12 +1970,13 @@ async function solveAsync(st, ms, onProg, ctl) {
   const t0 = Date.now(), deadline = t0 + Math.max(1500, ms * 0.85), rand = rng((ctl.wid || 0) * 7919 + 1 + (Date.now() & 0xffff));
   let best = null, tries = 0;
   // con más tiempo, búsquedas más anchas (más soluciones de centros por intento y un haz más ancho en las aristas)
-  const opt = {kA: ms >= 100000 ? 3 : 2, kB: 4, cap: 4e6, w: ms >= 100000 ? 7 : ms >= 40000 ? 5 : 4};
+  // kC/lam: entre muchas soluciones de centros se elige la que deja más alas emparejadas (cada ala vale ~2 giros)
+  const opt = {kA: 2, kB: 4, kC: 60, lam: 2, cap: 4e6, w: ms >= 100000 ? 7 : ms >= 40000 ? 5 : 4};
   while (Date.now() < deadline || !best) {
     if (ctl.stop && ctl.stop() && best) break;
     // cada intento ve el cubo con una simetría distinta (girado o en espejo): otras fases, otras soluciones; la primera, tal cual
     const σ = SYM[tries === 0 ? 0 : rand() * SYM.length | 0], s2 = symState(st, σ);
-    const a = attempt(s2, rand, best ? opt : {kA: 1, kB: 4, cap: opt.cap}); tries++;
+    const a = attempt(s2, rand, best ? opt : {kA: 1, kB: 4, kC: 30, lam: 2, cap: opt.cap}); tries++;
     if (a) {
       const r = finish(s2, a.path, 200, best ? deadline : Date.now() + Math.max(15000, ms), best ? opt.w : 4);
       if (r) { r.orig = r.moves.map(m => symMove(m, σ)); r.σ = σ; r.s2 = s2; if (!best || r.orig.length < best.orig.length) best = r; }
