@@ -1869,7 +1869,7 @@ function pairEdges(s0, width, maxSteps, deadline) {
           for (let q = 0; q < ts.length; q++) { const o = 6 * ts[q], a = sp[src[o + 2]], b = sp[src[o + 3]]; sc += (sp[src[o]] === a && sp[src[o + 1]] === b ? 1 : 0) + (sp[src[o + 4]] === a && sp[src[o + 5]] === b ? 1 : 0) - SS[ts[q]]; }
           if (sc <= nd.sc) continue;
           const cost = nd.cost + M.cost + P.length;
-          cand.push({sc, cost, nd, pi, M, key: sc * 3 - cost});
+          cand.push({sc, cost, nd, pi, M, key: sc * (pairEdges.kw || 3) - cost});
         }
       }
       if (deadline && Date.now() > deadline) return null;
@@ -1883,7 +1883,7 @@ function pairEdges(s0, width, maxSteps, deadline) {
       const s = apAll(c.nd.s, seq), sig = edgesOf(s).join('');
       if (seen.has(sig)) continue; seen.add(sig);
       const cost = simplify(path).length;
-      pool.push({s, sc: c.sc, cost, path, key: c.sc * 3 - cost});
+      pool.push({s, sc: c.sc, cost, path, key: c.sc * (pairEdges.kw || 3) - cost});
     }
     pool.sort((a, b) => b.key - a.key || a.cost - b.cost);
     const nb = pool.slice(0, width);
@@ -1895,6 +1895,24 @@ function pairEdges(s0, width, maxSteps, deadline) {
   }
   return null;
 }
+
+/* ---------- simetrías del cubo: el mismo problema visto girado o en espejo (otras fases A/B/C, otras soluciones) ---------- */
+// σ = matriz entera 3×3 (24 giros × {normal, espejo}); el estado se transforma, se resuelve y los giros se traducen de vuelta
+const SYM = [];
+{ const mats = []; const perms = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]];
+  for (const pm of perms) for (let sg = 0; sg < 8; sg++) { const M = [0, 1, 2].map(r => [0, 1, 2].map(c => c === pm[r] ? (sg >> r & 1 ? -1 : 1) : 0)); mats.push(M); }
+  const det = M => M[0][0] * (M[1][1] * M[2][2] - M[1][2] * M[2][1]) - M[0][1] * (M[1][0] * M[2][2] - M[1][2] * M[2][0]) + M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0]);
+  const mul = (M, v) => M.map(r => r[0] * v[0] + r[1] * v[1] + r[2] * v[2]);
+  for (const M of mats) {
+    const F = NRM.map(n => NRM.findIndex(q => q.join() === mul(M, n).join())), P = new Uint8Array(NF);
+    for (let i = 0; i < NF; i++) P[i] = KEY.get(mul(M, POS[i].p).join() + '|' + mul(M, POS[i].n).join());
+    const Fi = []; F.forEach((g, f) => { Fi[g] = f; });
+    SYM.push({F, Fi, P, mirror: det(M) < 0});
+  }
+}
+const symState = (s, σ) => { const o = new Uint8Array(NF); for (let i = 0; i < NF; i++) o[σ.P[i]] = σ.F[s[i]]; return o; };
+// un giro del problema transformado → el giro equivalente del cubo original
+const symMove = (m, σ) => { const f = σ.Fi[MFACE[m]], t = σ.mirror ? 2 - MT[m] : MT[m]; return (f * 3 + MBLK[m]) * 3 + t; };
 
 /* ---------- una solución completa ---------- */
 function rng(seed) { let x = seed >>> 0 || 1; return () => { x ^= x << 13; x >>>= 0; x ^= x >>> 17; x ^= x << 5; x >>>= 0; return x / 4294967296; }; }
@@ -1948,19 +1966,26 @@ async function solveAsync(st, ms, onProg, ctl) {
   const opt = {kA: ms >= 100000 ? 3 : 2, kB: 4, cap: 4e6, w: ms >= 100000 ? 7 : ms >= 40000 ? 5 : 4};
   while (Date.now() < deadline || !best) {
     if (ctl.stop && ctl.stop() && best) break;
-    const a = attempt(st, rand, best ? opt : {kA: 1, kB: 4, cap: opt.cap}); tries++;
-    if (a) { const r = finish(st, a.path, 200, best ? deadline : Date.now() + Math.max(15000, ms), best ? opt.w : 4); if (r && (!best || r.moves.length < best.moves.length)) best = r; }
-    if (onProg) onProg(Date.now() - t0, {best: best ? best.moves.length : 0, tries, frac: Math.min(1, (Date.now() - t0) / ms)});
+    // cada intento ve el cubo con una simetría distinta (girado o en espejo): otras fases, otras soluciones; la primera, tal cual
+    const σ = SYM[tries === 0 ? 0 : rand() * SYM.length | 0], s2 = symState(st, σ);
+    const a = attempt(s2, rand, best ? opt : {kA: 1, kB: 4, cap: opt.cap}); tries++;
+    if (a) {
+      const r = finish(s2, a.path, 200, best ? deadline : Date.now() + Math.max(15000, ms), best ? opt.w : 4);
+      if (r) { r.orig = r.moves.map(m => symMove(m, σ)); r.σ = σ; r.s2 = s2; if (!best || r.orig.length < best.orig.length) best = r; }
+    }
+    if (onProg) onProg(Date.now() - t0, {best: best ? best.orig.length : 0, tries, frac: Math.min(1, (Date.now() - t0) / ms)});
     await new Promise(r => setTimeout(r, 0));
     if (tries > 300 && !best) break;
   }
   if (best && !(ctl.stop && ctl.stop())) { // pulido: el 3×3 de la mejor con más tiempo y sus 6 variantes
-    const r = solve3(st, best.cpath, best.ed, Math.min(3000, Math.max(600, ms * 0.12)), 1);
-    if (r && r.moves.length < best.moves.length) best = r;
+    const r = solve3(best.s2, best.cpath, best.ed, Math.min(3000, Math.max(600, ms * 0.12)), 1);
+    if (r && r.moves.length < best.moves.length) { r.orig = r.moves.map(m => symMove(m, best.σ)); best = r; }
   }
-  return best ? best.moves.map(m => MNAME[m]) : 6;
+  if (!best) return 6;
+  const fin = apAll(Uint8Array.from(st), best.orig); for (let i = 0; i < NF; i++) if (fin[i] !== (i / Q | 0)) return 6; // comprobación en el cubo original
+  return best.orig.map(m => MNAME[m]);
 }
-const api = {init, check, solveAsync, _d: () => ({SLOTS, loadMacros, cReach, beam, MNAME, MP, apAll, simplify, attempt, finish, pairEdges, wingParity, edgesOf, pairScore, stage, maskOf, buildMacros, get MACROS() { return MACROS; }, TAB: () => TAB, SOLVED, NAMEID, reduce3, rng})};
+const api = {init, check, solveAsync, _d: () => ({SYM, symState, symMove, pairEdges, SLOTS, loadMacros, cReach, beam, MNAME, MP, apAll, simplify, attempt, finish, pairEdges, wingParity, edgesOf, pairScore, stage, maskOf, buildMacros, get MACROS() { return MACROS; }, TAB: () => TAB, SOLVED, NAMEID, reduce3, rng})};
 return api;
 })();
 </script>
