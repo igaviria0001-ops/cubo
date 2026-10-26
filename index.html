@@ -273,6 +273,9 @@ body.scanning .app{visibility:hidden}body.scanning .scan{visibility:visible} /* 
 .sc-adj .sl span,.sc-adj .sl b{color:var(--scan-ink2)}
 .sc-ar{display:flex;gap:8px;align-items:center}
 .sc-tip{margin:0;font-size:12.5px;color:var(--scan-ink2)}
+.sc-pal{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sc-pal button{width:38px;height:38px;border-radius:12px;border:2px solid rgba(255,255,255,.25);padding:0;cursor:pointer}
+.sc-pal button.on{border-color:#fff;box-shadow:0 0 0 3px var(--signal)}.sc-pal .mv{background:var(--scan-glass);color:var(--scan-ink);display:grid;place-items:center;width:auto;padding:0 12px;font:600 13px/1 var(--f-ui)}
+.sc-torch.na{opacity:.6}
 .sc-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;padding-top:4px}
 .sc-side{justify-self:start;white-space:nowrap;border:0;border-radius:999px;padding:10px 14px;display:inline-flex;align-items:center;gap:7px;font:600 13.5px/1.1 var(--f-ui);background:var(--scan-glass);color:var(--scan-ink);box-shadow:0 0 0 1px var(--scan-hair);min-width:0}
 .sc-side:empty{visibility:hidden}
@@ -493,9 +496,10 @@ body.tt .hud{display:none}
       </div>
       <p id="scmsg" role="status" aria-live="polite"></p>
       <div class="sc-adj" id="scadj" hidden>
+        <div class="sc-pal" id="scpal" role="group" aria-label="Corregir el color de una casilla"></div>
         <div class="sl"><span>Tamaño</span><input type="range" id="scsz" min="15" max="100" value="60" aria-label="Tamaño del recuadro"><b id="scszv"></b></div>
         <div class="sc-ar"><button class="sc-chip" id="scdel"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 7h15M9.5 7V4.8h5V7M6.8 7l.9 12.2a1 1 0 0 0 1 .9h6.6a1 1 0 0 0 1-.9L17.2 7"/></svg>Quitar esta cara</button><span class="sp"></span><button class="sc-chip on" id="scback"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Listo</button></div>
-        <p class="sc-tip">Arrastra sobre la imagen para mover el recuadro.</p>
+        <p class="sc-tip" id="sctip">Arrastra sobre la imagen para mover el recuadro. Para corregir un color: elige el color arriba y toca la casilla.</p>
       </div>
       <div class="sc-bar" id="scbar">
         <button class="sc-side" id="scalt"></button>
@@ -1926,10 +1930,13 @@ function attempt(st, rand, opt) {
     for (const pb of solsB) {
       const sB = apAll(sA, pb);
       // la fase C a veces necesita muchos más giros que lo que dice cada órbita por separado: se prueba poco y, si no sale, otra B
-      const solsC = stage('C', maskOf(sB, 0, [0, 2, 1]), maskOf(sB, 1, [0, 2, 1]), 1, 0, rand, null, opt.cap >> 2, opt.cap);
+      const solsC = stage('C', maskOf(sB, 0, [0, 2, 1]), maskOf(sB, 1, [0, 2, 1]), opt.kC || 1, opt.kC > 1 ? 2 : 0, rand, null, opt.cap >> 2, opt.cap);
       if (!solsC.length) continue;
-      const path = pa.concat(pb, solsC[0]), len = simplify(path).length;
-      if (!best || len < best.len) best = {len, path};
+      // entre varias soluciones de centros parecidas, conviene la que deja más alas ya emparejadas (cada ala cuesta ~2 giros después)
+      for (const pc of solsC) {
+        const path = pa.concat(pb, pc), len = simplify(path).length, sc = opt.kC > 1 ? pairScore(edgesOf(apAll(sB, pc))) : 0, val = len - (opt.lam || 0) * sc;
+        if (!best || val < best.val) best = {len, path, val};
+      }
     }
   }
   return best;
@@ -1985,7 +1992,7 @@ async function solveAsync(st, ms, onProg, ctl) {
   const fin = apAll(Uint8Array.from(st), best.orig); for (let i = 0; i < NF; i++) if (fin[i] !== (i / Q | 0)) return 6; // comprobación en el cubo original
   return best.orig.map(m => MNAME[m]);
 }
-const api = {init, check, solveAsync, _d: () => ({SYM, symState, symMove, pairEdges, SLOTS, loadMacros, cReach, beam, MNAME, MP, apAll, simplify, attempt, finish, pairEdges, wingParity, edgesOf, pairScore, stage, maskOf, buildMacros, get MACROS() { return MACROS; }, TAB: () => TAB, SOLVED, NAMEID, reduce3, rng})};
+const api = {init, check, solveAsync, _d: () => ({attempt, SYM, symState, symMove, pairEdges, SLOTS, loadMacros, cReach, beam, MNAME, MP, apAll, simplify, attempt, finish, pairEdges, wingParity, edgesOf, pairScore, stage, maskOf, buildMacros, get MACROS() { return MACROS; }, TAB: () => TAB, SOLVED, NAMEID, reduce3, rng})};
 return api;
 })();
 </script>
@@ -2022,9 +2029,17 @@ const SC = (() => {
       const R = [], G = [], B = [];
       for (const [du, dv] of P) { const [x, y] = at(g, (c + 0.5 + du) / N - 0.5, (r + 0.5 + dv) / N - 0.5), k = px(img, x, y); R.push(img.d[k]); G.push(img.d[k + 1]); B.push(img.d[k + 2]); }
       const mean = a => a.reduce((p, q) => p + q, 0) / a.length, med = a => { const b = a.slice().sort((p, q) => p - q); return b[b.length >> 1]; };
-      const md = [med(R), med(G), med(B)], dev = R.map((_, i) => Math.hypot(R[i] - md[0], G[i] - md[1], B[i] - md[2])).sort((p, q) => p - q);
+      let md = [med(R), med(G), med(B)], glare = false;
+      // reflejo (flash o lámpara): parte de la casilla se ve blanca y brillante y el resto con color → se usa solo la parte con color
+      const n = R.length, Cs = R.map((_, i) => Math.max(R[i], G[i], B[i]) - Math.min(R[i], G[i], B[i])), cs = Cs.slice().sort((p, q) => p - q), c90 = cs[Math.floor(n * 0.9)];
+      if (c90 > 42) {
+        let nb = 0; for (let i = 0; i < n; i++) if (Math.max(R[i], G[i], B[i]) > 215 && Cs[i] < 0.45 * c90) nb++;
+        const keep = []; for (let i = 0; i < n; i++) if (Cs[i] >= 0.55 * c90) keep.push(i);
+        if (nb >= n * 0.12 && keep.length >= n * 0.2) { md = [med(keep.map(i => R[i])), med(keep.map(i => G[i])), med(keep.map(i => B[i]))]; glare = true; }
+      }
+      const dev = R.map((_, i) => Math.hypot(R[i] - md[0], G[i] - md[1], B[i] - md[2])).sort((p, q) => p - q);
       const sd = dev[Math.floor(dev.length * 0.6)] * 0.8; // dispersión robusta: un brillo o reflejo en unos pocos puntos no la sube
-      out.push({rgb: md, m: md, sd, L: md[0] * 0.299 + md[1] * 0.587 + md[2] * 0.114});
+      out.push({rgb: md, m: md, sd: glare ? Math.min(sd, 20) : sd, L: md[0] * 0.299 + md[1] * 0.587 + md[2] * 0.114, glare});
     }
     return out;
   }
@@ -2187,14 +2202,20 @@ const SS = (() => {
   const med = a => { const b = a.slice().sort((p, q) => p - q); return b[b.length >> 1]; };
   function create(N, o) {
     o = o || {};
-    return {N, K: o.K || 4, throttle: o.throttle || 0, faces: [], hist: [], prev: null, miss: 0, skip: 0, white: null, frame: 0, last: -1};
+    return {N, K: o.K || 4, throttle: o.throttle || 0, faces: [], hist: [], prev: null, miss: 0, skip: 0, white: null, frame: 0, last: -1, hold: -1};
   }
   // ganancia de color: con la casilla blanca de esta cara si la hay; si no, con la última conocida
   function gainFor(S, cs) {
     let w = null;
-    for (const c of cs) { const mn = Math.min(...c.rgb), mx = Math.max(...c.rgb); if (mx > 25 && mn / mx > 0.55 && c.sd < 14 && (!w || mn > Math.min(...w))) w = c.rgb; } // casilla blanca pareja (no un reflejo)
+    // casilla blanca pareja (no un reflejo). Con flash el amarillo se ve casi blanco: solo se acepta como blanco una casilla
+    // muy neutra; si no hay ninguna (p. ej. la cara amarilla), se usa el blanco ya conocido y nunca se «neutraliza» un amarillo
+    for (const c of cs) { if (c.glare) continue; const mn = Math.min(...c.rgb), mx = Math.max(...c.rgb); if (mx > 25 && mn / mx > 0.55 && c.sd < 14 && (!w || mn > Math.min(...w))) w = c.rgb; }
     let gn;
-    if (w) { const m = Math.max(...w); gn = w.map(v => Math.min(2.5, Math.max(0.4, m / Math.max(v, 1)))); S.white = gn; }
+    if (w) {
+      const m = Math.max(...w), g0 = w.map(v => Math.min(2.5, Math.max(0.4, m / Math.max(v, 1)))), neutral = Math.min(...w) / m > 0.84;
+      const close = S.white && g0.every((v, q) => Math.abs(v / S.white[q] - 1) < 0.12);
+      if (neutral || close || !S.white && Math.min(...w) / m > 0.78) { gn = g0; S.white = gn; } else gn = S.white ? S.white.slice() : [1, 1, 1];
+    }
     else gn = S.white ? S.white.slice() : [1, 1, 1];
     const tops = cs.map(c => Math.max(...c.rgb.map((v, q) => v * gn[q]))).sort((p, q) => p - q), top = Math.max(1, tops[tops.length >> 1]);
     const e = Math.min(3.5, Math.max(0.6, 190 / top)); // exposición con la mediana: un reflejo no oscurece toda la cara
@@ -2235,7 +2256,9 @@ const SS = (() => {
       raw.push([0, 1, 2].map(q => fr.reduce((t, c) => t + c[q], 0) / fr.length));
     }
     const gain = H[H.length - 1].gain;
-    return {raw, gain, labs: labsOf(raw, gain), g: H[H.length - 1].g};
+    // casillas con reflejo en la mayoría de los cuadros: dudosas
+    const uns = []; for (let i = 0; i < n; i++) { let c = 0; for (const h of H) c += h.gl ? h.gl[i] : 0; if (c * 2 > H.length) uns.push(i); }
+    return {raw, gain, labs: labsOf(raw, gain), g: H[H.length - 1].g, uns};
   }
   // un cuadro: img {d, w, h}; zone = zona de búsqueda (la guía en pantalla)
   function feed(S, img, zone) {
@@ -2251,24 +2274,29 @@ const SS = (() => {
     const r = SC.search(img, S.N, z, S.prev);
     if (!SC.plausible(r)) {
       S.prev = null; S.skip = S.throttle;
-      if (++S.miss > 1) S.hist = [];
+      if (++S.miss > 1) { S.hist = []; S.hold = -1; } // se dejó de ver la cara (se está girando el cubo): ya se puede capturar otra
       return {state: 'search', near: r && r.cs ? r.g : null};
     }
     S.miss = 0; S.prev = r.g;
-    const raw = r.cs.map(c => c.rgb), gain = gainFor(S, r.cs), det = {g: r.g, raw, gain, labs: labsOf(raw, gain)};
+    const raw = r.cs.map(c => c.rgb), gain = gainFor(S, r.cs), det = {g: r.g, raw, gain, labs: labsOf(raw, gain), gl: r.cs.map(c => c.glare || Math.min(...c.rgb) > 238 ? 1 : 0)};
     const lastH = S.hist[S.hist.length - 1];
     if (lastH && same(lastH, det)) { S.hist.push(det); S.odd = 0; S.resets = 0; }
     else if (lastH && S.hist.length > 1 && !S.odd) { S.odd = 1; return {state: 'steady', g: r.g, labs: det.labs, progress: Math.min(S.hist.length, S.K - 1) / S.K}; } // un cuadro raro aislado no rompe la racha
     else { S.hist = [det]; S.odd = 0; if (++S.resets >= 3) { S.prev = null; S.resets = 0; } } // la lectura no se estabiliza: se vuelve a buscar la cara desde cero
     if (S.hist.length > S.K) S.hist.shift();
-    const cand = combine(S), dup = findDup(S, cand.labs);
-    if (dup >= 0) return {state: 'dup', dup, g: r.g, labs: cand.labs, progress: 0};
+    const cand = combine(S); let dup = findDup(S, cand.labs);
+    if (dup < 0 && S.hold >= 0 && S.faces[S.hold] && match(S, cand.labs, S.faces[S.hold]) >= (S.N === 2 ? 0.75 : S.N === 3 ? 0.55 : 0.5)) dup = S.hold; // recién capturada: hace falta girar
+    if (dup >= 0) return {state: 'dup', dup, g: r.g, labs: cand.labs, progress: 0, glare: r.cs.filter(c => c.glare).length};
+    S.hold = -1;
+    // con reflejos se espera un poco más (para que el usuario incline el cubo); luego se captura igual y se marcan las dudosas
+    if (cand.uns.length && S.hist.length >= S.K && (S.wait = (S.wait || 0) + 1) < S.K) return {state: 'steady', g: r.g, labs: cand.labs, progress: (S.K - 1) / S.K, glare: cand.uns.length};
     if (S.hist.length >= S.K) {
-      const face = {raw: cand.raw.map((c, i) => c.map((v, q) => Math.min(255, v * cand.gain[q]))), raw0: cand.raw, labs: cand.labs, g: cand.g, frame: S.frame};
-      S.faces.push(face); S.hist = []; S.last = S.faces.length - 1;
+      S.wait = 0;
+      const face = {raw: cand.raw.map((c, i) => c.map((v, q) => Math.min(255, v * cand.gain[q]))), raw0: cand.raw, labs: cand.labs, g: cand.g, frame: S.frame, uns: cand.uns};
+      S.faces.push(face); S.hist = []; S.last = S.faces.length - 1; S.hold = S.last;
       return {state: S.faces.length >= 6 ? 'done' : 'captured', idx: S.last, g: r.g, labs: cand.labs, progress: 1, face};
     }
-    return {state: 'steady', g: r.g, labs: cand.labs, progress: S.hist.length / S.K};
+    return {state: 'steady', g: r.g, labs: cand.labs, progress: S.hist.length / S.K, glare: r.cs.filter(c => c.glare).length};
   }
   // captura manual (botón): la mejor lectura actual aunque no lleve los cuadros necesarios
   function grab(S, img, zone) {
@@ -2281,7 +2309,7 @@ const SS = (() => {
     S.faces.push(face); S.hist = []; S.last = S.faces.length - 1;
     return {state: S.faces.length >= 6 ? 'done' : 'captured', idx: S.last, g: r.g, labs, face};
   }
-  function remove(S, i) { S.faces.splice(i, 1); S.hist = []; }
+  function remove(S, i) { S.faces.splice(i, 1); S.hist = []; S.hold = -1; }
   return {create, feed, grab, remove, match, rot, gainFor};
 })();
 </script>
@@ -3434,9 +3462,9 @@ const GUIDE = .72; // lado de la guía en pantalla (fracción de la vista)
 // ---- hilo de detección (si el navegador no deja crear hilos, se hace aquí mismo) ----
 const SCW = (() => {
   let w = null, failed = false, seq = 0, LS = null, opts = null; const wait = new Map();
-  const slim = 'function slim(ev){if(!ev)return null;const o={state:ev.state,idx:ev.idx,dup:ev.dup,progress:ev.progress,g:ev.g||null,labs:ev.labs||null};if(ev.face)o.face={raw:ev.face.raw,labs:ev.face.labs,g:ev.face.g,manual:!!ev.face.manual,sure:ev.face.sure!==false};return o}';
+  const slim = 'function slim(ev){if(!ev)return null;const o={state:ev.state,idx:ev.idx,dup:ev.dup,progress:ev.progress,g:ev.g||null,labs:ev.labs||null,glare:ev.glare||0};if(ev.face)o.face={raw:ev.face.raw,labs:ev.face.labs,g:ev.face.g,manual:!!ev.face.manual,sure:ev.face.sure!==false&&!(ev.face.uns&&ev.face.uns.length),uns:ev.face.uns||[]};return o}';
   const GL = slim + ';let S=null;onmessage=e=>{const m=e.data,out={id:m.id};try{if(m.op==="new")S=SS.create(m.N,m.o);else if(m.op==="remove")SS.remove(S,m.i);else if(m.op==="set")S.faces[m.i]=Object.assign(S.faces[m.i]||{},m.face);else if(m.op==="opt")Object.assign(S,m.o);else{const img={d:new Uint8ClampedArray(m.buf),w:m.w,h:m.h};out.ev=slim(m.op==="grab"?SS.grab(S,img,m.zone):SS.feed(S,img,m.zone));out.buf=m.buf}}catch(err){out.err=String(err&&err.message||err)}postMessage(out,out.buf?[out.buf]:[])};';
-  const slimL = ev => { if (!ev) return null; const o = {state: ev.state, idx: ev.idx, dup: ev.dup, progress: ev.progress, g: ev.g || null, labs: ev.labs || null}; if (ev.face) o.face = {raw: ev.face.raw, labs: ev.face.labs, g: ev.face.g, manual: !!ev.face.manual, sure: ev.face.sure !== false}; return o; };
+  const slimL = ev => { if (!ev) return null; const o = {state: ev.state, idx: ev.idx, dup: ev.dup, progress: ev.progress, g: ev.g || null, labs: ev.labs || null, glare: ev.glare || 0}; if (ev.face) o.face = {raw: ev.face.raw, labs: ev.face.labs, g: ev.face.g, manual: !!ev.face.manual, sure: ev.face.sure !== false && !(ev.face.uns && ev.face.uns.length), uns: ev.face.uns || []}; return o; };
   function local(m) {
     const out = {id: m.id};
     if (m.op === 'new') LS = SS.create(m.N, m.o);
@@ -3606,9 +3634,10 @@ const TIP = 'Sugerencia: muestra una cara, gira el cubo de lado tres veces para 
 function stateText(ev) {
   const n = scn.shots.length;
   if (!ev) return ['search', scn.src === 'live' ? 'Llena el marco con una cara del cubo' : ''];
+  if (ev.glare >= 2 && (ev.state === 'steady' || ev.state === 'search')) return ['steady', 'Hay reflejo: inclina un poco el cubo'];
   if (ev.state === 'steady') return ['steady', 'Quieto… leyendo los colores'];
   if (ev.state === 'captured') return ['captured', `¡Cara ${ev.idx + 1} lista! Gira el cubo a otra cara`];
-  if (ev.state === 'dup') return ['dup', `Esa es la cara ${ev.dup + 1}: gira a una nueva`];
+  if (ev.state === 'dup') return ['dup', ev.dup === n - 1 ? 'Lista: gira el cubo a otra cara' : `Esa es la cara ${ev.dup + 1}: gira a una nueva`];
   if (ev.state === 'done') return ['done', 'Las 6 caras listas · procesando…'];
   return ['search', n ? 'Muestra otra cara dentro del marco' : 'Llena el marco con una cara del cubo'];
 }
@@ -3619,7 +3648,8 @@ function onEv(r, why) {
   if (ev.face) {
     scn.shots.push({...ev.face, img: new ImageData(new Uint8ClampedArray(r.buf), DET, DET)});
     scn.flash = performance.now(); feedback(); slotsUI(true); scn.forced = false;
-    $('scmsg').textContent = ev.face.sure === false ? `No estoy seguro del recuadro de la cara ${ev.idx + 1}: tócala abajo para revisarla.` : '';
+    $('scmsg').textContent = ev.face.uns && ev.face.uns.length ? `La cara ${ev.idx + 1} tenía reflejo en ${ev.face.uns.length} casilla${ev.face.uns.length > 1 ? 's' : ''}: tócala abajo para revisar los colores (y corregirlos si hace falta).`
+      : ev.face.sure === false ? `No estoy seguro del recuadro de la cara ${ev.idx + 1}: tócala abajo para revisarla.` : '';
   }
   if (why !== 'photo') { const [st2, t] = stateText(ev); if (!scn.vrun) pill(st2, t); ring(ev.state === 'steady' ? ev.progress : ev.state === 'captured' || ev.state === 'done' ? 1 : 0); }
   if (scn.shots.length === 6 && !scn.busy && !scn.vrun && why !== 'grabwait') autoFinish();
@@ -3644,19 +3674,25 @@ function liveTick(now) {
 function stopLive() { if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; } const v = $('vid'); v.srcObject = null; torchUI(null); }
 // linterna del celular (si la cámara la tiene) y enfoque continuo: ayudan con poca luz
 let torchOn = false;
+let torchCan = false;
 function torchUI(track) {
-  const b = $('sctorch'); let ok = false;
-  try { const c = track && track.getCapabilities && track.getCapabilities(); ok = !!(c && c.torch); } catch (_) {}
-  b.hidden = !ok; if (!ok) torchOn = false; b.setAttribute('aria-pressed', String(torchOn)); b.setAttribute('aria-label', torchOn ? 'Apagar la linterna' : 'Encender la linterna');
+  const b = $('sctorch'); torchCan = false;
+  try { const c = track && track.getCapabilities && track.getCapabilities(); torchCan = !!(c && c.torch); } catch (_) {}
+  b.hidden = !track; if (!torchCan) torchOn = false; b.classList.toggle('na', !torchCan);
+  b.setAttribute('aria-pressed', String(torchOn)); b.setAttribute('aria-label', torchOn ? 'Apagar la linterna' : 'Encender la linterna');
 }
+const TORCHTIP = 'Con linterna: inclina el cubo unos 20 a 30 grados (que no quede de frente a la luz) o aleja un poco el celular; así el brillo no cae sobre las pegatinas.';
 async function camTune(track) {
-  try { const c = track.getCapabilities ? track.getCapabilities() : {}; if (c.focusMode && c.focusMode.includes('continuous')) await track.applyConstraints({advanced: [{focusMode: 'continuous'}]}); } catch (_) {}
+  try { const c = track.getCapabilities ? track.getCapabilities() : {}, adv = {};
+    for (const k of ['focusMode', 'exposureMode', 'whiteBalanceMode']) if (c[k] && c[k].includes('continuous')) adv[k] = 'continuous';
+    if (Object.keys(adv).length) await track.applyConstraints({advanced: [adv]}); } catch (_) {}
   torchOn = false; torchUI(track);
 }
 $('sctorch').addEventListener('click', async () => {
   const tr = stream && stream.getVideoTracks()[0]; if (!tr) return;
+  if (!torchCan) { $('scmsg').textContent = 'Este navegador no deja encender la linterna desde la página (pasa en iPhone). Enciéndela desde el centro de control del celular. ' + TORCHTIP; return; }
   try { await tr.applyConstraints({advanced: [{torch: !torchOn}]}); torchOn = !torchOn; } catch (_) { torchOn = false; }
-  torchUI(tr);
+  torchUI(tr); if (torchOn) $('scmsg').textContent = TORCHTIP;
 });
 async function startLive() {
   const me = scn; pill('search', 'Activando la cámara…');
@@ -3818,8 +3854,22 @@ async function addPhotos(files) {
   if (scn === me) barUI();
 }
 // revisión de una cara: mover y cambiar el tamaño del recuadro
+// corregir colores a mano en la revisión: se elige un color y se toca la casilla (queda fija para el resto del proceso)
+function palUI() {
+  const pc = scn ? scn.pc : -1;
+  $('scpal').innerHTML = [0, 1, 2, 3, 4, 5].map(k => `<button data-k="${k}" class="${k === pc ? 'on' : ''}" style="background:${hex(k)}" aria-label="Corregir a ${NAME[k]}"></button>`).join('') +
+    `<button class="mv${pc < 0 ? ' on' : ''}" data-k="-1">Mover</button>`;
+}
+$('scpal').onclick = e => { const b = e.target.closest('button[data-k]'); if (!b || !scn) return; scn.pc = +b.dataset.k; palUI(); };
+function applyFix(s) { if (!s.fix) return; for (const j in s.fix) { const c = s.fix[j]; s.labs[j] = CAN[c].slice(); s.raw[j] = CANRGB[c].slice(); } }
+function cellAt(s, cx, cy) {
+  const r = scv.getBoundingClientRect(), k = DET / r.width, x = (cx - r.left) * k, y = (cy - r.top) * k, g = s.g, c = Math.cos(g.a), sn = Math.sin(g.a);
+  const dx = x - g.x, dy = y - g.y, u = (dx * c + dy * sn) / g.s + 0.5, v = (-dx * sn + dy * c) / g.s + 0.5;
+  if (u < 0 || v < 0 || u >= 1 || v >= 1) return -1;
+  return Math.floor(v * N) * N + Math.floor(u * N);
+}
 function review(i) {
-  scn.sel = i; const s = scn.shots[i];
+  scn.sel = i; const s = scn.shots[i]; if (scn.pc === undefined) scn.pc = -1; palUI();
   $('scadj').hidden = false; $('scview').classList.add('adj');
   $('scsz').value = Math.round(s.g.s / DET * 100); $('scszv').textContent = $('scsz').value + '%'; fillRange($('scsz'));
   pill('steady', `Cara ${i + 1}: ajusta el recuadro si hace falta`); slotsUI(); scDirty();
@@ -3827,12 +3877,16 @@ function review(i) {
 function endReview() { if (!scn) return; scn.sel = -1; scDirty(); $('scadj').hidden = true; $('scview').classList.remove('adj'); slotsUI(); const [a, b] = stateText(null); pill(a, scn.src === 'live' ? b : ''); }
 function resample(i) {
   const s = scn.shots[i], img = {d: s.img.data, w: DET, h: DET}, cs = SC.cells(img, s.g, N, true), gain = SS.gainFor({white: null}, cs);
-  s.raw = cs.map(c => c.rgb.map((v, q) => Math.min(255, v * gain[q]))); s.labs = s.raw.map(lab); s.sure = true;
+  s.raw = cs.map(c => c.rgb.map((v, q) => Math.min(255, v * gain[q]))); s.labs = s.raw.map(lab); s.sure = true; applyFix(s);
   SCW.set(i, {labs: s.labs}); slotsUI(); scDirty();
 }
 let drag = null;
 scv.addEventListener('pointerdown', e => {
   if (!scn || scn.sel < 0) return; const s = scn.shots[scn.sel], r = scv.getBoundingClientRect(), k = DET / r.width;
+  if (scn.pc >= 0) { // pintar una casilla
+    const j = cellAt(s, e.clientX, e.clientY); if (j < 0) return;
+    s.fix = s.fix || {}; s.fix[j] = scn.pc; if (s.uns) s.uns = s.uns.filter(x => x !== j); applyFix(s); SCW.set(scn.sel, {labs: s.labs}); slotsUI(); scDirty(); return;
+  }
   drag = {x: e.clientX, y: e.clientY, gx: s.g.x, gy: s.g.y, k}; try { scv.setPointerCapture(e.pointerId); } catch (_) {}
 });
 scv.addEventListener('pointermove', e => {
@@ -3913,7 +3967,7 @@ function applyScan(res, dudIdx, text) {
   closeScan(); const prev = st.slice(); res.forEach((c, k) => { st[k] = c; }); snap(prev);
   dud.clear(); dudIdx.forEach(i => dud.add(i));
   drawNet(); syncPaint();
-  msg(text + (dud.size ? ` Marqué ${dud.size} casilla${dud.size > 1 ? 's' : ''} con borde punteado: son las que menos seguras estoy; revísalas antes de calcular.` : ''));
+  msg(text + (dud.size ? ` Marqué ${dud.size} casilla${dud.size > 1 ? 's' : ''} con borde punteado: son las que menos seguras estoy; revísalas antes de calcular.` : '') + ' Si un color quedó mal, elige el color correcto y toca la casilla en la red de abajo o sobre el cubo.');
 }
 const FAILMSG = 'No pude formar un cubo válido con estas 6 caras (¿algún color mal leído, un recuadro corrido o el tamaño de cubo equivocado arriba?). Toca cada cara abajo para revisarla, quita la dudosa y escanéala de nuevo; si pulsas «Procesar» otra vez, usaré el resultado aproximado.';
 // ---- 3×3: el centro de cada foto dice qué cara es ----
@@ -3930,10 +3984,11 @@ function finish3(sh) {
   }
   const face = Array(6), ref = Array(6); sh.forEach((s, p) => { face[bestP[p]] = p; ref[bestP[p]] = cen[p]; });
   const raws = [], shotOf = [], fixed = new Map();
-  for (let f = 0; f < 6; f++) for (let j = 0; j < 9; j++) { raws.push(sh[face[f]].raw[j]); shotOf.push(f); if (j === 4) fixed.set(f * 9 + 4, f); }
+  for (let f = 0; f < 6; f++) for (let j = 0; j < 9; j++) { raws.push(sh[face[f]].raw[j]); shotOf.push(f); if (j === 4) fixed.set(f * 9 + 4, f); else if (sh[face[f]].fix && sh[face[f]].fix[j] !== undefined) fixed.set(f * 9 + j, sh[face[f]].fix[j]); }
   const {asg, margin, alt} = adaptColors(raws, shotOf, 9, fixed, ref);
   const g = Array.from({length: 6}, (_, f) => asg.slice(f * 9, f * 9 + 9));
-  const dd = Array.from({length: 6}, (_, f) => margin.slice(f * 9, f * 9 + 9).map(m => m < DUDT ? 1 : 0));
+  const dd = Array.from({length: 6}, (_, f) => margin.slice(f * 9, f * 9 + 9).map((m, j) => m < DUDT || (sh[face[f]].uns || []).includes(j) ? 1 : 0));
+  sh.forEach((s, p) => (s.uns || []).forEach(j => { const i = bestP[p] * 9 + j; if (!fixed.has(i)) margin[i] = Math.min(margin[i], 0); }));
   const search = gg => {
     const rots = gg.map(a => [a, rotK(a, 1), rotK(a, 2), rotK(a, 3)]), ok = new Set(); let first = null;
     for (let n = 0; n < 4096; n++) {
@@ -3944,7 +3999,7 @@ function finish3(sh) {
   };
   let hit = search(g), fixedCells = [], gg = g;
   if (!hit) { // reparación: se cambian las casillas menos seguras por su segunda opción hasta que el cubo sea posible
-    const cand = margin.map((m, i) => [m, i]).filter(([, i]) => i % 9 !== 4).sort((a, b) => a[0] - b[0]).slice(0, 9).map(x => x[1]);
+    const cand = margin.map((m, i) => [m, i]).filter(([, i]) => i % 9 !== 4 && !fixed.has(i)).sort((a, b) => a[0] - b[0]).slice(0, 9).map(x => x[1]);
     const subs = []; for (let a = 0; a < cand.length; a++) { subs.push([a]); for (let b = a + 1; b < cand.length; b++) { subs.push([a, b]); for (let c = b + 1; c < cand.length; c++) subs.push([a, b, c]); } }
     subs.sort((p, q) => p.length - q.length);
     for (const sub of subs) {
@@ -4001,9 +4056,9 @@ function arrange4(arrs) { // también sirve para el 2×2 (solo esquinas)
   return best;
 }
 function finish4(sh) {
-  const raws = [], shotOf = []; sh.forEach((s, p) => s.raw.forEach(c => { raws.push(c); shotOf.push(p); }));
-  const q = N * N, {asg, margin, alt} = adaptColors(raws, shotOf, q, new Map(), CAN);
-  const arrs = sh.map((_, k) => asg.slice(k * q, k * q + q)), mrs = sh.map((_, k) => margin.slice(k * q, k * q + q).map(m => m < DUDT ? 1 : 0));
+  const raws = [], shotOf = [], q = N * N, fixed = new Map(); sh.forEach((s, p) => s.raw.forEach((c, j) => { raws.push(c); shotOf.push(p); if (s.fix && s.fix[j] !== undefined) fixed.set(p * q + j, s.fix[j]); }));
+  const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, CAN);
+  const arrs = sh.map((_, k) => asg.slice(k * q, k * q + q)), mrs = sh.map((s, k) => margin.slice(k * q, k * q + q).map((m, j) => m < DUDT || (s.uns || []).includes(j) && !fixed.has(k * q + j) ? 1 : 0));
   const r = arrange4(arrs);
   if (!r) { if (!scn.forced) { scn.forced = true; $('scmsg').textContent = FAILMSG; return; } return applyScan(Array.from({length: 6 * q}, (_, i) => asg[i]), [], 'Resultado aproximado: corrige las casillas tocándolas.'); }
   if (r.cost > 0 && !scn.forced) { scn.forced = true; $('scmsg').textContent = FAILMSG; return; }
@@ -4028,10 +4083,11 @@ function finish5(sh) {
   }
   const face = Array(6), ref = Array(6); sh.forEach((s, p) => { face[bestP[p]] = p; ref[bestP[p]] = cen[p]; });
   const raws = [], shotOf = [], fixed = new Map();
-  for (let f = 0; f < 6; f++) for (let j = 0; j < q; j++) { raws.push(sh[face[f]].raw[j]); shotOf.push(f); if (j === c0) fixed.set(f * q + c0, f); }
+  for (let f = 0; f < 6; f++) for (let j = 0; j < q; j++) { raws.push(sh[face[f]].raw[j]); shotOf.push(f); if (j === c0) fixed.set(f * q + c0, f); else if (sh[face[f]].fix && sh[face[f]].fix[j] !== undefined) fixed.set(f * q + j, sh[face[f]].fix[j]); }
   const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, ref);
   const g = Array.from({length: 6}, (_, f) => asg.slice(f * q, f * q + q));
-  const dd = Array.from({length: 6}, (_, f) => margin.slice(f * q, f * q + q).map(v => v < DUDT ? 1 : 0));
+  const dd = Array.from({length: 6}, (_, f) => margin.slice(f * q, f * q + q).map((v, j) => v < DUDT || (sh[face[f]].uns || []).includes(j) ? 1 : 0));
+  sh.forEach((s, p) => (s.uns || []).forEach(j => { const i = bestP[p] * q + j; if (!fixed.has(i)) margin[i] = Math.min(margin[i], 0); }));
   const G = geo(N), wings = G.pieces.filter(pc => pc.fl.length === 2 && pc.p.some((v, k) => Math.abs(v) !== m && v !== 0) ), corners = G.pieces.filter(pc => pc.fl.length === 3);
   const badOf = full => { let n = 0; for (const pc of wings.concat(corners)) { const cs = pc.fl.map(i => full[i]); for (let a = 0; a < cs.length; a++) for (let b = a + 1; b < cs.length; b++) if (cs[a] === cs[b] || (cs[a] + 3) % 6 === cs[b]) { n++; a = b = 9; } } return n; };
   const search = gg => {
@@ -4046,7 +4102,7 @@ function finish5(sh) {
   };
   let hit = search(g), fixedCells = [], gg = g;
   if (!hit || hit.cost) { // reparación: las casillas menos seguras pasan a su segunda opción hasta que el cubo sea posible
-    const cand = margin.map((v, i) => [v, i]).filter(([, i]) => i % q !== c0).sort((a, b) => a[0] - b[0]).slice(0, 8).map(x => x[1]);
+    const cand = margin.map((v, i) => [v, i]).filter(([, i]) => i % q !== c0 && !fixed.has(i)).sort((a, b) => a[0] - b[0]).slice(0, 8).map(x => x[1]);
     const subs = []; for (let a = 0; a < cand.length; a++) { subs.push([a]); for (let b = a + 1; b < cand.length; b++) subs.push([a, b]); }
     for (const sb of subs) {
       const t = g.map(a => a.slice()); sb.forEach(x => { const i = cand[x]; t[i / q | 0][i % q] = alt[i]; });
@@ -4059,7 +4115,82 @@ function finish5(sh) {
   for (let f = 0; f < 6; f++) { const r = (hit.n >> (2 * f)) & 3, d = dd[f].slice(); fixedCells.forEach(i => { if ((i / q | 0) === f) d[i % q] = 1; }); rotK(d, r).forEach((v, j) => { if (v) dudIdx.add(f * q + j); }); }
   applyScan(hit.full, [...dudIdx], (hit.cost ? 'Resultado aproximado: revisa las casillas marcadas. ' : fixedCells.length ? `Corregí ${fixedCells.length} color${fixedCells.length > 1 ? 'es' : ''} mal leído${fixedCells.length > 1 ? 's' : ''} usando la estructura del cubo. ` : 'Escaneo completo: detecté sola la cara y el giro de cada foto. ') + 'Pulsa «Calcular solución».');
 }
-function finishScan() { const sh = scn.shots; return N === 3 ? finish3(sh) : N === 5 ? finish5(sh) : finish4(sh); }
+// ---- cubos impares (3×3 y 5×5), versión robusta: el centro de cada foto sugiere qué cara es, pero un reflejo puede
+// confundirlo; por eso se prueban varias asignaciones de caras y, para cada una, los 4⁶ giros, y se elige la que forma
+// más piezas reales (esquinas y aristas que existen en un cubo). Así un color mal leído no desordena todo el cubo. ----
+let PCS = null;
+function oddPieces() {
+  if (PCS && PCS.N === N) return PCS;
+  const G = geo(N), S0 = solvedSt(N), cor = new Set(), edg = new Set(), corners = [], edges = [];
+  for (const pc of G.pieces) {
+    if (pc.fl.length === 3) { corners.push(pc.fl); const c = pc.fl.map(i => S0[i]); for (let r = 0; r < 3; r++) cor.add(c[r] * 36 + c[(r + 1) % 3] * 6 + c[(r + 2) % 3]); }
+    else if (pc.fl.length === 2) { edges.push(pc.fl); const c = pc.fl.map(i => S0[i]); edg.add(Math.min(...c) * 6 + Math.max(...c)); }
+  }
+  return (PCS = {N, corners, edges, cor, edg});
+}
+function pieceScore(f, P) {
+  let n = 0;
+  for (const fl of P.corners) if (P.cor.has(f[fl[0]] * 36 + f[fl[1]] * 6 + f[fl[2]])) n++;
+  for (const fl of P.edges) { const a = f[fl[0]], b = f[fl[1]]; if (P.edg.has(Math.min(a, b) * 6 + Math.max(a, b))) n++; }
+  return n;
+}
+const fullCheck = f => N === 3 ? Solver.check(f) : (typeof Solver5 === 'object' ? Solver5.check(f) : 0);
+function finishOdd(sh0) {
+  const q = N * N, c0 = (q - 1) / 2, P = oddPieces(), maxP = P.corners.length + P.edges.length;
+  // si con las fotos tal cual no sale un cubo perfecto, se prueba también con las imágenes en espejo (cámara frontal o vista reflejada)
+  const flipJ = j => (j / N | 0) * N + (N - 1 - j % N);
+  const flipShot = s => { const o = {...s, raw: s.raw.map((_, j) => s.raw[flipJ(j)])};
+    if (s.fix) { o.fix = {}; for (const j in s.fix) o.fix[flipJ(+j)] = s.fix[j]; } if (s.uns) o.uns = s.uns.map(flipJ); return o; };
+  const a = finishOddTry(sh0, q, c0, P);
+  const b = a.sc < maxP || fullCheck(a.full) ? finishOddTry(sh0.map(flipShot), q, c0, P) : null;
+  const best = b && b.sc > a.sc + 1 ? b : a;
+  return finishOddApply(best.sh, best, q, c0, P, maxP, best === b);
+}
+function finishOddTry(sh, q, c0, P) {
+  const cen = sh.map(s => lab(s.raw[c0]));
+  // asignaciones de caras: todas las permutaciones, ordenadas por parecido de los centros; se prueban las mejores
+  const perms = []; (function gen(a, used) { if (a.length === 6) { perms.push({p: a.slice(), c: a.reduce((t, f, k) => t + ldist(cen[k], CAN[f]), 0)}); return; } for (let f = 0; f < 6; f++) if (!used[f]) { used[f] = 1; a.push(f); gen(a, used); a.pop(); used[f] = 0; } })([], []);
+  perms.sort((x, y) => x.c - y.c);
+  let best = null;
+  for (const {p: bestP, c: ccost} of perms.slice(0, 30)) {
+    const face = Array(6), ref = Array(6); sh.forEach((s, k) => { face[bestP[k]] = k; ref[bestP[k]] = cen[k]; });
+    const raws = [], shotOf = [], fixed = new Map();
+    for (let f = 0; f < 6; f++) for (let j = 0; j < q; j++) { const s = sh[face[f]]; raws.push(s.raw[j]); shotOf.push(f); if (j === c0) fixed.set(f * q + j, f); else if (s.fix && s.fix[j] !== undefined) fixed.set(f * q + j, s.fix[j]); }
+    const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, ref);
+    const g = Array.from({length: 6}, (_, f) => asg.slice(f * q, f * q + q)), rots = g.map(a => [a, rotK(a, 1), rotK(a, 2), rotK(a, 3)]);
+    for (let n = 0; n < 4096; n++) {
+      const full = []; for (let f = 0; f < 6; f++) full.push(...rots[f][(n >> (2 * f)) & 3]);
+      const sc = pieceScore(full, P);
+      if (best && sc < best.sc) continue;
+      if (best && sc === best.sc && ccost >= best.ccost) continue;
+      best = {sc, ccost, full, n, face, asg, margin, alt, fixed, perm: bestP};
+    }
+    if (best && best.sc === P.corners.length + P.edges.length && fullCheck(best.full) === 0) break; // cubo perfecto con la asignación más probable
+  }
+  best.sh = sh; return best;
+}
+function finishOddApply(sh, best, q, c0, P, maxSc, flipped) {
+  const {full, n, face, margin, alt, fixed} = best;
+  const rotOf = f => (n >> (2 * f)) & 3, posOf = (f, j) => { // casilla j de la foto (orden de la cámara) → casilla del cubo
+    const r = rotOf(f), m = Array.from({length: q}, (_, k) => k); return f * q + rotK(m, r).indexOf(j); };
+  let out = full.slice(), fixedCells = [];
+  if (fullCheck(out)) { // reparación: las casillas menos seguras pasan a su segunda opción hasta que el cubo sea posible
+    const cand = margin.map((v, i) => [v, i]).filter(([, i]) => i % q !== c0 && !fixed.has(i)).sort((a, b) => a[0] - b[0]).slice(0, N === 3 ? 9 : 8).map(x => x[1]);
+    const subs = []; for (let a = 0; a < cand.length; a++) { subs.push([a]); for (let b = a + 1; b < cand.length; b++) { subs.push([a, b]); if (N === 3) for (let c = b + 1; c < cand.length; c++) subs.push([a, b, c]); } }
+    for (const sb of subs) {
+      const t = out.slice(); sb.forEach(x => { const i = cand[x]; t[posOf(i / q | 0, i % q)] = alt[i]; });
+      if (!fullCheck(t)) { out = t; fixedCells = sb.map(x => posOf(cand[x] / q | 0, cand[x] % q)); break; }
+    }
+  }
+  const ok = !fullCheck(out), dudIdx = new Set(fixedCells);
+  for (let f = 0; f < 6; f++) { const s = sh[face[f]]; for (let j = 0; j < q; j++) { const i = f * q + j; if (!fixed.has(i) && (margin[i] < DUDT || (s.uns || []).includes(j))) dudIdx.add(posOf(f, j)); } }
+  if (!ok) { // quedan piezas imposibles: se marcan para revisarlas (el resto del cubo está bien colocado)
+    for (const fl of P.corners.concat(P.edges)) { const c = fl.map(i => out[i]); const v = fl.length === 3 ? P.cor.has(c[0] * 36 + c[1] * 6 + c[2]) : P.edg.has(Math.min(...c) * 6 + Math.max(...c)); if (!v) fl.forEach(i => dudIdx.add(i)); }
+  }
+  applyScan(out, [...dudIdx], (flipped ? 'Las imágenes llegaron en espejo (¿cámara frontal?): las corregí. ' : '') + (ok ? (fixedCells.length ? `Corregí ${fixedCells.length} color${fixedCells.length > 1 ? 'es' : ''} mal leído${fixedCells.length > 1 ? 's' : ''} usando la estructura del cubo. ` : 'Escaneo completo: detecté sola la cara y el giro de cada foto. ')
+    : `Casi listo: ${maxSc - best.sc} pieza${maxSc - best.sc > 1 ? 's' : ''} no cuadra${maxSc - best.sc > 1 ? 'n' : ''} (algún color mal leído, quizá por un reflejo). Las marqué con borde punteado: corrígelas antes de calcular. `) + 'Pulsa «Calcular solución».');
+}
+function finishScan() { const sh = scn.shots; return N % 2 ? finishOdd(sh) : finish4(sh); }
 
 /* ================= escenario prestado (cronómetro y Aprende) ================= */
 let saved = null;
@@ -4397,6 +4528,7 @@ setTimeout(() => Pool.warm(3), 1200);
 // gancho de pruebas: solo al abrir el archivo localmente, nunca en la página publicada
 if (location.protocol === 'file:' || location.hostname === 'localhost') window.__cubo = {Pool, phasesOf: () => phases, facelets: () => { const o = Array(6 * N * N); stk.forEach(s => { o[facelet(s)] = s.userData.c; }); return o; },
   state: () => st.slice(), size: () => N, scanInfo: () => scn && {n: scn.shots.length, src: scn.src, busy: scn.busy, vrun: scn.vrun, noLive: scn.noLive, ev: scn.ev && scn.ev.state, stat: scn.stat},
+  scanCell: (i, j) => { const s = scn.shots[i], r = scv.getBoundingClientRect(), k = r.width / DET, [x, y] = gridPts(s.g, k, (j % N + .5) / N - .5, ((j / N | 0) + .5) / N - .5); return {x: r.left + x, y: r.top + y, lab: s.labs[j]}; },
   screenOf: p => { const v = new THREE.Vector3(...p); v.project(cam); const r = cv.getBoundingClientRect(); return [r.left + (v.x + 1) / 2 * r.width, r.top + (1 - v.y) / 2 * r.height]; }, home: () => { Object.assign(view, HOME); Object.assign(goal, HOME); redraw(); }};
 
 /* ================= app instalable (solo en la página propia con https, p. ej. GitHub Pages; nunca dentro del artefacto) ================= */
