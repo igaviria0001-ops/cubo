@@ -637,6 +637,7 @@ body.tt .hud{display:none}
       <div class="prow"><span id="pbest">Preparando…</span><button class="btn sm" id="stop" disabled>Usar la mejor ya</button></div>
     </div>
     <p id="smsg" role="status"></p>
+    <button class="btn sm" id="salt" hidden>Usar la otra lectura</button>
   </div>
 </section>
 
@@ -3927,7 +3928,7 @@ function panel(s) {
     $('scpb').innerHTML = `<button class="sc-chip on" data-a="shot">${ico('camera')}Tomar foto</button><button class="sc-chip" data-a="pick">${ico('image')}Elegir fotos</button>`;
   }
 }
-const TIP = 'Sugerencia: muestra una cara, gira el cubo de lado tres veces para ver las otras caras laterales y luego inclínalo para ver la de arriba y la de abajo. El orden no importa.';
+const TIP = 'Sugerencia: con el celular derecho, muestra una cara, gira el cubo de lado tres veces para ver las otras caras laterales y luego inclínalo para ver la de abajo y la de arriba. Puedes hacerlo en otro orden, pero así sé con seguridad cómo va girada cada cara.';
 function stateText(ev) {
   const n = scn.shots.length;
   if (!ev) return ['search', scn.src === 'live' ? 'Llena el marco con una cara del cubo' : ''];
@@ -4302,8 +4303,18 @@ function adaptColors(raws, shotOf, per, fixed, seeds, uns) {
   return out;
 }
 const rotK = (a, r) => { for (let i = 0; i < r; i++) a = rotN(a); return a; };
-function applyScan(res, dudIdx, text) {
+// las otras lecturas posibles del escaneo, una tras otra (y de vuelta a la primera)
+$('salt').onclick = () => { const A = scanAlt; if (!A) return; const cur = st.join();
+  if (!A.list.some(x => x.join() === cur)) { scanAlt = null; $('salt').hidden = true; toast('Ya cambiaste el cubo: píntalo a mano si hace falta'); return; }
+  const to = (A.on + 1) % A.list.length, prev = st.slice(), L = A.list[to]; L.forEach((c, k) => { st[k] = c; }); snap(prev); A.on = to;
+  dud.clear(); A.list.forEach(x => x.forEach((v, i) => { if (v !== L[i]) dud.add(i); })); drawNet(); syncPaint();
+  $('salt').innerHTML = ico('shuffle') + (to === A.list.length - 1 ? 'Volver a la primera lectura' : `Probar otra lectura (${A.list.length - 1 - to})`);
+  msg(to ? `Lectura ${to + 1} de ${A.list.length}: compara las casillas marcadas con tu cubo.` : 'Volví a la primera lectura.'); };
+let scanAlt = null; // la otra lectura posible del último escaneo (si la hubo)
+function applyScan(res, dudIdx, text, alt) {
   closeScan(); const prev = st.slice(); res.forEach((c, k) => { st[k] = c; }); snap(prev);
+  scanAlt = alt && alt.length ? {list: [res.slice()].concat(alt.map(a => a.slice())), on: 0, dud: [...dudIdx]} : null; $('salt').hidden = !scanAlt;
+  if (scanAlt) $('salt').innerHTML = ico('shuffle') + `Probar otra lectura (${scanAlt.list.length - 1})`;
   dud.clear(); dudIdx.forEach(i => dud.add(i));
   drawNet(); syncPaint();
   msg(text + (dud.size ? ` Marqué ${dud.size} casilla${dud.size > 1 ? 's' : ''} con borde punteado: son las que menos seguras estoy; revísalas antes de calcular.` : '') + ' Si un color quedó mal, elige el color correcto y toca la casilla en la red de abajo o sobre el cubo.');
@@ -4382,7 +4393,7 @@ const rotK9 = (a, r) => { for (let i = 0; i < r; i++) a = Array.from({length: 9}
 // ---- 4×4: no hay centros fijos, así que se busca la disposición de las 6 fotos (cualquier orden y giro) que forma un cubo real ----
 let SETA = null, SETB = null;
 const canon3 = t => { let b = 0; for (let i = 1; i < 3; i++) if (t[i] < t[b]) b = i; return [t[b], t[(b + 1) % 3], t[(b + 2) % 3]].join(); };
-function arrange4(arrs) { // también sirve para el 2×2 (solo esquinas)
+function arrange4(arrs, all) { // también sirve para el 2×2 (solo esquinas). all: junta todas las lecturas posibles (no solo la primera)
   const q = N * N, NF = 6 * q, {wings, corners} = N === 4 ? Solver4.pieceList() : {wings: [], corners: Solver2.corners()};
   if (!SETA || SETA.n !== N) { SETA = new Set(corners.map(fl => canon3(fl.map(i => Math.floor(i / q))))); SETB = new Set(corners.map(fl => canon3(fl.map(i => Math.floor(i / q)).reverse()))); SETA.n = N; }
   const ORDER = [2, 1, 4, 5, 0, 3], lvl = Array(6); ORDER.forEach((f, l) => { lvl[f] = l; });
@@ -4391,15 +4402,15 @@ function arrange4(arrs) { // también sirve para el 2×2 (solo esquinas)
   const rots = arrs.map(a => [a, rotK(a, 1), rotK(a, 2), rotK(a, 3)]), f96 = Array(NF).fill(-1), used = Array(6).fill(false), asn = Array(6).fill(null);
   const bad = fl => { for (let a = 0; a < fl.length; a++) for (let b = a + 1; b < fl.length; b++) { const x = f96[fl[a]], y = f96[fl[b]]; if (x === y || (x + 3) % 6 === y) return 1; } return 0; };
   const chir = () => corners.every(fl => SETA.has(canon3(fl.map(i => f96[i])))) ? 3 : corners.every(fl => SETB.has(canon3(fl.map(i => f96[i])))) ? 2 : 1;
-  let best = null, bestCost = 1e9, done = false;
+  let best = null, bestCost = 1e9, done = false; const sols = [];
   (function place(level, cost) {
     if (done || cost >= bestCost && bestCost > 0 && best) return;
     if (level === 6) {
       if (cost === 0) {
         if (N === 4 ? typeof Solver4.relabel(f96) === 'number' : Solver2.check(f96) !== 0) return;
-        const score = chir();
-        if (!best || best.cost > 0 || score > best.score) best = {cost: 0, score, f96: f96.slice(), asn: asn.map(x => x.slice())};
-        bestCost = 0; if (score === 3) done = true;
+        const score = chir(), sol = {cost: 0, score, f96: f96.slice(), asn: asn.map(x => x.slice())};
+        if (!best || best.cost > 0 || score > best.score) best = sol;
+        bestCost = 0; if (score === 3) { sols.push(sol); if (!all || sols.length >= 40) done = true; }
       } else if (!best || cost < best.cost) { best = {cost, score: 0, f96: f96.slice(), asn: asn.map(x => x.slice())}; bestCost = cost; }
       return;
     }
@@ -4415,6 +4426,12 @@ function arrange4(arrs) { // también sirve para el 2×2 (solo esquinas)
     }
     for (let j = 0; j < q; j++) f96[face * q + j] = -1; asn[face] = null;
   })(0, 0);
+  // varias lecturas posibles con los colores de siempre: gana la que sigue la forma habitual de escanear (ver orientPrior)
+  if (sols.length) { const pr = x => { const face = [], n0 = x.asn.reduce((t, a, f) => { face[f] = a[0]; return t + (a[1] << (2 * f)); }, 0); return orientPrior(n0, face); };
+    // (dos lecturas que son el mismo cubo visto desde otro lado no cuentan como distintas)
+    const RT = ['', 'x', 'x2', "x'", 'z', "z'"].flatMap(a => ['', 'y', 'y2', "y'"].map(b => (a + ' ' + b).trim())), views = f => RT.map(r => (r ? applyAllMv(f, parse(r)) : f).join());
+    sols.forEach(x => { x.prior = pr(x); }); const uniq = []; for (const x of sols.sort((a, b) => b.prior - a.prior)) { const k = x.f96.join(); if (!uniq.some(u => (u.v || (u.v = views(u.f96))).includes(k))) uniq.push(x); }
+    best = uniq[0]; best.others = uniq.slice(1, 4); }
   if (best) best.bad = []; 
   if (best && best.cost > 0) { f96.splice(0, NF, ...best.f96); wings.concat(corners).forEach(fl => { if (bad(fl)) best.bad.push(...fl); }); }
   return best;
@@ -4423,7 +4440,7 @@ function finish4(sh) {
   const raws = [], shotOf = [], q = N * N, fixed = new Map(), uns = new Set(); sh.forEach((s, p) => s.raw.forEach((c, j) => { raws.push(c); shotOf.push(p); if (s.fix && s.fix[j] !== undefined) fixed.set(p * q + j, s.fix[j]); else if ((s.uns || []).includes(j)) uns.add(p * q + j); }));
   const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, CAN, uns);
   const arrs = sh.map((_, k) => asg.slice(k * q, k * q + q)), mrs = sh.map((s, k) => margin.slice(k * q, k * q + q).map((m, j) => m < DUDT || (s.uns || []).includes(j) && !fixed.has(k * q + j) ? 1 : 0));
-  let r = arrange4(arrs), fixedTxt = '';
+  let r = arrange4(arrs, true), fixedTxt = '';
   if (!r || r.cost > 0) { // reparación: la casilla menos segura con su segunda opción, o dos casillas que se cambiaron entre sí (un reflejo)
     const cand = margin.map((v, i) => [uns.has(i) ? -1 : v, i]).filter(([, i]) => !fixed.has(i)).sort((x, y) => x[0] - y[0]).slice(0, 8).map(x => x[1]);
     const tryA = mod => { const a2 = arrs.map(a => a.slice()); mod(a2); const r2 = arrange4(a2); return r2 && r2.cost === 0 ? r2 : null; };
@@ -4437,7 +4454,11 @@ function finish4(sh) {
   if (r.cost > 0 && !scn.forced) { scn.forced = true; $('scmsg').textContent = failMsg(); return; }
   const dudIdx = new Set(r.bad);
   for (let f = 0; f < 6; f++) { const [p, rr] = r.asn[f]; rotK(mrs[p], rr).forEach((v, j) => { if (v) dudIdx.add(f * q + j); }); }
-  applyScan(r.f96, [...dudIdx], r.cost ? 'Resultado aproximado.' : fixedTxt + (r.score === 3 ? 'Escaneo completo: detecté sola la cara y el giro de cada foto, en el orden que sea. ' : 'Escaneo completo (esquema de colores distinto del habitual). ') + 'Pulsa «Calcular solución».');
+  const oths = !r.cost && !fixedTxt && r.others && r.others.length ? r.others.map(o => o.f96) : null, sure = oths && r.prior >= 6 && r.others.every(o => o.prior <= r.prior - 2);
+  if (oths && !sure) oths.forEach(o => r.f96.forEach((v, i) => { if (v !== o[i]) dudIdx.add(i); }));
+  const amb = !oths ? '' : sure ? 'Con estas fotos hay otra forma posible de armar el cubo, pero por cómo lo moviste esta es la correcta; si algo no coincide con tu cubo, toca «Probar otra lectura». '
+    : `Ojo: con estas fotos hay ${oths.length + 1} cubos posibles (el 2×2 y el 4×4 no tienen centros fijos y unas caras pueden ir de distintas maneras). Elegí el más probable y marqué lo que cambia: compáralo con tu cubo y, si no coincide, toca «Probar otra lectura». `;
+  applyScan(r.f96, [...dudIdx], amb + (r.cost ? 'Resultado aproximado.' : fixedTxt + (r.score === 3 ? (amb ? '' : 'Escaneo completo: detecté sola la cara y el giro de cada foto, en el orden que sea. ') : 'Escaneo completo (esquema de colores distinto del habitual). ') + 'Pulsa «Calcular solución».'), oths);
 }
 // ---- 5×5: como el 3×3, el centro fijo de cada foto dice qué cara es; el giro de cada foto sale de las esquinas y aristas centrales
 // (forman un 3×3 que debe ser posible) y, si hay varias opciones, de las alas
@@ -4492,66 +4513,121 @@ function finish5(sh) {
 // confundirlo; por eso se prueban varias asignaciones de caras y, para cada una, los 4⁶ giros, y se elige la que forma
 // más piezas reales (esquinas y aristas que existen en un cubo). Así un color mal leído no desordena todo el cubo. ----
 let PCS = null;
+// piezas de un cubo impar y cómo se reconoce cada una: las esquinas por sus 3 colores en orden; las aristas del medio por sus 2 colores;
+// en el 5×5 las alas además tienen «mano» (de cada arista hay un ala izquierda y una derecha), así que se leen en orden
 function oddPieces() {
   if (PCS && PCS.N === N) return PCS;
-  const G = geo(N), S0 = solvedSt(N), cor = new Set(), edg = new Set(), corners = [], edges = [];
+  const G = geo(N), S0 = solvedSt(N), cor = new Set(), edg = new Set(), wng = new Set(), list = [];
+  const hand = (a, b, p) => { const na = G.pos[a].n, nb = G.pos[b].n, cx = [na[1] * nb[2] - na[2] * nb[1], na[2] * nb[0] - na[0] * nb[2], na[0] * nb[1] - na[1] * nb[0]]; return Math.sign(cx[0] * p[0] + cx[1] * p[1] + cx[2] * p[2]); };
   for (const pc of G.pieces) {
-    if (pc.fl.length === 3) { corners.push(pc.fl); const c = pc.fl.map(i => S0[i]); for (let r = 0; r < 3; r++) cor.add(c[r] * 36 + c[(r + 1) % 3] * 6 + c[(r + 2) % 3]); }
-    else if (pc.fl.length === 2) { edges.push(pc.fl); const c = pc.fl.map(i => S0[i]); edg.add(Math.min(...c) * 6 + Math.max(...c)); }
+    if (pc.fl.length === 3) { list.push({fl: pc.fl, t: 0}); const c = pc.fl.map(i => S0[i]); for (let r = 0; r < 3; r++) cor.add(c[r] * 36 + c[(r + 1) % 3] * 6 + c[(r + 2) % 3]); }
+    else if (pc.fl.length === 2) { const h = hand(pc.fl[0], pc.fl[1], pc.p), fl = h < 0 ? [pc.fl[1], pc.fl[0]] : pc.fl, c = fl.map(i => S0[i]);
+      list.push({fl, t: h ? 2 : 1}); if (h) wng.add(c[0] * 6 + c[1]); else edg.add(Math.min(...c) * 6 + Math.max(...c)); }
   }
-  return (PCS = {N, corners, edges, cor, edg});
+  const corners = list.filter(x => x.t === 0).map(x => x.fl), edges = list.filter(x => x.t > 0).map(x => x.fl);
+  return (PCS = {N, list, corners, edges, cor, edg, wng, seen: new Uint32Array(3 * 216), stamp: 0});
 }
+// clave de la pieza (−1 si no existe en un cubo real); dos piezas con la misma clave son la misma pieza repetida
+function pieceKey(x, f, P) {
+  const fl = x.fl;
+  if (x.t === 0) { const a = f[fl[0]], b = f[fl[1]], c = f[fl[2]], k = a * 36 + b * 6 + c; if (!P.cor.has(k)) return -1; return Math.min(k, b * 36 + c * 6 + a, c * 36 + a * 6 + b); }
+  const a = f[fl[0]], b = f[fl[1]];
+  if (x.t === 1) { const k = Math.min(a, b) * 6 + Math.max(a, b); return P.edg.has(k) ? k : -1; }
+  const k = a * 6 + b; return P.wng.has(k) ? k : -1;
+}
+const pieceValid = (x, f, P) => pieceKey(x, f, P) >= 0;
+// cuántas piezas reales hay, cada una contada una sola vez: un giro equivocado de una cara forma piezas repetidas y baja la cuenta
 function pieceScore(f, P) {
-  let n = 0;
-  for (const fl of P.corners) if (P.cor.has(f[fl[0]] * 36 + f[fl[1]] * 6 + f[fl[2]])) n++;
-  for (const fl of P.edges) { const a = f[fl[0]], b = f[fl[1]]; if (P.edg.has(Math.min(a, b) * 6 + Math.max(a, b))) n++; }
+  const st = ++P.stamp, seen = P.seen; let n = 0;
+  for (const x of P.list) { const k = pieceKey(x, f, P); if (k >= 0) { const id = x.t * 216 + k; if (seen[id] !== st) { seen[id] = st; n++; } } }
+  if (P.stamp > 4e9) { P.stamp = 0; seen.fill(0); }
   return n;
 }
 // en el 5×5 los centros son de dos clases (× y +) y cada una debe tener 4 piezas de cada color (un reflejo puede pasar una a otro color)
 const orb5 = k => { const j = k % 25, r = j / 5 | 0, c = j % 5; return r < 1 || r > 3 || c < 1 || c > 3 || (r === 2 && c === 2) ? -1 : (r + c) % 2 === 0 ? 0 : 1; };
 const orbitsOk = f => { if (N !== 5) return true; const n = [Array(6).fill(0), Array(6).fill(0)]; f.forEach((v, k) => { const o = orb5(k); if (o >= 0) n[o][v]++; }); return n.every(a => a.every(x => x === 4)); };
-const fullCheck = f => N === 3 ? Solver.check(f) : (typeof Solver5 === 'object' ? (Solver5.check(f) || (orbitsOk(f) ? 0 : 9)) : 0);
+// cubo posible: todas las piezas reales y sin repetir (así un cubo «en espejo», con las esquinas al revés, no pasa), y lo que pide cada solucionador
+const fullCheck = f => { const P = oddPieces(); if (pieceScore(f, P) < P.list.length) return 9; return N === 3 ? Solver.check(f) : (typeof Solver5 === 'object' ? (Solver5.check(f) || (orbitsOk(f) ? 0 : 9)) : 0); };
 function finishOdd(sh0) {
-  const q = N * N, c0 = (q - 1) / 2, P = oddPieces(), maxP = P.corners.length + P.edges.length;
+  const q = N * N, c0 = (q - 1) / 2, P = oddPieces(), maxP = P.list.length;
   // si con las fotos tal cual no sale un cubo perfecto, se prueba también con las imágenes en espejo (cámara frontal o vista reflejada)
   const flipJ = j => (j / N | 0) * N + (N - 1 - j % N);
   const flipShot = s => { const o = {...s, raw: s.raw.map((_, j) => s.raw[flipJ(j)])};
     if (s.fix) { o.fix = {}; for (const j in s.fix) o.fix[flipJ(+j)] = s.fix[j]; } if (s.uns) o.uns = s.uns.map(flipJ); return o; };
-  const a = finishOddTry(sh0, q, c0, P);
-  const b = a.sc < maxP || fullCheck(a.full) ? finishOddTry(sh0.map(flipShot), q, c0, P) : null;
-  const best = b && b.sc > a.sc + 1 ? b : a;
-  return finishOddApply(best.sh, best, q, c0, P, maxP, best === b);
+  if (window.__cubo) window.__oddList = [];
+  let top = pickOdd(finishOddTry(sh0, q, c0, P, false), q, c0, P, maxP);
+  if (top.o.sc < maxP || fullCheck(top.o.full)) { const t2 = pickOdd(finishOddTry(sh0.map(flipShot), q, c0, P, true), q, c0, P, maxP); if (t2.cost < top.cost) top = t2; }
+  if (window.__cubo) window.__oddDbg = {cost: top.cost, prior: top.o.prior, sc: top.o.sc, perm: top.o.perm, flipped: top.o.flipped, fixes: top.rep.fixedCells.length, ok: top.rep.ok};
+  return finishOddApply(top.o.sh, top.o, top.rep, q, c0, P, top.o.flipped);
 }
-function finishOddTry(sh, q, c0, P) {
+// Cómo se suele escanear: con el celular derecho, se giran las 4 caras de los lados (cada foto con la misma cara arriba) y luego
+// se inclina el cubo para ver la de arriba y la de abajo (alineadas con la última cara de lado). A veces dos lecturas forman un cubo
+// posible (en un cubo poco mezclado, dos caras giradas media vuelta también «cuadran»): entonces gana la que sigue esa forma de mover el cubo.
+const NBR = [[5, 1, 2, 4], [0, 5, 3, 2], [0, 1, 3, 4], [2, 1, 5, 4], [0, 2, 3, 5], [0, 4, 3, 1]]; // U R F D L B: caras vecinas arriba, a la derecha, abajo y a la izquierda
+const OPPF = [3, 4, 5, 0, 1, 2];
+function orientPrior(n, face) {
+  const top = [], bot = [], fOf = []; for (let f = 0; f < 6; f++) { const k = face[f], r = (n >> (2 * f)) & 3; fOf[k] = f; top[k] = NBR[f][r]; bot[k] = NBR[f][(r + 2) % 4]; }
+  let best = 0;
+  for (let T = 0; T < 6; T++) { let sc = 0, last = -1;
+    for (let k = 0; k < 6; k++) { const f = fOf[k];
+      if (f !== T && f !== OPPF[T]) { if (top[k] === T) sc++; last = f; }
+      else if (last >= 0 && (f === T ? bot[k] === last : top[k] === last)) sc++; }
+    if (sc > best) best = sc; }
+  return best;
+}
+// cada asignación de fotos a caras (las más parecidas por los centros) con su mejor giro de cada foto
+function finishOddTry(sh, q, c0, P, flipped) {
   const cen = sh.map(s => lab(s.raw[c0]));
-  // asignaciones de caras: todas las permutaciones, ordenadas por parecido de los centros; se prueban las mejores
   const perms = []; (function gen(a, used) { if (a.length === 6) { perms.push({p: a.slice(), c: a.reduce((t, f, k) => t + cdist(cen[k], CAN[f]), 0)}); return; } for (let f = 0; f < 6; f++) if (!used[f]) { used[f] = 1; a.push(f); gen(a, used); a.pop(); used[f] = 0; } })([], []);
   perms.sort((x, y) => x.c - y.c);
-  let best = null;
-  for (const {p: bestP, c: ccost} of perms.slice(0, 30)) {
-    const face = Array(6), ref = Array(6); sh.forEach((s, k) => { face[bestP[k]] = k; ref[bestP[k]] = cen[k]; });
-    const raws = [], shotOf = [], fixed = new Map();
-    const uns = new Set();
+  const outs = [];
+  // los colores se leen una sola vez, con la asignación de caras más probable (no dependen de en qué cara va cada foto)
+  const pc = {}; { const b0 = perms[0].p, face = Array(6), ref = Array(6); sh.forEach((s, k) => { face[b0[k]] = k; ref[b0[k]] = cen[k]; });
+    const raws = [], shotOf = [], fixed = new Map(), uns = new Set();
     for (let f = 0; f < 6; f++) for (let j = 0; j < q; j++) { const s = sh[face[f]]; raws.push(s.raw[j]); shotOf.push(f); if (j === c0) fixed.set(f * q + j, f); else if (s.fix && s.fix[j] !== undefined) fixed.set(f * q + j, s.fix[j]); else if ((s.uns || []).includes(j)) uns.add(f * q + j); }
-    const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, ref, uns);
+    const r = adaptColors(raws, shotOf, q, fixed, ref, uns); for (let f = 0; f < 6; f++) pc[face[f]] = {asg: r.asg.slice(f * q, f * q + q), margin: r.margin.slice(f * q, f * q + q), alt: r.alt.slice(f * q, f * q + q)}; }
+  for (const {p: bestP, c: ccost} of perms.slice(0, 30)) {
+    const face = Array(6); sh.forEach((s, k) => { face[bestP[k]] = k; });
+    const fixed = new Map(), asg = [], margin = [], alt = [];
+    for (let f = 0; f < 6; f++) { const s = sh[face[f]], d = pc[face[f]]; for (let j = 0; j < q; j++) { const i = f * q + j;
+      if (j === c0) { fixed.set(i, f); asg.push(f); margin.push(99); alt.push(f); continue; } // el centro fijo dice qué cara es
+      if (s.fix && s.fix[j] !== undefined) fixed.set(i, s.fix[j]); asg.push(d.asg[j]); margin.push(d.margin[j]); alt.push(d.alt[j]); } }
     const g = Array.from({length: 6}, (_, f) => asg.slice(f * q, f * q + q)), rots = g.map(a => [a, rotK(a, 1), rotK(a, 2), rotK(a, 3)]);
-    for (let n = 0; n < 4096; n++) {
-      const full = []; for (let f = 0; f < 6; f++) full.push(...rots[f][(n >> (2 * f)) & 3]);
-      const sc = pieceScore(full, P);
-      if (best && sc < best.sc) continue;
-      if (best && sc === best.sc && ccost >= best.ccost) continue;
-      best = {sc, ccost, full, n, face, asg, margin, alt, fixed, perm: bestP};
-    }
-    if (best && best.sc === P.corners.length + P.edges.length && fullCheck(best.full) === 0) break; // cubo perfecto con la asignación más probable
+    const build = n => { const full = []; for (let f = 0; f < 6; f++) full.push(...rots[f][(n >> (2 * f)) & 3]); return full; };
+    let bs = -1, ns = [];
+    for (let n = 0; n < 4096; n++) { const sc = pieceScore(build(n), P); if (sc > bs) { bs = sc; ns = [n]; } else if (sc === bs && ns.length < 256) ns.push(n); }
+    // con el mismo número de piezas: primero los giros que forman un cubo posible y, entre ellos, el que sigue la forma habitual de escanear
+    const byPr = ns.map(m => ({m, pr: orientPrior(m, face)})).sort((a, b) => b.pr - a.pr); let pick = null;
+    // y si hay otra lectura posible distinta (dos caras que pueden ir de dos maneras), se guarda para ofrecerla
+    const others = [], seenF = new Set();
+    for (let t = 0; t < byPr.length && t < 64 && others.length < 3; t++) { const {m, pr} = byPr[t], f2 = build(m); if (fullCheck(f2)) continue; const key = f2.join(); if (seenF.has(key)) continue; seenF.add(key);
+      if (!pick) pick = {n: m, full: f2, v: true, pr}; else others.push({n: m, full: f2, pr}); }
+    if (!pick) pick = {n: byPr[0].m, full: build(byPr[0].m), v: false, pr: byPr[0].pr};
+    outs.push({sc: bs, ccost, full: pick.full, n: pick.n, prior: pick.pr, valid: pick.v, others, face, asg, margin, alt, fixed, perm: bestP, sh, flipped});
+    if (bs === P.list.length && pick.v && ccost === perms[0].c) break; // cubo perfecto con la asignación de caras más probable
   }
-  best.sh = sh; return best;
+  return outs;
 }
-function finishOddApply(sh, best, q, c0, P, maxSc, flipped) {
+// se elige la lectura más creíble: que los colores calcen con sus nombres, que el cubo sea posible y con pocas correcciones.
+// (Antes ganaba la que formaba más piezas, y una asignación con los colores cambiados —blanco por amarillo, rojo por naranja— forma un
+// cubo «perfecto» pero distinto del real: el cubo quedaba con colores donde no iban.)
+function pickOdd(outs, q, c0, P, maxP) {
+  // costo: centros que no calzan con su color, piezas que faltan, correcciones, espejo; y un poco a favor de la forma habitual de escanear
+  const c0m = Math.min(...outs.map(o => o.ccost)), base = o => 0.8 * (o.ccost - c0m) + (o.flipped ? 25 : 0) - 4 * o.prior;
+  const pre = outs.map(o => ({o, c: base(o) + 10 * (maxP - o.sc) + (o.valid ? 0 : 20)})).sort((a, b) => a.c - b.c).slice(0, 4);
+  let best = null; const dbg = [];
+  for (const {o} of pre) { const rep = oddRepair(o.sh, o, q, c0, P), cost = base(o) + 12 * rep.fixedCells.length + (rep.ok ? 0 : 40 + 15 * rep.nb);
+    dbg.push({perm: o.perm.join(''), ccost: Math.round(o.ccost), prior: o.prior, sc: o.sc, fixes: rep.fixedCells.length, ok: rep.ok, cost: Math.round(cost), flipped: o.flipped});
+    if (!best || cost < best.cost) best = {o, rep, cost}; }
+  if (window.__cubo) (window.__oddList = window.__oddList || []).push(...dbg, ...outs.slice(0, 8).map(o => ({perm: o.perm.join(''), ccost: Math.round(o.ccost), prior: o.prior, sc: o.sc, pre: 1})));
+  return best;
+}
+// reparación: entre todas las correcciones que dejan un cubo posible se elige la más creíble (casillas menos seguras)
+function oddRepair(sh, best, q, c0, P) {
   const {full, n, face, margin, alt, fixed} = best;
-  const rotOf = f => (n >> (2 * f)) & 3, posOf = (f, j) => { // casilla j de la foto (orden de la cámara) → casilla del cubo
-    const r = rotOf(f), m = Array.from({length: q}, (_, k) => k); return f * q + rotK(m, r).indexOf(j); };
+  const rotOf = f => (n >> (2 * f)) & 3, posOf = (f, j) => { const r = rotOf(f), m = Array.from({length: q}, (_, k) => k); return f * q + rotK(m, r).indexOf(j); };
   let out = full.slice(), fixedCells = [];
-  if (fullCheck(out)) { // reparación: entre todas las correcciones que dejan un cubo posible se elige la más creíble (casillas menos seguras)
+  if (fullCheck(out)) {
     const ofPos = new Map(); for (let f = 0; f < 6; f++) for (let j = 0; j < q; j++) ofPos.set(posOf(f, j), f * q + j);
     const unsP = new Set(); for (let f = 0; f < 6; f++) for (const j of (sh[face[f]].uns || [])) unsP.add(posOf(f, j));
     const mg = k => { const i = ofPos.get(k); return unsP.has(k) ? -2 : i === undefined ? 50 : margin[i]; };
@@ -4562,12 +4638,12 @@ function finishOddApply(sh, best, q, c0, P, maxSc, flipped) {
     for (const sb of subs) { const t = out.slice(), cells = sb.map(x => posOf(cand[x] / q | 0, cand[x] % q)); sb.forEach((x, k) => { t[cells[k]] = alt[cand[x]]; });
       tryFix(t, cells, cells.reduce((a, k) => a + Math.max(mg(k), -2) + 4, 0)); }
     // 2) un reflejo suele cambiar dos casillas entre sí (un azul leído como blanco y un blanco que tomó su lugar): intercambiar dos casillas de piezas imposibles
-    const pv = (fl, s) => { const c = fl.map(i => s[i]); return fl.length === 3 ? P.cor.has(c[0] * 36 + c[1] * 6 + c[2]) : P.edg.has(Math.min(...c) * 6 + Math.max(...c)); };
-    const pcsOf = new Map(); for (const fl of P.corners.concat(P.edges)) for (const i of fl) { if (!pcsOf.has(i)) pcsOf.set(i, []); pcsOf.get(i).push(fl); }
-    const badP = P.corners.concat(P.edges).filter(fl => !pv(fl, out)), bad = [...new Set(badP.flat())].filter(k => k % q !== c0).slice(0, 40);
+    const pv = (x, s) => pieceValid(x, s, P);
+    const pcsOf = new Map(); for (const x of P.list) for (const i of x.fl) { if (!pcsOf.has(i)) pcsOf.set(i, []); pcsOf.get(i).push(x); }
+    const badP = P.list.filter(x => !pv(x, out)), bad = [...new Set(badP.flatMap(x => x.fl))].filter(k => k % q !== c0).slice(0, 40);
     for (let x = 0; x < bad.length; x++) for (let y = x + 1; y < bad.length; y++) { const a = bad[x], b = bad[y]; if (out[a] === out[b]) continue;
       const t = out.slice(); t[a] = out[b]; t[b] = out[a];
-      if (!(pcsOf.get(a) || []).concat(pcsOf.get(b) || []).every(fl => pv(fl, t)) || !badP.every(fl => pv(fl, t))) continue; // primero lo barato
+      if (!(pcsOf.get(a) || []).concat(pcsOf.get(b) || []).every(z => pv(z, t)) || !badP.every(z => pv(z, t))) continue; // primero lo barato
       const ia = ofPos.get(a), ib = ofPos.get(b), cons = (ia !== undefined && alt[ia] === out[b] ? 0 : 6) + (ib !== undefined && alt[ib] === out[a] ? 0 : 6);
       tryFix(t, [a, b], Math.max(mg(a), -2) + Math.max(mg(b), -2) + 8 + cons); }
     if (bestFix) { out = bestFix.t; fixedCells = bestFix.cells; }
@@ -4576,22 +4652,33 @@ function finishOddApply(sh, best, q, c0, P, maxSc, flipped) {
     const conf = new Map(); for (let f = 0; f < 6; f++) { const s = sh[face[f]]; for (let j = 0; j < q; j++) { const i = f * q + j; conf.set(posOf(f, j), {m: (s.uns || []).includes(j) ? -1 : margin[i], alt: alt[i]}); } }
     const t = out.slice(), changed = [];
     for (const o of [0, 1]) { for (let guard = 0; guard < 12; guard++) {
-      const n = Array(6).fill(0); t.forEach((v, k) => { if (orb5(k) === o) n[v]++; }); const sur = n.map((x, c) => x > 4 ? c : -1).filter(c => c >= 0), def = n.map((x, c) => x < 4 ? c : -1).filter(c => c >= 0);
+      const cn = Array(6).fill(0); t.forEach((v, k) => { if (orb5(k) === o) cn[v]++; }); const sur = cn.map((x, c) => x > 4 ? c : -1).filter(c => c >= 0), def = cn.map((x, c) => x < 4 ? c : -1).filter(c => c >= 0);
       if (!sur.length) break;
       let bk = -1, bm = 1e9; t.forEach((v, k) => { if (orb5(k) === o && sur.includes(v)) { const c = conf.get(k); if (c && c.m < bm) { bm = c.m; bk = k; } } });
       if (bk < 0) break; const a2 = conf.get(bk).alt; t[bk] = def.includes(a2) ? a2 : def[0]; changed.push(bk); } }
     if (!fullCheck(t)) { out = t; fixedCells = fixedCells.concat(changed); }
   }
-  const ok = !fullCheck(out), dudIdx = new Set(fixedCells);
+  const ok = !fullCheck(out), nb = ok ? 0 : P.list.filter(x => !pieceValid(x, out, P)).length;
+  return {out, fixedCells, ok, nb, posOf};
+}
+function finishOddApply(sh, best, rep, q, c0, P, flipped) {
+  const {face, margin, fixed} = best, {out, fixedCells, ok, posOf} = rep;
+  const dudIdx = new Set(fixedCells);
   for (let f = 0; f < 6; f++) { const s = sh[face[f]]; for (let j = 0; j < q; j++) { const i = f * q + j; if (!fixed.has(i) && (margin[i] < DUDT || (s.uns || []).includes(j))) dudIdx.add(posOf(f, j)); } }
   let nb = 0;
   if (!ok) { // quedan piezas imposibles: se marcan para revisarlas (el resto del cubo está bien colocado)
-    for (const fl of P.corners.concat(P.edges)) { const c = fl.map(i => out[i]); const v = fl.length === 3 ? P.cor.has(c[0] * 36 + c[1] * 6 + c[2]) : P.edg.has(Math.min(...c) * 6 + Math.max(...c)); if (!v) { nb++; fl.forEach(i => dudIdx.add(i)); } }
+    for (const x of P.list) if (!pieceValid(x, out, P)) { nb++; x.fl.forEach(i => dudIdx.add(i)); }
   }
   if (!ok && scn && !scn.forced) { const d = dupShots(scn.shots, true); if (d) { scn.forced = true; $('scmsg').textContent = failMsg(); return; } } // quizá una cara repetida: mejor avisar que armar un cubo con piezas imposibles
-  applyScan(out, [...dudIdx], (flipped ? 'Las imágenes llegaron en espejo (¿cámara frontal?): las corregí. ' : '') + (ok ? (fixedCells.length ? `Corregí ${fixedCells.length} color${fixedCells.length > 1 ? 'es' : ''} mal leído${fixedCells.length > 1 ? 's' : ''} usando la estructura del cubo. ` : 'Escaneo completo: detecté sola la cara y el giro de cada foto. ')
+  // dos lecturas posibles e igual de probables: se marca lo que cambia entre ellas y se ofrece la otra con un toque
+  // (si las fotos siguen la forma habitual de escanear, la elegida es casi segura: solo se deja el botón, sin marcar nada)
+  const oths = ok && !fixedCells.length && best.others && best.others.length ? best.others.map(o => o.full) : null;
+  const sure = oths && best.prior >= 6 && best.others.every(o => o.pr <= best.prior - 2);
+  if (oths && !sure) oths.forEach(o => out.forEach((v, i) => { if (v !== o[i]) dudIdx.add(i); }));
+  applyScan(out, [...dudIdx], (oths ? (sure ? 'Con estas fotos hay otra forma posible de girar algunas caras, pero por cómo moviste el cubo esta es la correcta; si algo no coincide con tu cubo, toca «Probar otra lectura». '
+    : `Ojo: con estas fotos hay ${oths.length + 1} cubos posibles (unas caras pueden ir giradas de distintas maneras). Elegí el más probable y marqué lo que cambia: compáralo con tu cubo y, si no coincide, toca «Probar otra lectura». `) : '') + (flipped ? 'Las imágenes llegaron en espejo (¿cámara frontal?): las corregí. ' : '') + (ok ? (fixedCells.length ? `Corregí ${fixedCells.length} color${fixedCells.length > 1 ? 'es' : ''} mal leído${fixedCells.length > 1 ? 's' : ''} usando la estructura del cubo. ` : 'Escaneo completo: detecté sola la cara y el giro de cada foto. ')
     : nb ? `Casi listo: ${nb} pieza${nb > 1 ? 's' : ''} no cuadra${nb > 1 ? 'n' : ''} (algún color mal leído, quizá por un reflejo). Las marqué con borde punteado: corrígelas antes de calcular. `
-    : 'Casi listo: todas las piezas existen, pero así el cubo no se puede armar (una esquina girada o una arista volteada: quizá un color mal leído). Revisa las casillas con borde punteado antes de calcular. ') + 'Pulsa «Calcular solución».');
+    : 'Casi listo: todas las piezas existen, pero así el cubo no se puede armar (una esquina girada o una arista volteada: quizá un color mal leído). Revisa las casillas con borde punteado antes de calcular. ') + 'Pulsa «Calcular solución».', oths);
 }
 function dupCheck(sh) { // true: se avisó de una cara repetida (con «Procesar» otra vez se usa igual)
   if (N < 3 || scn.forced || scn.dupOk) return false; const d = dupShots(sh); if (!d) return false;
@@ -6040,7 +6127,7 @@ TS.load(() => { T.sel = tl().length - 1; if (curTab === 3) { tView(); tUI(); } }
 setTimeout(() => Pool.warm(3), 1200);
 // gancho de pruebas: solo al abrir el archivo localmente, nunca en la página publicada
 if (location.protocol === 'file:' || location.hostname === 'localhost') window.__cubo = {Pool, phasesOf: () => phases, facelets: () => { const o = Array(6 * N * N); stk.forEach(s => { o[facelet(s)] = s.userData.c; }); return o; },
-  state: () => st.slice(), size: () => N, replay: shots => { scn = {shots}; $('smsg').textContent = ''; try { finishScan(); } catch (e) { return {err: String(e)}; } if (scn) closeScan(); return {res: st.slice(), dud: [...dud], txt: $('smsg').textContent}; }, scanInfo: () => scn && {n: scn.shots.length, src: scn.src, busy: scn.busy, vrun: scn.vrun, noLive: scn.noLive, ev: scn.ev && scn.ev.state, stat: scn.stat},
+  state: () => st.slice(), size: () => N, piece: s => { const P = oddPieces(); return {max: P.list.length, sc: pieceScore(s, P), ok: fullCheck(s) === 0, wng: P.wng.size, edg: P.edg.size, cor: P.cor.size}; }, odd: () => window.__oddDbg, altList: () => scanAlt && scanAlt.list.map(x => x.slice()), alt: () => scanAlt && scanAlt.list[1].slice(), replay: shots => { scn = {shots}; $('smsg').textContent = ''; try { finishScan(); } catch (e) { return {err: String(e)}; } if (scn) closeScan(); return {res: st.slice(), dud: [...dud], txt: $('smsg').textContent}; }, scanInfo: () => scn && {n: scn.shots.length, src: scn.src, busy: scn.busy, vrun: scn.vrun, noLive: scn.noLive, ev: scn.ev && scn.ev.state, stat: scn.stat},
   scanCell: (i, j) => { const s = scn.shots[i], r = scv.getBoundingClientRect(), k = r.width / DET, [x, y] = gridPts(s.g, k, (j % N + .5) / N - .5, ((j / N | 0) + .5) / N - .5); return {x: r.left + x, y: r.top + y, lab: s.labs[j]}; },
   screenOf: p => { const v = new THREE.Vector3(...p); v.project(cam); const r = cv.getBoundingClientRect(); return [r.left + (v.x + 1) / 2 * r.width, r.top + (1 - v.y) / 2 * r.height]; }, home: () => { Object.assign(view, HOME); Object.assign(goal, HOME); redraw(); }};
 if (window.__cubo) window.__learn = () => ({rel: async k => { const P = LV.pr, F = "URFDLB", ms = []; for (let j = 0; j < k; j++) ms.push(F[Math.random() * 6 | 0] + ["", "'", "2"][Math.random() * 3 | 0]); const cur = LX.ap(N, P.ex.start, ms.join(" ")), t0 = Date.now(), r = await relRoute(N, cur, P.ex.start); return {ok: !!r, len: r ? r.length : -1, ms: Date.now() - t0, mix: ms.join(" ")}; }, chk: () => { const P = LV.pr; return {now: LX.check(N, P.ex, prState()), sol: LX.check(N, P.ex, applyAllMv(P.ex.start, parse(P.ex.sol))), st: prState().join(""), moves: fmtMoves(P.moves)}; }, move: t => prMove(parse(t)[0]), atStart: () => !!LV.pr && !LV.pr.moves.length, pr: () => LV.pr && {ex: LV.pr.ex, moves: LV.pr.moves.length, toks: LV.pr.toks, k: LV.pr.k, on: LV.pr.on, si: LV.pr.si, gi: LV.pr.gi, ci: LV.pr.ci, name: prCase(LV.pr).n, au: LV.pr.au, auM: LV.pr.auM, alg: LV.pr.alg}, open: n => { const m = curMeth(); for (let si = 0; si < m.steps.length; si++) (m.steps[si].cases || []).forEach((g, gi) => g.list.forEach((c, ci) => { if (c.n === n && !LV.pr) { openStep(si); startPractice(si, gi, ci); } })); return !!LV.pr; }, qz: () => LV.qz && {right: LV.qz.opts.indexOf(LV.qz.cur), n: LV.qz.opts.length}, store: () => JSON.stringify(LST), lx: () => LX, learn: () => LEARN, an: s => anShow(s), N: () => N});
