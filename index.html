@@ -366,17 +366,63 @@ body.tt .hud{display:none}
 .lp-txt p{margin:0;font-size:14px}
 .lp-g{color:var(--ink2)}
 .lp-set,.lp-alg{display:grid;gap:3px}
-.lp-set span,.lp-alg span{font:700 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+.lp-set>span,.lp-alg>span{font:700 10.5px/1.2 var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
 .lp-set code,.lp-alg code{font:500 13px/1.55 var(--f-mono);word-break:break-word}
 .lp-alg{grid-template-columns:1fr auto;align-items:center}
-.lp-alg span{grid-column:1/-1}
+.lp-alg>span{grid-column:1/-1}
 .lp-alg code.hid{filter:blur(6px);user-select:none}
 .lp-st{margin:0;min-height:1.4em;font-size:14px;font-weight:600}
 .lp-st.ok{color:var(--good)}
 .lp-st.info{color:var(--info)}
 .lp-st code{font:500 12.5px var(--f-mono);font-weight:500}
 #lpkeys button{min-height:38px;font-size:13px}
-@media (max-width:420px){.lsb{padding-left:0}.lp-case{grid-template-columns:72px 1fr}.lp-dia svg{width:72px;height:72px}}
+.lprog{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--ink2)}
+.lprog>span{display:inline-flex;align-items:center;gap:6px}.lprog>span svg.i{width:16px;height:16px;color:var(--good)}.lprog b{color:var(--ink)}
+.lprog .btn{margin-left:auto}
+.lgd{margin:-2px 0 2px;font-size:13px;color:var(--ink2);max-width:64ch}
+.lgrp h4{display:flex;align-items:center;gap:8px}
+.lgrp h4 .lk{display:inline-flex;align-items:center;gap:3px;color:var(--good);letter-spacing:0}.lgrp h4 .lk svg.i{width:13px;height:13px}
+.lcase{position:relative}
+.lcase .kn{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--good);color:#fff}
+.lcase .kn svg.i{width:14px;height:14px}
+.lcase.known{background:color-mix(in srgb,var(--good) 9%,var(--fill))}
+.ltips{margin:0;padding-left:20px;display:grid;gap:8px;max-width:66ch;font-size:14.5px}
+.ltipst .lsh .ln{background:var(--signal);color:var(--on-signal);box-shadow:inset 0 -2px 0 var(--signal-edge)}.ltipst .lsh .ln svg.i{width:16px;height:16px}
+.lp-top{align-items:center}.lp-top>div{flex:1;min-width:0}
+.lp-know{flex:none}.lp-know.on{background:var(--good);color:#fff;box-shadow:inset 0 -2px 0 rgba(0,0,0,.25)}
+.lp-mode{justify-self:start;flex-wrap:wrap}
+.lp-line{display:flex;align-items:flex-start;gap:8px}
+.lp-line code{flex:1;min-width:0}
+.ib.xs{width:30px;height:30px;border-radius:9px;flex:none}.ib.xs svg.i{width:15px;height:15px}
+.lp-alg{grid-template-columns:none}
+.lp-alg code.hid{filter:blur(6px);user-select:none}
+.lp-alg small{font-family:var(--f-ui);color:var(--ink2)}
+.tg{display:inline-block;padding:0 4px;margin:1px 0;border-radius:6px;background:var(--fill);box-shadow:inset 0 0 0 1px var(--hair)}
+.tg.au{background:transparent;box-shadow:inset 0 0 0 1px var(--ledge);color:var(--ink2)}
+.tk{border-radius:4px;padding:0 1px;transition:background .15s,color .15s}
+.tk.dn{color:var(--ink2);opacity:.55}
+.tk.nx{background:var(--signal);color:var(--on-signal);font-weight:700;padding:0 3px;box-shadow:inset 0 -2px 0 var(--signal-edge)}
+.lp-trg{margin:2px 0 0;font-size:12.5px;color:var(--ink2);line-height:1.45}
+.lp-tm{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 12px;border-radius:12px;background:var(--fill)}
+.lp-tm b{font:700 22px/1 var(--f-mono);min-width:5.5ch}.lp-tm span{flex:1;font-size:13px;color:var(--ink2)}
+.lq-body{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:start}
+.lq-body .lp-dia svg{width:120px;height:120px}
+.lq-opts{display:grid;gap:8px}
+.lq-o{border:0;text-align:left;padding:11px 12px;border-radius:12px;background:var(--fill);color:var(--ink);box-shadow:inset 0 -2px 0 var(--ledge);font:inherit;cursor:pointer}
+.lq-o b{font:700 14px/1.25 var(--f-display)}.lq-o code{font:500 12px/1.5 var(--f-mono);word-break:break-word}
+.lq-o.ok{background:color-mix(in srgb,var(--good) 22%,var(--fill));box-shadow:inset 0 0 0 2px var(--good)}
+.lq-o.bad{background:color-mix(in srgb,var(--bad) 18%,var(--fill));box-shadow:inset 0 0 0 2px var(--bad)}
+.lq-o:disabled{cursor:default;opacity:1}
+.lq-score{font-size:13px;color:var(--ink2);font-weight:600}
+.lana{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 14px;border-radius:14px;background:var(--fill);box-shadow:inset 0 0 0 1px var(--hair)}
+.lana>div{flex:1;min-width:200px;display:grid;gap:2px}.lana b{font:700 14px/1.25 var(--f-display)}.lana small{font-size:13px;color:var(--ink2)}
+.lana-b{display:flex;gap:8px;flex-wrap:wrap}
+.lan-steps{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14px}.lan-steps code{font:500 13px/1.5 var(--f-mono)}
+.lp-case.nodia{grid-template-columns:1fr}.lp-case.nodia .lp-dia{display:none}
+.lanp .lp-txt code{font:500 13px/1.5 var(--f-mono);word-break:break-word}
+.lback{display:flex;align-items:center;gap:10px;padding:12px 0 4px;flex-wrap:wrap}.lback span{font-size:13px;color:var(--ink2);flex:1;min-width:12ch}
+.lback[hidden]{display:none}
+@media (max-width:420px){.lsb{padding-left:0}.lp-case{grid-template-columns:72px 1fr}.lp-dia svg{width:72px;height:72px}.lq-body{grid-template-columns:96px 1fr}.lq-body .lp-dia svg{width:96px;height:96px}}
 .lgrid{display:grid;gap:10px}
 .lcard{display:grid;gap:9px;padding:14px;border-radius:16px;background:var(--fill)}
 .lcard h3{margin:0;font:700 14px/1.3 var(--f-display)}
@@ -401,6 +447,7 @@ body.tt .hud{display:none}
 .toast{position:fixed;left:50%;bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px) + 16px);z-index:40;transform:translate(-50%,14px);opacity:0;pointer-events:none;
   display:flex;align-items:center;gap:12px;max-width:calc(100vw - 32px);padding:12px 16px;border-radius:16px;background:var(--ink);color:var(--paper);font:600 14px/1.35 var(--f-ui);
   box-shadow:0 10px 30px rgba(0,0,0,.25);transition:opacity .2s,transform .2s}
+.toast.wide{width:min(calc(100vw - 32px),380px);max-width:none;white-space:normal;text-align:left}
 .toast.on{opacity:1;transform:translate(-50%,0);pointer-events:auto}
 .toast button{border:0;background:transparent;color:var(--signal);font:700 13px var(--f-ui);padding:4px 2px}
 #fx{position:fixed;inset:0;width:100%;height:100%;z-index:45;pointer-events:none}
@@ -469,6 +516,7 @@ body.tt .hud{display:none}
 
 <main class="sheet">
 <section class="pane" id="vis" aria-label="Visor">
+  <div class="lback" id="lback" hidden><button class="btn sm" id="lbackb"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 6l-6 6 6 6M19 6l-6 6 6 6"/></svg>Volver a Aprende</button><span id="lbackt"></span></div>
   <div class="player">
     <div class="pmeta"><b id="cnt">Paso 0 de 0</b><span id="cur"></span></div>
     <input type="range" id="tl" min="0" max="0" value="0" step="1" aria-label="Ir a un paso de la secuencia">
@@ -616,18 +664,35 @@ body.tt .hud{display:none}
     <h2 id="lttl">Aprende a resolver</h2>
     <p class="lead" id="lintro"></p>
     <div class="seg" id="lmeth" role="group" aria-label="Método"></div>
+    <div class="lprog"><span id="lprog"></span><button class="btn sm" id="lrev"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 7h3.2c4.3 0 6.3 10 10.6 10h3.2M3.5 17h3.2c1.5 0 2.7-1.2 3.7-2.9M13.6 9.9c1-1.7 2.2-2.9 3.7-2.9h3.2M18 4l3 3-3 3M18 14l3 3-3 3"/></svg>Repasar al azar</button></div>
+    <div class="lana"><div><b>¿Te trabaste resolviendo tu cubo?</b><small>Escanéalo (o píntalo en Resolver) y te digo en qué paso vas, qué caso tienes y qué algoritmo hacer.</small></div><div class="lana-b"><button class="btn sm cta" id="lana"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l7.6 4.4v8.8L12 20.8l-7.6-4.4V7.6z"/><path d="M12 12l7.6-4.4M12 12v8.8M12 12L4.4 7.6"/></svg>Analizar mi cubo</button><button class="btn sm" id="lex"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z"/></svg>Ver una resolución de ejemplo</button></div></div>
   </div>
   <div class="blk lprac" id="lprac" hidden>
-    <div class="lp-top"><div><p class="eyebrow" id="lpk"></p><h3 id="lpn"></h3></div><button class="ib sm" id="lpx" title="Terminar la práctica" aria-label="Terminar la práctica"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button></div>
+    <div class="lp-top"><div><p class="eyebrow" id="lpk"></p><h3 id="lpn"></h3></div>
+      <button class="btn sm lp-know" id="lpknow" aria-pressed="false" title="Marcar este caso como aprendido"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Me lo sé</button>
+      <button class="ib sm" id="lpx" title="Terminar la práctica" aria-label="Terminar la práctica"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button></div>
+    <div class="seg lp-mode" id="lpmode" role="group" aria-label="Forma de practicar"><button data-m="guia">Guiado</button><button data-m="memo">De memoria</button><button data-m="reloj">Contra reloj</button></div>
     <div class="lp-case"><div class="lp-dia" id="lpdia"></div><div class="lp-txt">
       <p class="lp-g" id="lpg"></p>
-      <p class="lp-set"><span id="lpsetl">Prepáralo en tu cubo armado</span><code id="lpset"></code></p>
-      <p class="lp-alg"><span>Algoritmo</span><code id="lpalg"></code><button class="btn sm" id="lpshow">Mostrar</button></p>
+      <div class="lp-set"><span id="lpsetl">Prepáralo en tu cubo armado</span><div class="lp-line"><code id="lpset"></code><button class="ib xs" id="lpvset" title="Ver la preparación paso a paso en el visor" aria-label="Ver la preparación en el visor"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z"/></svg></button></div></div>
+      <div class="lp-alg"><span id="lpalgl">Algoritmo</span><div class="lp-line"><code id="lpalg"></code><button class="ib xs" id="lpvalg" title="Ver el algoritmo paso a paso en el visor" aria-label="Ver el algoritmo en el visor"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path class="f" d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z"/></svg></button></div><p class="lp-trg" id="lptrg"></p></div>
     </div></div>
     <p class="lp-st" id="lpst" aria-live="polite"></p>
+    <div class="lp-tm" id="lptmw" hidden><b id="lptm">0.0 s</b><span id="lpbest"></span><button class="btn sm" id="lptime">Empezar</button></div>
     <div class="keys" id="lpkeys"></div>
-    <div class="row"><button class="btn sm" id="lpw" aria-pressed="false">Capas anchas</button><button class="btn sm" id="lpundo"></button><button class="btn sm" id="lpback"></button><button class="btn sm" id="lpdemo"></button></div>
+    <div class="row"><button class="btn sm" id="lpw" aria-pressed="false">Capas anchas</button><button class="btn sm" id="lpundo"></button><button class="btn sm" id="lpback"></button><button class="btn sm" id="lphint"></button><button class="btn sm" id="lpshow">Mostrar</button><button class="btn sm" id="lpdemo"></button></div>
     <div class="row"><button class="btn sm" id="lpscan"></button><span class="sp"></span><button class="btn sm" id="lprand"></button><button class="btn sm cta" id="lpnext"></button></div>
+  </div>
+  <div class="blk lprac lanp" id="lanp" hidden>
+    <div class="lp-top"><div><p class="eyebrow" id="lank">Tu cubo</p><h3 id="lann"></h3></div><button class="ib sm" id="lanx" title="Cerrar" aria-label="Cerrar el análisis"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button></div>
+    <div class="lp-case"><div class="lp-dia" id="landia"></div><div class="lp-txt" id="lantxt"></div></div>
+    <div class="row" id="lanbtn"></div>
+  </div>
+  <div class="blk lprac lquiz" id="lquiz" hidden>
+    <div class="lp-top"><div><p class="eyebrow" id="lqk">Reconoce el caso</p><h3 id="lqq">¿Qué caso es?</h3></div><button class="ib sm" id="lqx" title="Terminar" aria-label="Terminar el reconocimiento"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg></button></div>
+    <div class="lq-body"><div class="lp-dia" id="lqdia"></div><div class="lq-opts" id="lqopts"></div></div>
+    <p class="lp-st" id="lqst" aria-live="polite"></p>
+    <div class="row"><span class="lq-score" id="lqscore"></span><span class="sp"></span><button class="btn sm" id="lqprac">Practicarlo</button><button class="btn sm cta" id="lqnext">Siguiente</button></div>
   </div>
   <div class="lsteps" id="lsteps"></div>
   <div class="blk">
@@ -2622,7 +2687,7 @@ const prefs = Object.assign({spd: 0, gap: 0, n: 3, letters: false}, store.get('p
 const savePrefs = () => store.set('prefs', prefs);
 let toastT = 0;
 function toast(text, action, fn) {
-  const t = $('toast'); clearTimeout(toastT);
+  const t = $('toast'); clearTimeout(toastT); t.classList.remove('wide');
   t.innerHTML = ''; const s = document.createElement('span'); s.textContent = text; t.appendChild(s);
   if (action) { const b = document.createElement('button'); b.textContent = action; b.onclick = () => { t.classList.remove('on'); fn(); }; t.appendChild(b); }
   t.classList.add('on'); toastT = setTimeout(() => t.classList.remove('on'), action ? 5000 : 2600);
@@ -3661,6 +3726,19 @@ const nearL = l => { let b = 0; CAN.forEach((q, k) => { if (ldist(l, q) < ldist(
 const cdist = (p, q) => { const c1 = Math.hypot(p[1], p[2]), c2 = Math.hypot(q[1], q[2]), dC = c1 - c2, dH2 = Math.max(0, (p[1] - q[1]) ** 2 + (p[2] - q[2]) ** 2 - dC * dC);
   return Math.sqrt((0.3 * (p[0] - q[0])) ** 2 + (0.5 * dC) ** 2 + 1.5 * dH2); };
 const quick = c => nearL(lab(c));
+// para mostrar mientras se escanea: el corte de tono entre rojo, naranja y amarillo se ajusta a los centros ya capturados
+// (con luz cálida o mucha luz el naranja sube de tono y se veía amarillo en las miniaturas, aunque el resultado final saliera bien)
+const HB = {ro: 41, oy: 73};
+function hueBounds() {
+  HB.ro = 41; HB.oy = 73; if (!scn || N % 2 === 0) return;
+  const c0 = (N * N - 1) / 2, hs = scn.shots.map(s => s.labs[c0]).filter(l => l && Math.hypot(l[1], l[2]) > 25).map(l => Math.atan2(l[2], l[1]) * 57.29578).filter(h => h > 5 && h < 112).sort((a, b) => a - b);
+  let r = null, o = null, y = null;
+  if (hs.length >= 3) { r = hs[0]; o = hs[1]; y = hs[hs.length - 1]; }
+  else if (hs.length === 2) { const [a, b] = hs; if (b - a > 18) { if (b >= 78) { y = b; if (a >= 45) o = a; else r = a; } else { o = b; r = a; } } }
+  if (o !== null && y !== null && y - o > 10) HB.oy = (o + y) / 2; else if (y !== null) HB.oy = Math.max(73, Math.min(y - 12, 86));
+  if (r !== null && o !== null && o - r > 8) HB.ro = (r + o) / 2;
+}
+const nearD = l => { const b = nearL(l); if ((b === 1 || b === 4 || b === 3) && Math.hypot(l[1], l[2]) > 25) { const h = Math.atan2(l[2], l[1]) * 57.29578; return h < HB.ro ? 1 : h < HB.oy ? 4 : 3; } return b; };
 // zonas de búsqueda (en píxeles del recorte): en vivo la cara debe estar dentro de la guía; en fotos y videos puede estar en cualquier sitio cerca del centro
 const ZLIVE = {x0: DET * .38, x1: DET * .62, y0: DET * .38, y1: DET * .62, s0: DET * .36, s1: DET * .9, prior: .6};
 const ZWIDE = {x0: DET * .3, x1: DET * .7, y0: DET * .3, y1: DET * .7, s0: DET * .26, s1: DET * .94, prior: .45};
@@ -3743,7 +3821,7 @@ function drawGrid(g, k, labs, mode, W) {
     const rad = g.s * k / N * .17;
     labs.forEach((l, i) => {
       const [x, y] = P((i % N + .5) / N - .5, ((i / N | 0) + .5) / N - .5);
-      sctx.beginPath(); sctx.arc(x, y, rad, 0, 7); sctx.fillStyle = hex(nearL(l)); sctx.fill();
+      sctx.beginPath(); sctx.arc(x, y, rad, 0, 7); sctx.fillStyle = hex(nearD(l)); sctx.fill();
       sctx.shadowBlur = 0; sctx.lineWidth = Math.max(1.5, rad * .22); sctx.strokeStyle = 'rgba(255,255,255,.95)'; sctx.stroke(); sctx.shadowBlur = lw * 3;
     });
   }
@@ -3802,11 +3880,12 @@ function slotsUI(pop) {
   const n = scn.shots.length;
   $('sccount').textContent = `${n} de 6 caras`;
   $('scstat').textContent = n ? (n < 6 ? 'en cualquier orden y giro' : 'toca una para revisarla') : 'en cualquier orden y giro';
+  hueBounds();
   $('scth').innerHTML = Array.from({length: 6}, (_, k) => {
     const s = scn.shots[k];
     if (!s) return `<div class="th empty${k === n ? ' next' : ''}" aria-hidden="true">${k + 1}</div>`;
     return `<div class="th${k === scn.sel ? ' sel' : ''}${pop && k === n - 1 ? ' pop' : ''}" data-sel="${k}" role="button" tabindex="0" aria-label="Revisar la cara ${k + 1}"><div class="face" style="grid-template-columns:repeat(${N},1fr)">` +
-      s.labs.map(l => `<div class="cell" style="background:${hex(nearL(l))}"></div>`).join('') + `</div>${s.sure === false ? '<em title="Revisa esta cara"></em>' : ''}</div>`;
+      s.labs.map(l => `<div class="cell" style="background:${hex(nearD(l))}"></div>`).join('') + `</div>${s.sure === false ? '<em title="Revisa esta cara"></em>' : ''}</div>`;
   }).join('');
   const go = $('scgo'); go.disabled = n < 6 || scn.busy; go.classList.toggle('on', n === 6 && !scn.busy);
   barUI();
@@ -3854,7 +3933,7 @@ function onEv(r, why) {
   const ev = r.ev; scn.ev = ev; scn.evT = performance.now(); scn.dirty = true;
   if (ev.face) {
     scn.shots.push({...ev.face, img: new ImageData(new Uint8ClampedArray(r.buf), DET, DET)});
-    scn.flash = performance.now(); feedback(); slotsUI(true); scn.forced = false;
+    scn.flash = performance.now(); feedback(); slotsUI(true); scn.forced = false; scn.dupOk = false;
     $('scmsg').textContent = ev.face.uns && ev.face.uns.length ? `La cara ${ev.idx + 1} tenía reflejo en ${ev.face.uns.length} casilla${ev.face.uns.length > 1 ? 's' : ''}: tócala abajo para revisar los colores (y corregirlos si hace falta).`
       : ev.face.sure === false ? `No estoy seguro del recuadro de la cara ${ev.idx + 1}: tócala abajo para revisarla.` : '';
   }
@@ -4102,7 +4181,7 @@ scv.addEventListener('pointermove', e => {
 });
 ['pointerup', 'pointercancel'].forEach(t => scv.addEventListener(t, () => { if (drag && scn && scn.sel >= 0) resample(scn.sel); drag = null; }));
 $('scsz').oninput = () => { if (!scn || scn.sel < 0) return; const s = scn.shots[scn.sel]; s.g.s = $('scsz').value / 100 * DET; $('scszv').textContent = $('scsz').value + '%'; resample(scn.sel); };
-$('scdel').onclick = () => { if (!scn || scn.sel < 0) return; const i = scn.sel; scn.shots.splice(i, 1); SCW.remove(i); scn.forced = false; endReview(); $('scmsg').textContent = `Quité la cara ${i + 1}: vuelve a escanearla.`; };
+$('scdel').onclick = () => { if (!scn || scn.sel < 0) return; const i = scn.sel; scn.shots.splice(i, 1); SCW.remove(i); scn.forced = false; scn.dupOk = false; endReview(); $('scmsg').textContent = `Quité la cara ${i + 1}: vuelve a escanearla.`; };
 $('scback').onclick = endReview;
 $('scth').onclick = e => { const t = e.target.closest('.th[data-sel]'); if (!t || !scn || scn.busy) return; const i = +t.dataset.sel; if (scn.sel === i) endReview(); else review(i); };
 $('scsrc').onclick = e => { const b = e.target.closest('button[data-src]'); if (b && !b.disabled) setSrc(b.dataset.src); };
@@ -4129,24 +4208,38 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && scn) { if 
 const rotN = a => Array.from({length: N * N}, (_, k) => a[N * (N - 1 - k % N) + (k / N | 0)]);
 const DUDT = 7; // margen (en unidades Lab) por debajo del cual una casilla se considera dudosa
 // Agrupa las casillas en 6 colores con el mismo número de casillas por color; se adapta a la luz de las 6 fotos
-function clusterColors(lbs, per, seeds, fixed) {
+// uns: casillas con reflejo (su color no es fiable). No ocupan cupo al agrupar: al final se les dan los colores que faltan
+function clusterColors(lbs, per, seeds, fixed, uns) {
+  uns = uns || new Set();
   let cen = seeds.map(c => c.slice()), asg = Array(lbs.length).fill(-1);
   for (let it = 0; it < 10; it++) {
     asg.fill(-1); const cap = Array(6).fill(per);
     fixed.forEach((c, i) => { asg[i] = c; cap[c]--; });
     const items = [];
-    lbs.forEach((L, i) => { if (asg[i] < 0) for (let c = 0; c < 6; c++) items.push([ldist(L, cen[c]), i, c]); });
+    lbs.forEach((L, i) => { if (asg[i] < 0 && !uns.has(i)) for (let c = 0; c < 6; c++) items.push([ldist(L, cen[c]), i, c]); });
     items.sort((a, b) => a[0] - b[0]);
     for (const [, i, c] of items) if (asg[i] < 0 && cap[c] > 0) { asg[i] = c; cap[c]--; }
+    // el reparto por orden de cercanía puede encadenar errores al llenarse un color (un amarillo en sombra se va al naranja y un naranja
+    // muy oscuro queda en el hueco del amarillo): se cambian dos casillas entre sí mientras eso acerque a ambas a sus colores
+    for (let pass = 0, chg = true; chg && pass < 8; pass++) { chg = false;
+      for (let i = 0; i < lbs.length; i++) { if (fixed.has(i) || asg[i] < 0) continue;
+        for (let j = i + 1; j < lbs.length; j++) { const a = asg[i], b = asg[j]; if (a === b || b < 0 || fixed.has(j)) continue;
+          if (ldist(lbs[i], cen[b]) + ldist(lbs[j], cen[a]) + 1e-9 < ldist(lbs[i], cen[a]) + ldist(lbs[j], cen[b])) { asg[i] = b; asg[j] = a; chg = true; } } } }
     cen = cen.map((o, c) => { const m = [0, 0, 0]; let n = 0; asg.forEach((a, i) => { if (a === c) { m[0] += lbs[i][0]; m[1] += lbs[i][1]; m[2] += lbs[i][2]; n++; } }); return n ? m.map(v => v / n) : o; });
   }
   const hm = warmSplit(lbs, asg, per, fixed);
+  // casillas con reflejo: los colores que quedaron sin completar, al que más se parezca la parte con color de la casilla
+  const left = Array(6).fill(per); asg.forEach(a => { if (a >= 0) left[a]--; }); const left0 = left.slice();
+  if (uns.size) { const it = []; uns.forEach(i => { if (asg[i] < 0) for (let c = 0; c < 6; c++) if (left[c] > 0) it.push([ldist(lbs[i], cen[c]), i, c]); });
+    it.sort((x, y) => x[0] - y[0]); for (const [, i, c] of it) if (asg[i] < 0 && left[c] > 0) { asg[i] = c; left[c]--; }
+    uns.forEach(i => { if (asg[i] < 0) asg[i] = left.findIndex(v => v > 0) >= 0 ? left.findIndex(v => v > 0) : 0; }); }
   const margin = [], alt = [];
   lbs.forEach((L, i) => {
     const own = ldist(L, cen[asg[i]]); let b = -1, bd = 1e9;
     for (let c = 0; c < 6; c++) if (c !== asg[i] && !(hm[i] && WARM.includes(c))) { const d = ldist(L, cen[c]); if (d < bd) { bd = d; b = c; } }
     let m = bd - own;
     if (hm[i] && hm[i].m < m) { m = hm[i].m; b = hm[i].alt; } // entre rojo y naranja decide el tono, no la claridad
+    if (uns.has(i) && !fixed.has(i)) { m = 0; let bb = -1, bdd = 1e9; for (let c = 0; c < 6; c++) if (c !== asg[i] && left0[c] > 0) { const d = ldist(L, cen[c]); if (d < bdd) { bdd = d; bb = c; } } if (bb >= 0) b = bb; }
     margin.push(m); alt.push(b);
   });
   return {asg, margin, alt};
@@ -4157,10 +4250,10 @@ function clusterColors(lbs, per, seeds, fixed) {
 const WARM = [1, 4];
 const hueOf = L => Math.atan2(L[2], L[1]) * 57.29578;
 function warmSplit(lbs, asg, per, fixed) {
-  const hm = Array(lbs.length).fill(null), need = WARM.map(() => per), free = [];
+  const hm = Array(lbs.length).fill(null), need = WARM.map(() => 0), free = [];
   asg.forEach((a, i) => { const k = WARM.indexOf(a); if (k < 0) return; const h = hueOf(lbs[i]);
-    if (fixed.has(i) || Math.hypot(lbs[i][1], lbs[i][2]) < 22 || h < 5 || h > 78) need[k]--; else free.push(i); }); // casi gris o fuera del rango rojo–naranja: se queda como está
-  if (need[0] < 0 || need[1] < 0 || need[0] + need[1] !== free.length || !free.length) return hm;
+    if (fixed.has(i) || Math.hypot(lbs[i][1], lbs[i][2]) < 22 || h < 5 || h > 78) return; free.push(i); need[k]++; }); // casi gris o fuera del rango rojo–naranja: se queda como está
+  if (!free.length) return hm; // se reparten por tono conservando cuántas rojas y naranjas hay
   free.sort((x, y) => hueOf(lbs[x]) - hueOf(lbs[y]));
   const c = need[0], bound = c > 0 && c < free.length ? (hueOf(lbs[free[c - 1]]) + hueOf(lbs[free[c]])) / 2 : null;
   free.forEach((i, r) => { const k = r < c ? 0 : 1; asg[i] = WARM[k]; if (bound !== null) hm[i] = {m: Math.abs(hueOf(lbs[i]) - bound) * 1.2, alt: WARM[1 - k]}; });
@@ -4168,21 +4261,33 @@ function warmSplit(lbs, asg, per, fixed) {
 }
 const CANRGB = [0, 1, 2, 3, 4, 5].map(k => { const v = COL[LET[k]]; return [v >> 16 & 255, v >> 8 & 255, v & 255]; });
 // Corrige la tinta de cada foto (ganancia por canal) y agrupa los colores; se repite hasta que ambas cosas se estabilizan
-function adaptColors(raws, shotOf, per, fixed, seeds) {
+function adaptColors(raws, shotOf, per, fixed, seeds, uns) {
   const gain = Array.from({length: 6}, () => [1, 1, 1]);
   const apply = () => raws.map((c, i) => lab(sat255(c.map((v, q) => v * gain[shotOf[i]][q]))));
+  const kp = Array.from({length: 6}, () => [1, 1, 1]);
   const refit = asg => {
-    for (let p = 0; p < 6; p++) {
-      const g = [0, 0, 0], d = [1e-6, 1e-6, 1e-6];
-      raws.forEach((c, i) => { if (shotOf[i] === p) for (let q = 0; q < 3; q++) { g[q] += CANRGB[asg[i]][q] * c[q]; d[q] += c[q] * c[q]; } });
-      gain[p] = g.map((v, q) => Math.max(.45, Math.min(2.2, v / d[q])));
-    }
+    // Antes cada foto tenía su propia tinta ajustada a los colores de referencia, pero se torcía según los colores de esa cara
+    // (una cara casi toda naranja y roja «subía» el verde y su blanco en sombra se leía verdoso).
+    const ok = i => !(uns && uns.has(i));
+    // colores propios de este cubo con esta cámara: el promedio de cada color entre todas las fotos (ya igualadas entre sí)
+    const M = Array.from({length: 6}, () => [0, 0, 0]), nM = Array(6).fill(0);
+    raws.forEach((c, i) => { if (!ok(i)) return; const k = kp[shotOf[i]]; for (let q = 0; q < 3; q++) M[asg[i]][q] += c[q] * k[q]; nM[asg[i]]++; });
+    M.forEach((m, c) => { if (nM[c]) for (let q = 0; q < 3; q++) m[q] /= nM[c]; });
+    // cada foto se iguala a esos colores (su sombra o su tinta), sin que importe qué colores tiene esa cara
+    for (let p = 0; p < 6; p++) { const g = [0, 0, 0], d = [1e-6, 1e-6, 1e-6]; let n = 0;
+      raws.forEach((c, i) => { if (shotOf[i] !== p || !ok(i) || !nM[asg[i]]) return; n++; for (let q = 0; q < 3; q++) { g[q] += M[asg[i]][q] * c[q]; d[q] += c[q] * c[q]; } });
+      const k = g.map((v, q) => d[q] > 1 ? v / d[q] : kp[p][q]), e = Math.cbrt(Math.max(1e-6, k[0] * k[1] * k[2])), a = Math.min(1, Math.max(0, (n - 4) / 5));
+      kp[p] = k.map(v => e * Math.pow(v / e, a)); } // con pocas casillas (2×2) solo se ajusta la exposición: la tinta de 4 casillas no es fiable
+    // y una tinta común lleva esos colores a los de referencia
+    const G = [0, 0, 0], D = [1e-6, 1e-6, 1e-6];
+    raws.forEach((c, i) => { if (!ok(i)) return; const k = kp[shotOf[i]]; for (let q = 0; q < 3; q++) { const x = c[q] * k[q]; G[q] += CANRGB[asg[i]][q] * x; D[q] += x * x; } });
+    for (let p = 0; p < 6; p++) gain[p] = kp[p].map((k, q) => Math.max(.45, Math.min(2.2, k * G[q] / D[q])));
   };
   // cada foto ya llega con su balance de blancos y su exposición (se calculan al capturarla); antes se ajustaba además la foto
   // para que su centro tuviera el color exacto, pero si el centro estaba en sombra o con brillo eso desajustaba toda la cara
   if (fixed.size) seeds = CAN;
   let out = null;
-  for (let it = 0; it < 6; it++) { out = clusterColors(apply(), per, it ? CAN : seeds, fixed); refit(out.asg); }
+  for (let it = 0; it < 6; it++) { out = clusterColors(apply(), per, it ? CAN : seeds, fixed, uns); refit(out.asg); }
   return out;
 }
 const rotK = (a, r) => { for (let i = 0; i < r; i++) a = rotN(a); return a; };
@@ -4193,7 +4298,31 @@ function applyScan(res, dudIdx, text) {
   msg(text + (dud.size ? ` Marqué ${dud.size} casilla${dud.size > 1 ? 's' : ''} con borde punteado: son las que menos seguras estoy; revísalas antes de calcular.` : '') + ' Si un color quedó mal, elige el color correcto y toca la casilla en la red de abajo o sobre el cubo.');
   if (typeof scanHook === 'function') { const f = scanHook; scanHook = null; f(st.slice()); } // la práctica de Aprende pidió leer el cubo
 }
-const FAILMSG = 'No pude formar un cubo válido con estas 6 caras (¿algún color mal leído, un recuadro corrido o el tamaño de cubo equivocado arriba?). Toca cada cara abajo para revisarla, quita la dudosa y escanéala de nuevo; si pulsas «Procesar» otra vez, usaré el resultado aproximado.';
+// ¿dos fotos de la misma cara? El celular cambia solo el color y la exposición entre una foto y otra, así que se compara la forma:
+// qué casillas son del mismo color entre sí (dentro de cada foto la luz es pareja) y que esos grupos tengan colores parecidos
+function dupShots(sh, loose) { // loose: basta con el mismo dibujo (se usa solo para explicar un fallo)
+  if (N < 3) return null; // (en el 2×2 hay solo 4 casillas por cara: muchas caras distintas tienen el mismo dibujo)
+  const q = N * N, hueOf2 = l => Math.atan2(l[2], l[1]) * 57.29578, chr = l => Math.hypot(l[1], l[2]);
+  const like = (x, y) => { if (ldist(x, y) < 18) return true; const a = chr(x), b = chr(y); if (a < 14 && b < 14) return Math.abs(x[0] - y[0]) < 35;
+    if (a < 22 || b < 22) return false; let d = Math.abs(hueOf2(x) - hueOf2(y)); if (d > 180) d = 360 - d; return d < 12 && Math.max(a, b) / Math.min(a, b) < 1.8; };
+  const parts = L => { const p = L.map((_, i) => i), f = i => p[i] === i ? i : (p[i] = f(p[i]));
+    for (let i = 0; i < q; i++) for (let j = i + 1; j < q; j++) if (like(L[i], L[j])) p[f(i)] = f(j);
+    const m = new Map(), id = L.map((_, i) => { const r = f(i); if (!m.has(r)) m.set(r, m.size); return m.get(r); }); return {id, k: m.size}; };
+  const mean = (L, id, k) => { const o = Array.from({length: k}, () => [0, 0, 0, 0]); L.forEach((l, i) => { const t = o[id[i]]; t[0] += l[0]; t[1] += l[1]; t[2] += l[2]; t[3]++; }); return o.map(t => [t[0] / t[3], t[1] / t[3], t[2] / t[3]]); };
+  const close = (x, y) => { const a = chr(x), b = chr(y); if (a < 18 || b < 18) return Math.max(a, b) < 45; let d = Math.abs(hueOf2(x) - hueOf2(y)); if (d > 180) d = 360 - d; return d < 40; };
+  const P = sh.map(s => { const r = parts(s.labs); return {...r, m: mean(s.labs, r.id, r.k)}; });
+  for (let a = 0; a < sh.length; a++) for (let b = a + 1; b < sh.length; b++) {
+    const A = P[a]; if (A.k < 3 || A.k !== P[b].k) continue;
+    let L = sh[b].labs;
+    for (let r = 0; r < 4; r++, L = rotN(L)) { const B = parts(L), map = new Map(); let ok = true;
+      for (let i = 0; i < q && ok; i++) { const x = A.id[i], y = B.id[i]; if (map.has(x) ? map.get(x) !== y : [...map.values()].includes(y)) ok = false; else map.set(x, y); }
+      if (!ok) continue; const MB = mean(L, B.id, B.k);
+      if (loose || [...map].every(([x, y]) => close(A.m[x], MB[y]))) return [a, b]; }
+  }
+  return null;
+}
+const FAILMSG0 = 'No pude formar un cubo válido con estas 6 caras (¿una cara repetida, algún color mal leído, un recuadro corrido o el tamaño de cubo equivocado arriba?). Toca cada cara abajo para revisarla, quita la dudosa y escanéala de nuevo; si pulsas «Procesar» otra vez, usaré el resultado aproximado.';
+const failMsg = () => { const d = scn && dupShots(scn.shots, true); return d ? `No pude formar un cubo válido: las caras ${d[0] + 1} y ${d[1] + 1} tienen el mismo dibujo, quizá escaneaste dos veces la misma cara. Toca una de ellas abajo, quítala y escanea la que falta; si pulsas «Procesar» otra vez, usaré el resultado aproximado.` : FAILMSG0; };
 // ---- 3×3: el centro de cada foto dice qué cara es ----
 function finish3(sh) {
   const cen = sh.map(s => lab(s.raw[4]));
@@ -4231,7 +4360,7 @@ function finish3(sh) {
       const h2 = search(t); if (h2) { hit = h2; gg = t; fixedCells = sub.map(x => cand[x]); break; }
     }
   }
-  if (!hit && !scn.forced) { scn.forced = true; $('scmsg').textContent = FAILMSG; return; }
+  if (!hit && !scn.forced) { scn.forced = true; $('scmsg').textContent = failMsg(); return; }
   const dudIdx = [];
   if (hit) {
     for (let f = 0; f < 6; f++) { const r = (hit.n >> (2 * f)) & 3, d = dd[f].slice(); fixedCells.forEach(i => { if (i / 9 >> 0 === f) d[i % 9] = 1; }); rotK9(d, r).forEach((v, j) => { if (v) dudIdx.push(f * 9 + j); }); }
@@ -4280,15 +4409,24 @@ function arrange4(arrs) { // también sirve para el 2×2 (solo esquinas)
   return best;
 }
 function finish4(sh) {
-  const raws = [], shotOf = [], q = N * N, fixed = new Map(); sh.forEach((s, p) => s.raw.forEach((c, j) => { raws.push(c); shotOf.push(p); if (s.fix && s.fix[j] !== undefined) fixed.set(p * q + j, s.fix[j]); }));
-  const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, CAN);
+  const raws = [], shotOf = [], q = N * N, fixed = new Map(), uns = new Set(); sh.forEach((s, p) => s.raw.forEach((c, j) => { raws.push(c); shotOf.push(p); if (s.fix && s.fix[j] !== undefined) fixed.set(p * q + j, s.fix[j]); else if ((s.uns || []).includes(j)) uns.add(p * q + j); }));
+  const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, CAN, uns);
   const arrs = sh.map((_, k) => asg.slice(k * q, k * q + q)), mrs = sh.map((s, k) => margin.slice(k * q, k * q + q).map((m, j) => m < DUDT || (s.uns || []).includes(j) && !fixed.has(k * q + j) ? 1 : 0));
-  const r = arrange4(arrs);
-  if (!r) { if (!scn.forced) { scn.forced = true; $('scmsg').textContent = FAILMSG; return; } return applyScan(Array.from({length: 6 * q}, (_, i) => asg[i]), [], 'Resultado aproximado: corrige las casillas tocándolas.'); }
-  if (r.cost > 0 && !scn.forced) { scn.forced = true; $('scmsg').textContent = FAILMSG; return; }
+  let r = arrange4(arrs), fixedTxt = '';
+  if (!r || r.cost > 0) { // reparación: la casilla menos segura con su segunda opción, o dos casillas que se cambiaron entre sí (un reflejo)
+    const cand = margin.map((v, i) => [uns.has(i) ? -1 : v, i]).filter(([, i]) => !fixed.has(i)).sort((x, y) => x[0] - y[0]).slice(0, 8).map(x => x[1]);
+    const tryA = mod => { const a2 = arrs.map(a => a.slice()); mod(a2); const r2 = arrange4(a2); return r2 && r2.cost === 0 ? r2 : null; };
+    let got = null, cells = [];
+    for (const i of cand) { const r2 = tryA(a2 => { a2[i / q | 0][i % q] = alt[i]; }); if (r2) { got = r2; cells = [i]; break; } }
+    if (!got) outer: for (let x = 0; x < cand.length; x++) for (let y = x + 1; y < cand.length; y++) { const a = cand[x], b = cand[y]; if (asg[a] === asg[b]) continue;
+      const r2 = tryA(a2 => { const t = a2[a / q | 0][a % q]; a2[a / q | 0][a % q] = a2[b / q | 0][b % q]; a2[b / q | 0][b % q] = t; }); if (r2) { got = r2; cells = [a, b]; break outer; } }
+    if (got) { r = got; cells.forEach(i => { mrs[i / q | 0][i % q] = 1; }); fixedTxt = `Corregí ${cells.length} color${cells.length > 1 ? 'es' : ''} mal leído${cells.length > 1 ? 's' : ''} (quizá por un reflejo) usando la estructura del cubo. `; }
+  }
+  if (!r) { if (!scn.forced) { scn.forced = true; $('scmsg').textContent = failMsg(); return; } return applyScan(Array.from({length: 6 * q}, (_, i) => asg[i]), [], 'Resultado aproximado: corrige las casillas tocándolas.'); }
+  if (r.cost > 0 && !scn.forced) { scn.forced = true; $('scmsg').textContent = failMsg(); return; }
   const dudIdx = new Set(r.bad);
   for (let f = 0; f < 6; f++) { const [p, rr] = r.asn[f]; rotK(mrs[p], rr).forEach((v, j) => { if (v) dudIdx.add(f * q + j); }); }
-  applyScan(r.f96, [...dudIdx], r.cost ? 'Resultado aproximado.' : (r.score === 3 ? 'Escaneo completo: detecté sola la cara y el giro de cada foto, en el orden que sea. ' : 'Escaneo completo (esquema de colores distinto del habitual). ') + 'Pulsa «Calcular solución».');
+  applyScan(r.f96, [...dudIdx], r.cost ? 'Resultado aproximado.' : fixedTxt + (r.score === 3 ? 'Escaneo completo: detecté sola la cara y el giro de cada foto, en el orden que sea. ' : 'Escaneo completo (esquema de colores distinto del habitual). ') + 'Pulsa «Calcular solución».');
 }
 // ---- 5×5: como el 3×3, el centro fijo de cada foto dice qué cara es; el giro de cada foto sale de las esquinas y aristas centrales
 // (forman un 3×3 que debe ser posible) y, si hay varias opciones, de las alas
@@ -4333,7 +4471,7 @@ function finish5(sh) {
       const h2 = search(t); if (h2 && (!hit || h2.cost < hit.cost)) { hit = h2; gg = t; fixedCells = sb.map(x => cand[x]); if (!h2.cost) break; }
     }
   }
-  if ((!hit || hit.cost) && !scn.forced) { scn.forced = true; $('scmsg').textContent = FAILMSG; return; }
+  if ((!hit || hit.cost) && !scn.forced) { scn.forced = true; $('scmsg').textContent = failMsg(); return; }
   if (!hit) return applyScan([].concat(...g), [], 'Resultado aproximado: corrige las casillas tocándolas.');
   const dudIdx = new Set();
   for (let f = 0; f < 6; f++) { const r = (hit.n >> (2 * f)) & 3, d = dd[f].slice(); fixedCells.forEach(i => { if ((i / q | 0) === f) d[i % q] = 1; }); rotK(d, r).forEach((v, j) => { if (v) dudIdx.add(f * q + j); }); }
@@ -4358,7 +4496,10 @@ function pieceScore(f, P) {
   for (const fl of P.edges) { const a = f[fl[0]], b = f[fl[1]]; if (P.edg.has(Math.min(a, b) * 6 + Math.max(a, b))) n++; }
   return n;
 }
-const fullCheck = f => N === 3 ? Solver.check(f) : (typeof Solver5 === 'object' ? Solver5.check(f) : 0);
+// en el 5×5 los centros son de dos clases (× y +) y cada una debe tener 4 piezas de cada color (un reflejo puede pasar una a otro color)
+const orb5 = k => { const j = k % 25, r = j / 5 | 0, c = j % 5; return r < 1 || r > 3 || c < 1 || c > 3 || (r === 2 && c === 2) ? -1 : (r + c) % 2 === 0 ? 0 : 1; };
+const orbitsOk = f => { if (N !== 5) return true; const n = [Array(6).fill(0), Array(6).fill(0)]; f.forEach((v, k) => { const o = orb5(k); if (o >= 0) n[o][v]++; }); return n.every(a => a.every(x => x === 4)); };
+const fullCheck = f => N === 3 ? Solver.check(f) : (typeof Solver5 === 'object' ? (Solver5.check(f) || (orbitsOk(f) ? 0 : 9)) : 0);
 function finishOdd(sh0) {
   const q = N * N, c0 = (q - 1) / 2, P = oddPieces(), maxP = P.corners.length + P.edges.length;
   // si con las fotos tal cual no sale un cubo perfecto, se prueba también con las imágenes en espejo (cámara frontal o vista reflejada)
@@ -4379,8 +4520,9 @@ function finishOddTry(sh, q, c0, P) {
   for (const {p: bestP, c: ccost} of perms.slice(0, 30)) {
     const face = Array(6), ref = Array(6); sh.forEach((s, k) => { face[bestP[k]] = k; ref[bestP[k]] = cen[k]; });
     const raws = [], shotOf = [], fixed = new Map();
-    for (let f = 0; f < 6; f++) for (let j = 0; j < q; j++) { const s = sh[face[f]]; raws.push(s.raw[j]); shotOf.push(f); if (j === c0) fixed.set(f * q + j, f); else if (s.fix && s.fix[j] !== undefined) fixed.set(f * q + j, s.fix[j]); }
-    const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, ref);
+    const uns = new Set();
+    for (let f = 0; f < 6; f++) for (let j = 0; j < q; j++) { const s = sh[face[f]]; raws.push(s.raw[j]); shotOf.push(f); if (j === c0) fixed.set(f * q + j, f); else if (s.fix && s.fix[j] !== undefined) fixed.set(f * q + j, s.fix[j]); else if ((s.uns || []).includes(j)) uns.add(f * q + j); }
+    const {asg, margin, alt} = adaptColors(raws, shotOf, q, fixed, ref, uns);
     const g = Array.from({length: 6}, (_, f) => asg.slice(f * q, f * q + q)), rots = g.map(a => [a, rotK(a, 1), rotK(a, 2), rotK(a, 3)]);
     for (let n = 0; n < 4096; n++) {
       const full = []; for (let f = 0; f < 6; f++) full.push(...rots[f][(n >> (2 * f)) & 3]);
@@ -4398,23 +4540,54 @@ function finishOddApply(sh, best, q, c0, P, maxSc, flipped) {
   const rotOf = f => (n >> (2 * f)) & 3, posOf = (f, j) => { // casilla j de la foto (orden de la cámara) → casilla del cubo
     const r = rotOf(f), m = Array.from({length: q}, (_, k) => k); return f * q + rotK(m, r).indexOf(j); };
   let out = full.slice(), fixedCells = [];
-  if (fullCheck(out)) { // reparación: las casillas menos seguras pasan a su segunda opción hasta que el cubo sea posible
+  if (fullCheck(out)) { // reparación: entre todas las correcciones que dejan un cubo posible se elige la más creíble (casillas menos seguras)
+    const ofPos = new Map(); for (let f = 0; f < 6; f++) for (let j = 0; j < q; j++) ofPos.set(posOf(f, j), f * q + j);
+    const unsP = new Set(); for (let f = 0; f < 6; f++) for (const j of (sh[face[f]].uns || [])) unsP.add(posOf(f, j));
+    const mg = k => { const i = ofPos.get(k); return unsP.has(k) ? -2 : i === undefined ? 50 : margin[i]; };
+    let bestFix = null; const tryFix = (t, cells, cost) => { if ((!bestFix || cost < bestFix.cost) && !fullCheck(t)) bestFix = {t, cells, cost}; };
+    // 1) las menos seguras pasan a su segunda opción (1, 2 o, en el 3×3, 3 casillas)
     const cand = margin.map((v, i) => [v, i]).filter(([, i]) => i % q !== c0 && !fixed.has(i)).sort((a, b) => a[0] - b[0]).slice(0, N === 3 ? 9 : 8).map(x => x[1]);
     const subs = []; for (let a = 0; a < cand.length; a++) { subs.push([a]); for (let b = a + 1; b < cand.length; b++) { subs.push([a, b]); if (N === 3) for (let c = b + 1; c < cand.length; c++) subs.push([a, b, c]); } }
-    for (const sb of subs) {
-      const t = out.slice(); sb.forEach(x => { const i = cand[x]; t[posOf(i / q | 0, i % q)] = alt[i]; });
-      if (!fullCheck(t)) { out = t; fixedCells = sb.map(x => posOf(cand[x] / q | 0, cand[x] % q)); break; }
-    }
+    for (const sb of subs) { const t = out.slice(), cells = sb.map(x => posOf(cand[x] / q | 0, cand[x] % q)); sb.forEach((x, k) => { t[cells[k]] = alt[cand[x]]; });
+      tryFix(t, cells, cells.reduce((a, k) => a + Math.max(mg(k), -2) + 4, 0)); }
+    // 2) un reflejo suele cambiar dos casillas entre sí (un azul leído como blanco y un blanco que tomó su lugar): intercambiar dos casillas de piezas imposibles
+    const pv = (fl, s) => { const c = fl.map(i => s[i]); return fl.length === 3 ? P.cor.has(c[0] * 36 + c[1] * 6 + c[2]) : P.edg.has(Math.min(...c) * 6 + Math.max(...c)); };
+    const pcsOf = new Map(); for (const fl of P.corners.concat(P.edges)) for (const i of fl) { if (!pcsOf.has(i)) pcsOf.set(i, []); pcsOf.get(i).push(fl); }
+    const badP = P.corners.concat(P.edges).filter(fl => !pv(fl, out)), bad = [...new Set(badP.flat())].filter(k => k % q !== c0).slice(0, 40);
+    for (let x = 0; x < bad.length; x++) for (let y = x + 1; y < bad.length; y++) { const a = bad[x], b = bad[y]; if (out[a] === out[b]) continue;
+      const t = out.slice(); t[a] = out[b]; t[b] = out[a];
+      if (!(pcsOf.get(a) || []).concat(pcsOf.get(b) || []).every(fl => pv(fl, t)) || !badP.every(fl => pv(fl, t))) continue; // primero lo barato
+      const ia = ofPos.get(a), ib = ofPos.get(b), cons = (ia !== undefined && alt[ia] === out[b] ? 0 : 6) + (ib !== undefined && alt[ib] === out[a] ? 0 : 6);
+      tryFix(t, [a, b], Math.max(mg(a), -2) + Math.max(mg(b), -2) + 8 + cons); }
+    if (bestFix) { out = bestFix.t; fixedCells = bestFix.cells; }
+  }
+  if (N === 5 && !orbitsOk(out)) { // centros: en cada clase, las piezas sobrantes de un color pasan al color que falta (las menos seguras primero)
+    const conf = new Map(); for (let f = 0; f < 6; f++) { const s = sh[face[f]]; for (let j = 0; j < q; j++) { const i = f * q + j; conf.set(posOf(f, j), {m: (s.uns || []).includes(j) ? -1 : margin[i], alt: alt[i]}); } }
+    const t = out.slice(), changed = [];
+    for (const o of [0, 1]) { for (let guard = 0; guard < 12; guard++) {
+      const n = Array(6).fill(0); t.forEach((v, k) => { if (orb5(k) === o) n[v]++; }); const sur = n.map((x, c) => x > 4 ? c : -1).filter(c => c >= 0), def = n.map((x, c) => x < 4 ? c : -1).filter(c => c >= 0);
+      if (!sur.length) break;
+      let bk = -1, bm = 1e9; t.forEach((v, k) => { if (orb5(k) === o && sur.includes(v)) { const c = conf.get(k); if (c && c.m < bm) { bm = c.m; bk = k; } } });
+      if (bk < 0) break; const a2 = conf.get(bk).alt; t[bk] = def.includes(a2) ? a2 : def[0]; changed.push(bk); } }
+    if (!fullCheck(t)) { out = t; fixedCells = fixedCells.concat(changed); }
   }
   const ok = !fullCheck(out), dudIdx = new Set(fixedCells);
   for (let f = 0; f < 6; f++) { const s = sh[face[f]]; for (let j = 0; j < q; j++) { const i = f * q + j; if (!fixed.has(i) && (margin[i] < DUDT || (s.uns || []).includes(j))) dudIdx.add(posOf(f, j)); } }
+  let nb = 0;
   if (!ok) { // quedan piezas imposibles: se marcan para revisarlas (el resto del cubo está bien colocado)
-    for (const fl of P.corners.concat(P.edges)) { const c = fl.map(i => out[i]); const v = fl.length === 3 ? P.cor.has(c[0] * 36 + c[1] * 6 + c[2]) : P.edg.has(Math.min(...c) * 6 + Math.max(...c)); if (!v) fl.forEach(i => dudIdx.add(i)); }
+    for (const fl of P.corners.concat(P.edges)) { const c = fl.map(i => out[i]); const v = fl.length === 3 ? P.cor.has(c[0] * 36 + c[1] * 6 + c[2]) : P.edg.has(Math.min(...c) * 6 + Math.max(...c)); if (!v) { nb++; fl.forEach(i => dudIdx.add(i)); } }
   }
+  if (!ok && scn && !scn.forced) { const d = dupShots(scn.shots, true); if (d) { scn.forced = true; $('scmsg').textContent = failMsg(); return; } } // quizá una cara repetida: mejor avisar que armar un cubo con piezas imposibles
   applyScan(out, [...dudIdx], (flipped ? 'Las imágenes llegaron en espejo (¿cámara frontal?): las corregí. ' : '') + (ok ? (fixedCells.length ? `Corregí ${fixedCells.length} color${fixedCells.length > 1 ? 'es' : ''} mal leído${fixedCells.length > 1 ? 's' : ''} usando la estructura del cubo. ` : 'Escaneo completo: detecté sola la cara y el giro de cada foto. ')
-    : `Casi listo: ${maxSc - best.sc} pieza${maxSc - best.sc > 1 ? 's' : ''} no cuadra${maxSc - best.sc > 1 ? 'n' : ''} (algún color mal leído, quizá por un reflejo). Las marqué con borde punteado: corrígelas antes de calcular. `) + 'Pulsa «Calcular solución».');
+    : nb ? `Casi listo: ${nb} pieza${nb > 1 ? 's' : ''} no cuadra${nb > 1 ? 'n' : ''} (algún color mal leído, quizá por un reflejo). Las marqué con borde punteado: corrígelas antes de calcular. `
+    : 'Casi listo: todas las piezas existen, pero así el cubo no se puede armar (una esquina girada o una arista volteada: quizá un color mal leído). Revisa las casillas con borde punteado antes de calcular. ') + 'Pulsa «Calcular solución».');
 }
-function finishScan() { const sh = scn.shots; if (window.__cubo) window.__shots = JSON.parse(JSON.stringify(sh.map(s => ({raw: s.raw, labs: s.labs, uns: s.uns || [], fix: s.fix || null})))); return N % 2 ? finishOdd(sh) : finish4(sh); }
+function dupCheck(sh) { // true: se avisó de una cara repetida (con «Procesar» otra vez se usa igual)
+  if (N < 3 || scn.forced || scn.dupOk) return false; const d = dupShots(sh); if (!d) return false;
+  scn.dupOk = true; $('scmsg').textContent = `Las caras ${d[0] + 1} y ${d[1] + 1} parecen la misma cara (vista con otra luz), así que falta una. Toca una de las dos abajo, quítala y escanea la cara que falta. Si de verdad son distintas, pulsa «Procesar».`;
+  return true;
+}
+function finishScan() { const sh = scn.shots; if (dupCheck(sh)) return; if (window.__cubo) window.__shots = JSON.parse(JSON.stringify(sh.map(s => ({raw: s.raw, labs: s.labs, uns: s.uns || [], fix: s.fix || null})))); const t0 = performance.now(), r = N % 2 ? finishOdd(sh) : finish4(sh); if (window.__cubo) window.__finT = performance.now() - t0; return r; }
 
 /* ================= escenario prestado (cronómetro y Aprende) ================= */
 let saved = null;
@@ -4768,94 +4941,146 @@ const PLL21 = [['Aa', "x R' U R' D2 R U' R' D2 R2 x'", 'Esquinas'], ['Ab', "x R2
   ['Y', "F R U' R' U' R U R' F' R U R' U' R' F R F'", 'Esquinas en diagonal'], ['V', "R U' R U R' D R D' R U' D R2 U R2 D' R2", 'Esquinas en diagonal'],
   ['Na', "R U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R'", 'Esquinas en diagonal'], ['Nb', "R' U R U' R' F' U' F R U R' F R' F' R U' R", 'Esquinas en diagonal'],
   ['Ga', "R2 U R' U R' U' R U' R2 U' D R' U R D'", 'G'], ['Gb', "R' U' R U D' R2 U R' U R U' R U' R2 D", 'G'], ['Gc', "R2 U' R U' R U R' U R2 U D' R U' R' D", 'G'], ['Gd', "R U R' U' D R2 U' R U' R' U R' U R2 D'", 'G']];
+const PLLD = {Aa: 'Giran 3 esquinas; las aristas ya están bien. Aa y Ab giran en sentidos contrarios.', Ab: 'Giran 3 esquinas; las aristas ya están bien. Aa y Ab giran en sentidos contrarios.',
+  E: 'Cambian 2 pares de esquinas vecinas; las aristas están bien. No hay faros en ningún lado.', Ua: 'Giran 3 aristas; las esquinas están bien (hay faros en los 4 lados). Ua y Ub giran en sentidos contrarios.',
+  Ub: 'Giran 3 aristas; las esquinas están bien (hay faros en los 4 lados). Ua y Ub giran en sentidos contrarios.', H: 'Cambian las aristas opuestas, de a pares; las esquinas están bien.', Z: 'Cambian las aristas vecinas, de a pares; las esquinas están bien.',
+  T: 'Cambian 2 esquinas vecinas y 2 aristas opuestas; una de esas aristas está entre las dos esquinas.', F: 'Cambian 2 esquinas vecinas y 2 aristas opuestas; ninguna de esas aristas está entre las dos esquinas.',
+  Ja: 'Cambian 2 esquinas vecinas y 2 aristas vecinas, todas en el mismo rincón: queda un bloque de 2×3 armado.', Jb: 'Cambian 2 esquinas vecinas y 2 aristas vecinas, todas en el mismo rincón: queda un bloque de 2×3 armado.',
+  Ra: 'Cambian 2 esquinas vecinas y 2 aristas vecinas, pero la arista entre esas dos esquinas no se mueve.', Rb: 'Cambian 2 esquinas vecinas y 2 aristas vecinas, pero la arista entre esas dos esquinas no se mueve.',
+  Y: 'Cambian 2 esquinas en diagonal y 2 aristas vecinas; la esquina entre esas dos aristas es una de las que cambian.', V: 'Cambian 2 esquinas en diagonal y 2 aristas vecinas; la esquina entre esas dos aristas no se mueve.',
+  Na: 'Cambian 2 esquinas en diagonal y 2 aristas opuestas. Na y Nb son el espejo una de la otra.', Nb: 'Cambian 2 esquinas en diagonal y 2 aristas opuestas. Na y Nb son el espejo una de la otra.',
+  Ga: 'Giran 3 esquinas y 3 aristas a la vez. Las cuatro G se distinguen por dónde quedan los faros y el bloque de 2.', Gb: 'Giran 3 esquinas y 3 aristas a la vez. Las cuatro G se distinguen por dónde quedan los faros y el bloque de 2.',
+  Gc: 'Giran 3 esquinas y 3 aristas a la vez. Las cuatro G se distinguen por dónde quedan los faros y el bloque de 2.', Gd: 'Giran 3 esquinas y 3 aristas a la vez. Las cuatro G se distinguen por dónde quedan los faros y el bloque de 2.'};
+// OLL: cómo se ve cada grupo (casillas amarillas de arriba)
+const OLLGD = {Punto: 'Ninguna arista amarilla arriba: solo el centro (a veces alguna esquina).', Cruz: 'La cruz amarilla ya está: solo faltan las esquinas.', Cuadrado: 'Un cuadrado amarillo de 2×2 en una esquina.',
+  Rayo: 'Forma de rayo: un zigzag de casillas amarillas.', Pez: 'Forma de pez: una diagonal amarilla con dos aristas.', Caballo: 'Forma de salto de caballo (una L de 3 con una casilla aparte).',
+  'Esquinas hechas': 'Las 4 esquinas ya tienen el amarillo arriba; solo faltan aristas.', Awkward: '«Incómodos»: una línea de 3 en el borde y casillas sueltas.', P: 'Forma de P: un bloque de 2×3 con un hueco.',
+  T: 'Forma de T: una línea de 3 y la columna del medio.', C: 'Forma de C (o U).', W: 'Forma de escalera (W).', 'L pequeña': 'Dos aristas seguidas forman una L pequeña con el centro.', 'Línea': 'Una línea amarilla de 3 por el medio.'};
 const OLL2 = [['Sune', "R U R' U R U2 R'"], ['Antisune', "R U2 R' U' R U' R'"], ['H (dos pares de faros)', "R2 U2 R U2 R2"], ['Pi', "R U2 R2 U' R2 U' R2 U2 R"], ['U (faros)', "F R U R' U' F'"], ['T', "R U R' U' R' F R F'"], ['L (pajarita)', "F R' F' R U R U' R'"]];
+const TIPS2 = ['Empieza siempre por el mismo color (por ejemplo el blanco) hasta que te salga sin pensar; después prueba con otros.',
+  'Mira dos lados a la vez: cada esquina tiene 3 colores y con dos de ellos ya sabes dónde va.',
+  'Antes de girar, usa la inspección (15 s en el cronómetro) para planear la primera cara completa.',
+  'Practica R U R\' U\' sin mirar hasta que sea automático: es la base de casi todo.',
+  'Cuando sepas Ortega, aprende primero la Sune y la Antisune: salen en más de la mitad de las resoluciones.'];
+const TIPS3 = ['Aprende bien la notación (abajo está el teclado): así puedes seguir cualquier guía o mezcla.',
+  'Desde la segunda capa, mantén siempre el blanco abajo: así ves arriba lo que te falta.',
+  'Si te pierdes en medio de un algoritmo, no sigas girando: vuelve atrás con los giros al revés o empieza el caso de nuevo.',
+  '<b>Dedos, no muñeca entera</b>: U con el índice derecho, U\' con el índice izquierdo, R y R\' con la muñeca derecha. Sostén el cubo con los pulgares al frente.',
+  '<b>Inspección</b>: en los 15 s antes de empezar, planea la cruz completa (en CFOP, intenta ver también el primer par).',
+  '<b>Look-ahead</b>: mientras haces un paso, busca con la vista las piezas del siguiente. Girar lento y sin pausas es más rápido que rápido con paradas.',
+  'Evita girar el cubo entero en F2L: trae las piezas con U y usa las ranuras de atrás cuando puedas.',
+  'Aprende los algoritmos de a pocos (2 o 3 por semana) y repasa los anteriores. Marca «Me lo sé» y usa «Repasar» para practicar solo los que te faltan.',
+  'Orden recomendado en CFOP: OLL y PLL en dos vistas → PLL completo (21) → OLL completo (57).',
+  'Mide tu progreso con el promedio de 5 y de 12 en el Cronómetro, no con tu mejor tiempo.',
+  'Un cubo suave y bien ajustado ayuda mucho: si se traba, lubrícalo o ajusta sus tornillos.'];
+const TIPS4 = ['Recuerda el orden de los colores: con el blanco arriba y el verde al frente, el rojo va a la derecha, el azul atrás y el naranja a la izquierda.',
+  'En los centros, arma primero barras de 1×2 y únelas después; nunca uses un giro que rompa un centro ya terminado.',
+  'Al emparejar aristas, busca la siguiente mientras haces la actual y empareja varias antes de deshacer el giro de capas.',
+  'La paridad OLL se nota en la cruz amarilla: si queda una sola arista volteada (o tres), hay paridad. La PLL, cuando al final quedan dos aristas cambiadas.',
+  'Los algoritmos de paridad son largos: apréndelos por partes (cada 2R y cada U2) y practícalos aquí hasta que salgan solos.',
+  'Cuando la reducción te salga bien, prueba Yau: la cruz se hace antes y se ahorra tiempo al final.'];
+const TIPS5 = ['El 5×5 tiene centros fijos: el color de cada cara ya está dado por su pieza del medio.',
+  'Arma los centros con barras de 1×3 (una pieza + y dos ×); los dos últimos, con 2R U2 2R\' y 3R U2 3R\'.',
+  'Empareja primero las aristas centrales con sus alas de a una; las dos últimas, con Dw R F\' U R\' F Dw\'.',
+  'Si una arista queda con las alas al revés de la central, es la paridad: un solo algoritmo la arregla.',
+  'Practica antes los pasos en el 4×4: el 5×5 usa las mismas ideas con una capa más.'];
 const LEARN = {
   2: [
     {id: 'p2', name: 'Principiante', intro: 'El 2×2 son solo las esquinas de un 3×3. Con este método de 3 pasos y 3 algoritmos lo armas siempre, aunque sea la primera vez.', frame: 'z2', steps: [
-      {t: 'Primera capa', g: 'Una cara de un color (por ejemplo blanca) con los lados bien puestos.',
+      {t: 'Primera capa', goal: 'c1', slot: 'corner', stuck: 'Hay una esquina blanca abajo en un hueco que no es el suyo: déjala adelante a la derecha y haz R U R\' U\' una vez para subirla.', g: 'Una cara de un color (por ejemplo blanca) con los lados bien puestos.',
         p: ['Elige el blanco. Busca dos esquinas blancas que compartan otro color (por ejemplo blanco-verde-rojo y blanco-verde-naranja) y júntalas de modo que el verde quede del mismo lado: ya tienes media capa.',
           'Pon el blanco abajo. Para cada esquina que falte: llévala a la capa de arriba, justo encima del hueco donde va (adelante a la derecha) y repite <b>R U R\' U\'</b> hasta que entre bien. A veces basta 1 vez, a veces 3 o 5: nunca se rompe lo que ya armaste.',
           'Sabrás que la capa está bien cuando, en cada lado, los dos colores de abajo coinciden.'],
-        cases: [{grp: 'Meter una esquina', list: [{n: 'Blanco mirando a la derecha', a: "R U R' U'", rep: 1, k: 'c1', d: 'Sale con una sola vez.'}, {n: 'Blanco mirando al frente', a: "R U R' U'", rep: 5, k: 'c1', d: 'Necesita 5 veces seguidas.'}, {n: 'Blanco mirando arriba', a: "R U R' U'", rep: 3, k: 'c1', d: 'Necesita 3 veces seguidas.'}]}]},
-      {t: 'Amarillo arriba', g: 'La cara de arriba toda amarilla (sin romper la primera capa).',
+        cases: [{grp: 'Meter una esquina', list: [{n: 'Blanco mirando a la derecha', a: "R U R' U'", rep: 1, k: 'c1', d: 'Sale con una sola vez.'}, {n: 'Blanco mirando al frente', a: "R U R' U'", rep: 5, k: 'c1', d: 'Necesita 5 veces seguidas.'}, {n: 'Blanco mirando arriba', a: "R U R' U'", rep: 3, k: 'c1', d: 'Necesita 3 veces seguidas.'}]},
+          {grp: 'Esquina abajo pero girada', list: [{n: 'Blanco mirando a la derecha (abajo)', a: "R U R' U'", rep: 2, k: 'c1', d: 'Ya está en su hueco pero girada: R U R\' U\' 2 veces.'}, {n: 'Blanco mirando al frente (abajo)', a: "R U R' U'", rep: 4, k: 'c1', d: 'Ya está en su hueco pero girada: R U R\' U\' 4 veces.'}]}]},
+      {t: 'Amarillo arriba', goal: 'oll2', g: 'La cara de arriba toda amarilla (sin romper la primera capa).',
         p: ['Gira el cubo para dejar el amarillo arriba. Usarás un solo algoritmo, la <b>Sune</b>: <b>R U R\' U R U2 R\'</b>.',
           'Cuenta las esquinas con el amarillo arriba. <b>Una</b>: ponla adelante a la izquierda y haz la Sune. <b>Ninguna</b>: gira la cara de arriba hasta que haya un amarillo en la cara izquierda, arriba al frente, y haz la Sune. <b>Dos</b>: gira la de arriba hasta que haya un amarillo en la cara de frente, arriba a la izquierda, y haz la Sune.',
           'Repite mirando otra vez: en 1 a 3 Sunes queda todo amarillo.'],
         cases: [{grp: 'Casos de orientación', list: OLL2.map(([n, a]) => ({n, a, k: 'll', chk: 'oll2'}))}]},
-      {t: 'Terminar', g: 'Cambiar de sitio las esquinas de arriba hasta armarlo.',
+      {t: 'Terminar', goal: 'solved', g: 'Cambiar de sitio las esquinas de arriba hasta armarlo.',
         p: ['Busca en los lados de la capa de arriba dos esquinas con el mismo color juntas: se llaman <b>faros</b>.',
           'Pon los faros atrás y haz <b>R\' F R\' B2 R F\' R\' B2 R2</b>. Si no hay faros, hazlo desde cualquier lado y volverán a aparecer. Al final gira la cara de arriba hasta que todo coincida.'],
         cases: [{grp: 'Permutar la capa de arriba', list: [{n: 'Faros (cambiar dos esquinas de al lado)', a: "R' F R' B2 R F' R' B2 R2", k: 'll', chk: 'solved'}, {n: 'Sin faros (cambiar en diagonal)', a: "F R U' R' U' R U R' F' R U R' U' R' F R F'", k: 'll', chk: 'solved', d: 'Método rápido; con el de faros lo haces dos veces.'}]}]}
-    ]},
+    ], tips: TIPS2},
     {id: 'o2', name: 'Ortega', intro: 'Método intermedio, el que usan muchos para bajar de 10 segundos: una cara, orientar la de arriba (7 algoritmos) y permutar las dos capas a la vez (5 algoritmos).', frame: 'z2', steps: [
-      {t: 'Primera cara', g: 'Solo una cara de un color abajo; los lados pueden no coincidir.',
+      {t: 'Primera cara', goal: 'df', stuck: 'Arma la cara blanca abajo: las 4 esquinas con el blanco hacia abajo, en cualquier orden.', g: 'Solo una cara de un color abajo; los lados pueden no coincidir.',
         p: ['Es más fácil que la primera capa: basta con que las 4 esquinas de abajo tengan el blanco abajo, en cualquier orden. Hazlo en 4 a 6 giros con práctica.', 'Truco: arma primero dos esquinas blancas juntas y luego mete las otras con R U R\' o con R U\' R\' según hacia dónde mire el blanco.']},
-      {t: 'Orientar la de arriba (OLL)', g: 'Toda la cara de arriba amarilla con un solo algoritmo.',
+      {t: 'Orientar la de arriba (OLL)', goal: 'dfu', g: 'Toda la cara de arriba amarilla con un solo algoritmo.',
         p: ['Mira cuántas esquinas tienen el amarillo arriba y cómo se ven los lados: cada patrón tiene su algoritmo. Son 7 en total; la Sune y la Antisune son los más frecuentes.'],
         cases: [{grp: 'Los 7 casos', list: OLL2.map(([n, a]) => ({n, a, k: 'll', chk: 'oll2'}))}]},
-      {t: 'Permutar las dos capas (PBL)', g: 'Arreglar a la vez la capa de arriba y la de abajo.',
+      {t: 'Permutar las dos capas (PBL)', goal: 'solvedUD', g: 'Arreglar a la vez la capa de arriba y la de abajo.',
         p: ['Mira cada capa por separado: o está bien, o tiene faros (dos esquinas iguales de un lado: cambio de al lado), o no tiene faros (cambio en diagonal). Si una capa tiene faros, ponlos atrás (arriba) o atrás (abajo).', 'Elige el algoritmo según la combinación de las dos capas.'],
         cases: [{grp: 'Combinaciones', list: [{n: 'Arriba faros · abajo bien', a: "R' F R' B2 R F' R' B2 R2", k: 'll', chk: 'solved'}, {n: 'Arriba diagonal · abajo bien', a: "F R U' R' U' R U R' F' R U R' U' R' F R F'", k: 'll', chk: 'solved'},
           {n: 'Faros arriba y abajo', a: "R2 U' B2 U2 R2 U' R2", k: 'll', chk: 'solvedUD'}, {n: 'Diagonal arriba y abajo', a: "R2 F2 R2", k: 'll', chk: 'solvedUD'}, {n: 'Faros arriba · diagonal abajo', a: "R U' R F2 R' U R'", k: 'll', chk: 'solvedUD'}, {n: 'Diagonal arriba · faros abajo', a: "R2 U R2 U2 F2 U F2", k: 'll', chk: 'solvedUD'}]}]}
-    ]}
+    ], tips: TIPS2}
   ],
   3: [
     {id: 'p3', name: 'Principiante', intro: 'El método capa por capa: el primero que aprende casi todo el mundo. 7 pasos, cada uno con un objetivo pequeño y a lo más un algoritmo corto. Con práctica, menos de 2 minutos.', frame: 'z2', steps: [
-      {t: 'Cruz blanca', g: 'Las 4 aristas blancas abajo, cada una con su otro color igual al centro de su lado.', x: 'cross',
+      {t: 'Cruz blanca', goal: 'cross', g: 'Las 4 aristas blancas abajo, cada una con su otro color igual al centro de su lado.', x: 'cross',
         p: ['<b>Margarita</b>: pon el amarillo arriba y sube las 4 aristas blancas alrededor de él (con el blanco mirando arriba). Si una arista blanca está abajo o en el medio, sácala girando esa cara.',
           'Luego, para cada arista blanca de arriba: gira la capa de arriba hasta que su otro color (por ejemplo verde) quede sobre el centro verde, y da media vuelta a esa cara (F2): baja con el blanco abajo.',
           'Revisa: abajo hay una cruz blanca y cada arista coincide con el centro de su lado.'],
         tip: 'Más adelante intenta hacer la cruz directamente abajo, sin margarita: es más corto.'},
-      {t: 'Esquinas blancas', g: 'Completar la primera capa con las 4 esquinas blancas.',
+      {t: 'Esquinas blancas', goal: 'c1', slot: 'corner', stuck: 'Hay una esquina blanca abajo en un hueco que no es el suyo: déjala adelante a la derecha y haz R U R\' U\' una vez para subirla.', g: 'Completar la primera capa con las 4 esquinas blancas.',
         p: ['Con el blanco abajo, busca una esquina blanca arriba. Gira la capa de arriba hasta que quede encima de su lugar (entre sus dos colores), adelante a la derecha.',
           'Repite <b>R U R\' U\'</b> hasta que entre bien: 1, 3 o 5 veces según hacia dónde mire el blanco. Si una esquina blanca está abajo pero mal puesta, hazlo una vez para subirla.'],
-        cases: [{grp: 'Meter una esquina', list: [{n: 'Blanco mirando a la derecha', a: "R U R' U'", rep: 1, k: 'c1'}, {n: 'Blanco mirando al frente', a: "R U R' U'", rep: 5, k: 'c1'}, {n: 'Blanco mirando arriba', a: "R U R' U'", rep: 3, k: 'c1'}]}]},
-      {t: 'Segunda capa', g: 'Las 4 aristas de la capa del medio, sin romper la primera.',
+        cases: [{grp: 'Meter una esquina', list: [{n: 'Blanco mirando a la derecha', a: "R U R' U'", rep: 1, k: 'c1'}, {n: 'Blanco mirando al frente', a: "R U R' U'", rep: 5, k: 'c1'}, {n: 'Blanco mirando arriba', a: "R U R' U'", rep: 3, k: 'c1'}]},
+          {grp: 'Esquina abajo pero girada', list: [{n: 'Blanco mirando a la derecha (abajo)', a: "R U R' U'", rep: 2, k: 'c1', d: 'Ya está en su hueco pero girada: 2 veces.'}, {n: 'Blanco mirando al frente (abajo)', a: "R U R' U'", rep: 4, k: 'c1', d: 'Ya está en su hueco pero girada: 4 veces.'}]}]},
+      {t: 'Segunda capa', goal: 'f2l', slot: 'edge', stuck: 'Las aristas que faltan están en la capa del medio en un hueco que no es el suyo: sácalas metiendo cualquier arista amarilla con el algoritmo y vuelve a analizar.', g: 'Las 4 aristas de la capa del medio, sin romper la primera.',
         p: ['Busca arriba una arista sin amarillo. Gira la capa de arriba hasta que su color de frente coincida con el centro de frente (forma una «T» invertida).',
           'Si su otro color va a la <b>derecha</b>: <b>U R U\' R\' U\' F\' U F</b>. Si va a la <b>izquierda</b>: <b>U\' L\' U L U F U\' F\'</b>.',
           'Si una arista está metida al revés en el medio, saca cualquier arista amarilla con el mismo algoritmo y vuelve a meterla.'],
-        cases: [{grp: 'Meter una arista', list: [{n: 'Hacia la derecha', a: "U R U' R' U' F' U F", k: 'll', chk: 'f2l'}, {n: 'Hacia la izquierda', a: "U' L' U L U F U' F'", k: 'll', chk: 'f2l'}]}]},
-      {t: 'Cruz amarilla', g: 'Una cruz amarilla arriba (no importa si los lados coinciden).',
+        cases: [{grp: 'Meter una arista', list: [{n: 'Hacia la derecha', a: "U R U' R' U' F' U F", k: 'll', chk: 'f2l'}, {n: 'Hacia la izquierda', a: "U' L' U L U F U' F'", k: 'll', chk: 'f2l'},
+          {n: 'Arista metida al revés', a: "U R U' R' U' F' U F U' R U' R' U' F' U F", k: 'll', chk: 'f2l', d: 'Sácala metiendo cualquier arista amarilla con el algoritmo de la derecha; luego gira la capa de arriba hasta formar la «T» y métela bien.'}]}]},
+      {t: 'Cruz amarilla', goal: 'eo', g: 'Una cruz amarilla arriba (no importa si los lados coinciden).',
         p: ['Mira las aristas de arriba: puede haber un <b>punto</b> (ninguna amarilla), una <b>L</b>, una <b>línea</b> o ya la cruz.',
           'Algoritmo: <b>F R U R\' U\' F\'</b>. Con la L, ponla atrás a la izquierda (como un reloj marcando las 9 y las 12). Con la línea, ponla horizontal. Con el punto, hazlo y te quedará la L.'],
-        cases: [{grp: 'Casos', list: [{n: 'Línea', a: "F R U R' U' F'", k: 'll', chk: 'eo'}, {n: 'L', a: "F R U R' U' F' F R U R' U' F'", k: 'll', chk: 'eo', d: 'El mismo algoritmo dos veces.'}]}]},
-      {t: 'Aristas amarillas en su lugar', g: 'Que cada arista amarilla coincida con el centro de su lado.',
+        cases: [{grp: 'Casos', list: [{n: 'Línea', a: "F R U R' U' F'", k: 'll', chk: 'eo'}, {n: 'L', a: "F R U R' U' F' F R U R' U' F'", k: 'll', chk: 'eo', d: 'El mismo algoritmo dos veces.'},
+          {n: 'Punto', a: "F R U R' U' F' F R U R' U' F' U F R U R' U' F'", k: 'll', chk: 'eo', d: 'Hazlo una vez y queda la L; dos veces más (con un U antes de la última) y sale la cruz.'}]}]},
+      {t: 'Aristas amarillas en su lugar', goal: 'ep', g: 'Que cada arista amarilla coincida con el centro de su lado.',
         p: ['Gira la capa de arriba hasta que dos aristas seguidas (de lados vecinos) coincidan con sus centros. Gira <b>todo el cubo</b> para dejarlas atrás y a la derecha, y haz <b>R U R\' U R U2 R\'</b>. Termina girando la capa de arriba.',
           'Si las que coinciden están enfrentadas (adelante y atrás), haz el algoritmo una vez desde cualquier lado y quedarán seguidas.'],
-        cases: [{grp: 'Caso', list: [{n: 'Dos seguidas bien (atrás y derecha)', a: "R U R' U R U2 R'", k: 'll', chk: 'ep'}]}]},
-      {t: 'Esquinas amarillas en su lugar', g: 'Cada esquina de arriba en su sitio (aunque esté girada).',
+        cases: [{grp: 'Casos', list: [{n: 'Dos seguidas bien (atrás y derecha)', a: "R U R' U R U2 R'", k: 'll', chk: 'ep'},
+          {n: 'Dos enfrentadas bien', a: "R U R' U R U2 R' U' R U R' U R U2 R'", k: 'll', chk: 'ep', d: 'Hazlo una vez desde cualquier lado: quedan dos seguidas. Ubícalas atrás y a la derecha y repite.'}]}]},
+      {t: 'Esquinas amarillas en su lugar', goal: 'cp', g: 'Cada esquina de arriba en su sitio (aunque esté girada).',
         p: ['Una esquina está en su sitio si tiene los tres colores de los centros que la rodean, aunque el amarillo no mire arriba.',
           'Busca una así, gira <b>todo el cubo</b> para dejarla adelante a la derecha y haz <b>U R U\' L\' U R\' U\' L</b>, una o dos veces. Si ninguna está en su sitio, hazlo una vez desde cualquier lado.'],
-        cases: [{grp: 'Caso', list: [{n: 'Tres esquinas por cambiar', a: "U R U' L' U R' U' L", k: 'll', chk: 'cp'}]}]},
-      {t: 'Girar las esquinas amarillas', g: 'Terminar: todas las esquinas con el amarillo arriba.',
+        cases: [{grp: 'Casos', list: [{n: 'Tres esquinas por cambiar', a: "U R U' L' U R' U' L", k: 'll', chk: 'cp'},
+          {n: 'Hay que hacerlo dos veces', a: "U R U' L' U R' U' L U R U' L' U R' U' L", k: 'll', chk: 'cp', d: 'Si después de una vez no quedaron todas, repítelo sin girar el cubo.'},
+          {n: 'Ninguna en su lugar', a: "U R U' L' U R' U' L y U R U' L' U R' U' L", k: 'll', chk: 'cp', d: 'Hazlo una vez desde cualquier lado: queda una en su lugar. Gira todo el cubo (y) para dejarla adelante a la derecha y repite.'}]}]},
+      {t: 'Girar las esquinas amarillas', goal: 'solved', stuck: 'Pon una esquina mal girada adelante a la derecha y repite R\' D\' R D hasta que su amarillo mire arriba; luego gira solo la capa de arriba (U) para traer la siguiente.', g: 'Terminar: todas las esquinas con el amarillo arriba.',
         p: ['Pon una esquina mal girada adelante a la derecha. Repite <b>R\' D\' R D</b> hasta que su amarillo mire arriba (2 o 4 veces). Las capas de abajo se ven desarmadas: es normal.',
           'Ahora gira <b>solo la capa de arriba</b> (U) para traer otra esquina mal girada adelante a la derecha y repite. Cuando todas tengan el amarillo arriba, el cubo se vuelve a armar solo (a lo más falta girar la capa de arriba).'],
         tip: 'No gires el cubo entero en este paso: solo la capa de arriba entre esquina y esquina.',
         cases: [{grp: 'Caso', list: [{n: 'Dos esquinas por girar', a: "R' D' R D R' D' R D U R' D' R D R' D' R D R' D' R D R' D' R D U'", k: 'll', chk: 'solved', d: 'R\' D\' R D dos veces, U, cuatro veces y U\'.'}]}]}
-    ]},
+    ], tips: TIPS3},
     {id: 'cfop', name: 'CFOP', intro: 'El método de los más rápidos (Fridrich): Cruz, F2L (dos capas a la vez), OLL (orientar la última capa) y PLL (permutarla). Empieza con OLL y PLL en «dos vistas» (16 algoritmos) y ve sumando los demás.', frame: 'z2', steps: [
-      {t: 'Cruz', g: 'La cruz blanca abajo, en 8 giros o menos.', x: 'cross',
+      {t: 'Cruz', goal: 'cross', g: 'La cruz blanca abajo, en 8 giros o menos.', x: 'cross',
         p: ['Hazla <b>directamente abajo</b> (no con margarita) y planifícala durante la inspección: busca las 4 aristas blancas y piensa los primeros giros antes de empezar.',
           'Cada arista se mete con 1 a 3 giros. Con práctica la cruz casi nunca necesita más de 8. En los ejercicios la app te muestra la cruz más corta posible para compararte.']},
-      {t: 'F2L', g: 'Las dos primeras capas: cada esquina blanca junto con su arista, en un solo paso.',
+      {id: 'f2l', t: 'F2L', goal: 'f2l', slot: 'pair', stuck: 'La esquina o la arista de los pares que faltan están en otra ranura: sácalas (por ejemplo con R U R\' en esa ranura) y vuelve a analizar.', g: 'Las dos primeras capas: cada esquina blanca junto con su arista, en un solo paso.',
         p: ['En vez de meter primero la esquina y luego la arista, se <b>juntan arriba</b> como un par y se meten juntos en su ranura. Con la cruz abajo hay 4 ranuras: adelante-derecha es la más cómoda.',
-          'Empieza de forma intuitiva con los casos básicos (el par ya formado se mete con R U R\' o F\' U\' F). Abajo están los 41 casos con la solución más corta que encontró la app usando solo R, U y F (sin girar el cubo).'],
+          'Empieza de forma intuitiva con los casos básicos (el par ya formado se mete con R U R\' o F\' U\' F). Abajo están los 41 casos, agrupados como en las guías según dónde están la esquina y la arista, con la solución más corta que encontró la app usando solo R, U y F (sin girar el cubo).',
+          'No hace falta memorizarlos todos: entiende por qué funciona cada uno (se separan las piezas, se juntan en un par y se mete el par). Con eso los demás salen solos.'],
+        tip: 'Para ir rápido: mientras metes un par, busca con la vista el siguiente (se llama «look-ahead»). Es mejor girar lento sin pausas que rápido con paradas.',
         cases: [{grp: '41 casos (ranura adelante-derecha)', list: F2L41.map((a, i) => ({n: 'Caso ' + (i + 1), a, k: 'll', chk: 'f2l'}))}]},
-      {t: 'OLL en dos vistas', g: 'Orientar la última capa en dos algoritmos: primero la cruz amarilla, luego las esquinas.',
+      {t: 'OLL en dos vistas', look2: 'oll', g: 'Orientar la última capa en dos algoritmos: primero la cruz amarilla, luego las esquinas.',
         p: ['<b>Cruz</b> (3 casos): línea, L o punto. <b>Esquinas</b> (7 casos): según cuántas esquinas tienen el amarillo arriba y hacia dónde miran las demás. Con estos 10 algoritmos ya haces CFOP.'],
         cases: [{grp: 'Cruz amarilla', list: [{n: 'Línea', a: "F R U R' U' F'", k: 'll', chk: 'eo'}, {n: 'L', a: "f R U R' U' f'", k: 'll', chk: 'eo'}, {n: 'Punto', a: "F R U R' U' F' f R U R' U' f'", k: 'll', chk: 'eo'}]},
           {grp: 'Esquinas', list: OLL2.map(([n, a]) => ({n, a, k: 'll', chk: 'oll'}))}]},
-      {t: 'PLL en dos vistas', g: 'Permutar la última capa en dos algoritmos: primero las esquinas, luego las aristas.',
+      {t: 'PLL en dos vistas', look2: 'pll', g: 'Permutar la última capa en dos algoritmos: primero las esquinas, luego las aristas.',
         p: ['<b>Esquinas</b>: si hay faros (dos esquinas del mismo color en un lado), ponlos a la izquierda y haz la T; si no hay, la Y. <b>Aristas</b>: Ua, Ub (tres aristas giran), H (cambian las opuestas) o Z (cambian las vecinas).'],
-        cases: [{grp: 'Esquinas', list: [{n: 'T (faros)', a: "R U R' U' R' F R2 U' R' U' R U R' F'", k: 'll', chk: 'solved'}, {n: 'Y (diagonal)', a: "F R U' R' U' R U R' F' R U R' U' R' F R F'", k: 'll', chk: 'solved'}]},
-          {grp: 'Aristas', list: PLL21.filter(p => p[2] === 'Aristas').map(([n, a]) => ({n, a, k: 'll', chk: 'solved'}))}]},
-      {t: 'OLL completo (57)', g: 'Orientar toda la última capa con un solo algoritmo.',
+        cases: [{grp: 'Esquinas', list: [{n: 'T (faros)', a: "R U R' U' R' F R2 U' R' U' R U R' F'", k: 'll', chk: 'solved', d: 'Hay faros en un lado: ponlos a la izquierda.'}, {n: 'Y (diagonal)', a: "F R U' R' U' R U R' F' R U R' U' R' F R F'", k: 'll', chk: 'solved', d: 'No hay faros: las esquinas cambian en diagonal.'}]},
+          {grp: 'Aristas', list: PLL21.filter(p => p[2] === 'Aristas').map(([n, a]) => ({n, a, k: 'll', chk: 'solved', d: PLLD[n]}))}]},
+      {t: 'OLL completo (57)', goal: 'oll', g: 'Orientar toda la última capa con un solo algoritmo.',
         p: ['Aprende los 57 de a poco, empezando por los más frecuentes (las esquinas de las dos vistas que ya sabes son 7 de ellos). Agrupados por la forma que hacen las casillas amarillas.'],
-        cases: [...new Set(OLL57.map(o => o[2]))].map(g => ({grp: g, list: OLL57.filter(o => o[2] === g).map(([n, a]) => ({n: 'OLL ' + n, a, k: 'll', chk: 'oll'}))}))},
-      {t: 'PLL completo (21)', g: 'Permutar toda la última capa con un solo algoritmo.',
-        p: ['Reconoce el caso por los colores de los lados: faros (dos esquinas iguales), bloques de 3 y qué aristas coinciden. Practica cada uno desde los 4 lados.'],
-        cases: [...new Set(PLL21.map(o => o[2]))].map(g => ({grp: g, list: PLL21.filter(o => o[2] === g).map(([n, a]) => ({n: n + ' perm', a, k: 'll', chk: 'solved'}))}))}
-    ]}
+        cases: [...new Set(OLL57.map(o => o[2]))].map(g => ({grp: g, d: OLLGD[g], list: OLL57.filter(o => o[2] === g).map(([n, a]) => ({n: 'OLL ' + n, a, k: 'll', chk: 'oll'}))}))},
+      {t: 'PLL completo (21)', goal: 'solved', g: 'Permutar toda la última capa con un solo algoritmo.',
+        p: ['Reconoce el caso mirando solo dos lados de la capa de arriba: los <b>faros</b> son dos esquinas del mismo color en un lado; un <b>bloque</b> es una esquina y una arista del mismo color juntas. En cada caso te digo qué piezas cambian.',
+          'Practica cada uno desde los 4 lados (los ejercicios cambian el giro de la capa de arriba) y usa «Reconocer» para entrenar la vista.'],
+        cases: [...new Set(PLL21.map(o => o[2]))].map(g => ({grp: g, list: PLL21.filter(o => o[2] === g).map(([n, a]) => ({n: n + ' perm', a, k: 'll', chk: 'solved', d: PLLD[n]}))}))}
+    ], tips: TIPS3}
   ],
   4: [
     {id: 'r4', name: 'Reducción', intro: 'Se convierte el 4×4 en un 3×3 gigante: primero los 6 centros (de 2×2), luego se emparejan las aristas de dos en dos y al final se resuelve como un 3×3, con dos algoritmos extra para las «paridades».', frame: '', steps: [
@@ -4863,38 +5088,71 @@ const LEARN = {
         p: ['<b>1. Blanco</b>: busca dos piezas blancas de centro en una cara y júntalas en una barra de 1×2. Haz otra barra y únelas con giros de capa interna (por ejemplo 2R, U, 2R\'). Es intuitivo: sube una pieza, gira la cara de arriba para dejar el hueco listo y vuelve a bajar la capa.',
           '<b>2. Amarillo</b> en la cara opuesta (abajo), igual, usando solo giros de las capas internas que no rompan el blanco: 2R / 2L y caras F, B, D.',
           '<b>3. Los 4 de los lados</b>: arma barras de 1×2 en la cara de frente con <b>2R U 2R\'</b> o <b>2R U2 2R\'</b> y no olvides el orden: con el blanco arriba y el verde al frente, a la derecha va el rojo, atrás el azul y a la izquierda el naranja.',
-          'Truco para los dos últimos: deja las barras listas en la cara de arriba y haz <b>2R U2 2R\'</b>; así no rompes los demás.'],
-        demo: {setup: "2R U 2R' F2 2L' U2 2L", sol: "2L' U2 2L F2 2R U' 2R'", note: 'Ejemplo: dos centros desarmados que se arreglan con giros de capa interna, sin romper los demás.'}},
+          'Truco para los dos últimos: deja las barras listas en la cara de arriba y haz <b>2R U2 2R\'</b>; así no rompes los demás.',
+          '<b>Otra forma</b> (más rápida con práctica): arma los centros de dos en dos en vez de uno por uno: primero blanco y amarillo a la vez (usando U y D), luego verde y azul, y al final rojo y naranja, que salen casi solos.'],
+        demo: {setup: "2R U 2R' F2 2L' U2 2L", sol: "2L' U2 2L F2 2R U' 2R'", note: 'Ejemplo: dos centros desarmados que se arreglan con giros de capa interna, sin romper los demás.'},
+        cases: [{grp: 'Practicar centros', list: [{n: 'Devolver una barra', gen: 'cen1', chk: 'centers', d: 'Una barra salió de su centro: devuélvela con una capa interna, un giro de arriba y la capa de vuelta.'},
+          {n: 'Los dos últimos centros', gen: 'cen2', chk: 'centers', d: 'Solo están mezclados el de arriba y el de frente. Usa 2R U2 2R\' (o 2L\' U2 2L) y giros U: así no rompes los demás.'},
+          {n: 'Todos los centros', gen: 'cenAll', chk: 'centers', d: 'Varios centros mezclados con pocos giros: ármalos todos (no importa cómo queden las aristas).'}]}]},
       {t: 'Aristas', g: 'Juntar las 2 mitades (alas) de cada una de las 12 aristas.',
         p: ['Pon una arista a medio hacer adelante a la izquierda y busca su otra mitad. Colócala adelante a la derecha, a la misma altura que la mitad que le falta.',
           'Haz <b>Uw</b> (dos capas de arriba) para unirlas, luego <b>R U R\' F R\' F\' R</b> para cambiar esa arista ya armada por otra sin armar, y deshaz con <b>Uw\'</b>. Así los centros quedan intactos.',
           'Repite con todas. Las últimas dos se arman con el mismo truco o con el algoritmo de paridad si queda una sola volteada.'],
-        cases: [{grp: 'Emparejar', list: [{n: 'Unir dos alas (capa libre)', a: "Uw R U R' F R' F' R Uw'", k: 'big', chk: 'paired'}]}]},
+        cases: [{grp: 'Emparejar', list: [{n: 'Unir dos alas (capa libre)', a: "Uw R U R' F R' F' R Uw'", k: 'big', chk: 'paired'},
+          {n: 'Emparejar varias', gen: 'pair', chk: 'paired', d: 'Con los centros armados, algunas aristas se separaron: empareja todas sin romper los centros.'}]}]},
       {t: 'Paridades', g: 'Dos casos que en un 3×3 no existen y en el 4×4 sí.',
         p: ['Al resolverlo como 3×3 puede salir <b>una sola arista volteada</b> (paridad OLL) o <b>dos aristas cambiadas</b> (paridad PLL). No es un error tuyo: pasa porque las piezas del 4×4 tienen más libertad.',
           'Paridad OLL (con la arista volteada adelante arriba): <b>2R2 B2 U2 2L U2 2R\' U2 2R U2 F2 2R F2 2L\' B2 2R2</b>. Paridad PLL: <b>2R2 U2 2R2 Uw2 2R2 Uw2</b>, y luego termina la capa de arriba como en el 3×3.'],
         cases: [{grp: 'Paridades', list: [{n: 'Paridad OLL (una arista volteada)', a: "2R2 B2 U2 2L U2 2R' U2 2R U2 F2 2R F2 2L' B2 2R2", k: 'big', chk: 'solved', fr: 'z2'}, {n: 'Paridad PLL (dos aristas cambiadas)', a: "2R2 U2 2R2 Uw2 2R2 Uw2", k: 'big', chk: 'solved', fr: 'z2'}]}]},
       {t: 'Como un 3×3', g: 'Con centros y aristas armados, se resuelve igual que el 3×3.',
         p: ['Usa el método que sepas del 3×3 (principiante o CFOP) girando solo las capas exteriores. Los algoritmos son los mismos. Cambia a 3×3 arriba para practicarlos.']}
-    ]}
+    ], tips: TIPS4},
+    {id: 'yau4', name: 'Yau', intro: 'El método de muchos campeones del 4×4. Cambia el orden de la reducción: dos centros, tres aristas de la cruz, los otros cuatro centros, la última arista de la cruz y luego las demás aristas. Al llegar al 3×3 la cruz ya está hecha.', frame: '', steps: [
+      {t: 'Dos centros opuestos', g: 'El blanco y el amarillo, a la izquierda y a la derecha.',
+        p: ['Igual que en la reducción: junta piezas en barras de 1×2 y únelas con giros de capa interna. Arma el centro blanco y el amarillo y gira el cubo para dejar el <b>blanco a la izquierda</b> y el amarillo a la derecha.'],
+        cases: [{grp: 'Practicar', list: [{n: 'Devolver una barra', gen: 'cen1', chk: 'centers'}, {n: 'Todos los centros', gen: 'cenAll', chk: 'centers'}]}]},
+      {t: 'Tres aristas de la cruz', g: 'Tres aristas blancas emparejadas alrededor del centro blanco (a la izquierda).',
+        p: ['Busca las dos mitades de una arista blanca, júntalas con un giro de capa ancha y colócala junto al centro blanco. Haz tres, en el mismo orden de colores que en un cubo armado (con el blanco arriba y el verde al frente: rojo a la derecha, azul atrás y naranja a la izquierda).',
+          'Déjalas abajo, al frente y atrás de la cara izquierda, y el hueco de la cuarta <b>arriba</b>: así los giros U del paso siguiente no las mueven.'],
+        tip: 'Con práctica, mira dónde están las dos mitades antes de empezar: cada arista sale en 3 o 4 giros.'},
+      {t: 'Los otros 4 centros', g: 'Los centros que faltan, sin tocar la cruz de la izquierda.',
+        p: ['Usa solo <b>Rw</b>, <b>3Rw</b>, <b>2L</b> y <b>U</b>: ninguno mueve la cara izquierda ni sus aristas de abajo, del frente y de atrás.',
+          'Truco: arma tres de los cuatro centros a medias (una barra cada uno) y termínalos al final: así casi todo sale con Rw y U.'],
+        cases: [{grp: 'Practicar', list: [{n: 'Los dos últimos centros', gen: 'cen2', chk: 'centers'}]}]},
+      {t: 'Última arista de la cruz', g: 'Completar la cruz blanca.',
+        p: ['Empareja la cuarta arista blanca y métela en el hueco de arriba a la izquierda. Luego gira el cubo (<b>z\'</b>) para dejar la cruz <b>abajo</b>.']},
+      {t: 'Las demás aristas (3-2-3)', g: 'Las 8 aristas que faltan, de a varias, sin romper la cruz.',
+        p: ['Pon una arista a medias adelante a la derecha (en la capa del medio) y su otra mitad donde, con <b>Uw</b> o <b>Dw\'</b>, quede junto a ella. Junta, guarda la arista armada arriba con <b>R U R\'</b> (o <b>R U\' R\'</b>) y deshaz el giro de capas. Empareja tres antes de deshacer, luego dos y luego tres (de ahí el nombre).',
+          'Con la cruz abajo, usa solo U, R U R\' y las capas anchas Uw y Dw: así la cruz queda intacta.'],
+        cases: [{grp: 'Emparejar', list: [{n: 'Unir dos alas sin romper la cruz', a: "Uw R U R' Uw'", k: 'big', chk: 'paired'}, {n: 'Emparejar varias', gen: 'pairY', chk: 'paired'}]}]},
+      {t: 'Como un 3×3', g: 'Cruz ya hecha: F2L, OLL y PLL.',
+        p: ['Sigue con las dos primeras capas (F2L) y la última capa como en el 3×3. Si al orientar queda una sola arista volteada, es la paridad OLL; si al final quedan dos aristas cambiadas, la paridad PLL.'],
+        cases: [{grp: 'Paridades', list: [{n: 'Paridad OLL (una arista volteada)', a: "2R2 B2 U2 2L U2 2R' U2 2R U2 F2 2R F2 2L' B2 2R2", k: 'big', chk: 'solved', fr: 'z2'}, {n: 'Paridad PLL (dos aristas cambiadas)', a: "2R2 U2 2R2 Uw2 2R2 Uw2", k: 'big', chk: 'solved', fr: 'z2'}]}]}
+    ], tips: TIPS4}
   ],
   5: [
     {id: 'r5', name: 'Reducción', intro: 'Como el 4×4: centros de 3×3, luego aristas de 3 piezas (una central y dos alas) y al final como un 3×3. El 5×5 tiene centros fijos, así que el orden de los colores ya está dado, y solo hay una paridad.', frame: '', steps: [
       {t: 'Centros', g: 'Los 6 centros de 3×3, cada uno de su color.',
         p: ['Cada centro tiene 9 piezas: la del medio (fija, dice el color de la cara), 4 en cruz (+) y 4 en las esquinas (×). Se arma por <b>barras de 1×3</b>: junta una pieza + y dos × del mismo color en línea, súbela junto al centro y únela con un giro de capa interna.',
           '<b>1. Blanco</b> y <b>2. amarillo</b> (opuestos): tres barras de 1×3 cada uno. Para unir una barra: déjala en la cara de frente alineada con la columna que le falta al centro de arriba, sube esa columna con su capa interna (2R o 2L; la del medio con 3R, que mueve también el centro fijo), gira la cara de arriba y deshaz la capa.',
-          '<b>3. Los 4 de los lados</b>: arma barras de 1×3 en las caras de los lados y súbelas igual. Para los dos últimos centros usa <b>2R U2 2R\'</b> y <b>3R U2 3R\'</b>: cambian columnas entre la cara de frente y la de arriba sin romper el blanco ni el amarillo.'],
-        demo: {setup: "2R U 2R' 3R U2 3R'", sol: "3R U2 3R' 2R U' 2R'", note: 'Ejemplo: barras de 1×3 que salen y vuelven a su centro con giros de capa interna.'}},
+          '<b>3. Los 4 de los lados</b>: arma barras de 1×3 en las caras de los lados y súbelas igual. Para los dos últimos centros usa <b>2R U2 2R\'</b> y <b>3R U2 3R\'</b>: cambian columnas entre la cara de frente y la de arriba sin romper el blanco ni el amarillo.',
+          '<b>Otra forma</b>: arma primero la <b>cruz</b> de cada centro (las 4 piezas + alrededor de la fija, que se mueven con 2R y 3R) y después las 4 esquinas (×). La cruz es fácil porque la pieza fija ya marca el color; las esquinas se meten igual que las barras.'],
+        demo: {setup: "2R U 2R' 3R U2 3R'", sol: "3R U2 3R' 2R U' 2R'", note: 'Ejemplo: barras de 1×3 que salen y vuelven a su centro con giros de capa interna.'},
+        cases: [{grp: 'Practicar centros', list: [{n: 'Devolver una barra', gen: 'cen1', chk: 'centers', d: 'Una barra salió de su centro: devuélvela con una capa interna, un giro de arriba y la capa de vuelta.'},
+          {n: 'Los dos últimos centros', gen: 'cen2', chk: 'centers', d: 'Solo están mezclados el de arriba y el de frente. Usa 2R U2 2R\', 3R U2 3R\' y giros U.'},
+          {n: 'Todos los centros', gen: 'cenAll', chk: 'centers', d: 'Varios centros mezclados con pocos giros: ármalos todos (no importa cómo queden las aristas).'}]}]},
       {t: 'Aristas', g: 'Juntar las 3 piezas de cada arista (la central y sus dos alas).',
         p: ['Pon una arista central adelante a la izquierda y busca un ala que le corresponda; llévala adelante a la derecha a la altura que le falta. Haz <b>Uw</b> (o <b>Dw\'</b> para la de abajo), cambia la arista con <b>R U R\' F R\' F\' R</b> y deshaz el giro de capas.',
           'Las <b>dos últimas</b> aristas: déjalas adelante a la izquierda y a la derecha y usa <b>Dw R F\' U R\' F Dw\'</b>, que mueve sus alas sin tocar el resto.'],
-        cases: [{grp: 'Emparejar', list: [{n: 'Unir un ala con su central', a: "Uw R U R' F R' F' R Uw'", k: 'big', chk: 'paired'}, {n: 'Últimas dos aristas', a: "Dw R F' U R' F Dw'", k: 'big', chk: 'paired'}]}]},
+        cases: [{grp: 'Emparejar', list: [{n: 'Unir un ala con su central', a: "Uw R U R' F R' F' R Uw'", k: 'big', chk: 'paired'}, {n: 'Últimas dos aristas', a: "Dw R F' U R' F Dw'", k: 'big', chk: 'paired'},
+          {n: 'Emparejar varias', gen: 'pair', chk: 'paired', d: 'Con los centros armados, algunas aristas se separaron: empareja todas sin romper los centros.'}]}]},
       {t: 'Paridad', g: 'Una arista con sus alas al revés.',
         p: ['En el 5×5 puede quedar una arista con la central bien pero las dos alas cambiadas (se ve «volteada» a medias). Ponla adelante arriba y haz <b>2R2 B2 U2 2L U2 2R\' U2 2R U2 F2 2R F2 2L\' B2 2R2</b>: solo voltea esas dos alas.'],
         cases: [{grp: 'Paridad', list: [{n: 'Alas de una arista volteadas', a: "2R2 B2 U2 2L U2 2R' U2 2R U2 F2 2R F2 2L' B2 2R2", k: 'big', chk: 'solved', fr: 'z2'}]}]},
       {t: 'Como un 3×3', g: 'Con centros y aristas armados, se resuelve igual que el 3×3.',
-        p: ['Gira solo las capas exteriores y usa el método del 3×3 que sepas. En el 5×5 no hay paridades al final.']}
-    ]}
+        p: ['Gira solo las capas exteriores y usa el método del 3×3 que sepas. En el 5×5 no hay paridades al final.',
+          '<b>Otra forma de ordenar todo (Yau)</b>: centros blanco y amarillo, tres aristas de la cruz, los otros 4 centros (con Rw y U, sin tocar la cruz), la última arista de la cruz y luego las demás aristas. Es lo que hacen los más rápidos: así la cruz ya está hecha al llegar al 3×3.']}
+    ], tips: TIPS5}
   ]
 };
 /* ---------- motor de ejercicios (sin DOM: también se usa en las pruebas) ---------- */
@@ -4923,11 +5181,34 @@ const LX = (() => {
     paired: (NN, s) => { const q = NN * NN, m = NN - 1; for (let f = 0; f < 6; f++) { const c0 = s[f * q + NN + 1]; for (let r = 1; r < m; r++) for (let c = 1; c < m; c++) if (s[f * q + r * NN + c] !== c0) return false; }
       for (let f = 0; f < 6; f++) for (const side of [[0, 1, 0], [m, 1, 0], [0, 0, 1], [m, 0, 1]]) { const [k, dr, dc] = side, vals = []; for (let t = 1; t < m; t++) vals.push(s[f * q + (dr ? t * NN + k : k * NN + t)]); if (vals.some(v => v !== vals[0])) return false; }
       return true; },
-    cross: (NN, s, R) => { const q = 9; return [1, 3, 5, 7].every(j => s[3 * q + j] === R[3 * q + j]) && [1, 2, 4, 5].every(f => s[f * q + 7] === R[f * q + 4]); }
+    cross: (NN, s, R) => { const q = 9; return [1, 3, 5, 7].every(j => s[3 * q + j] === R[3 * q + j]) && [1, 2, 4, 5].every(f => s[f * q + 7] === R[f * q + 4]); },
+    df: (NN, s, R) => { const q = NN * NN; for (let j = 0; j < q; j++) if (s[3 * q + j] !== R[3 * q]) return false; return true; },
+    dfu: (NN, s, R) => CHK.df(NN, s, R) && s.slice(0, NN * NN).every(v => v === R[0]),
+    // esquinas de arriba en su lugar (sin mirar las aristas): la primera vista del PLL en dos vistas
+    cpc: (NN, s, R) => CHK.oll(NN, s, R) && AUF.some(u => { const t = ap(NN, s, u); return [[8, 20, 9], [6, 18, 38], [2, 11, 45], [0, 47, 36]].every(cs => cs.map(i => t[i]).sort().join() === cs.map(i => R[i]).sort().join()); }),
+    // todos los centros armados y en el orden de colores correcto (en los cubos pares puede estar girado el cubo entero)
+    centers: (NN, s, R) => { const q = NN * NN, m = NN - 1, cj = []; for (let r = 1; r < m; r++) for (let c = 1; c < m; c++) cj.push(r * NN + c);
+      const ok = t => [0, 1, 2, 3, 4, 5].every(f => cj.every(j => t[f * q + j] === R[f * q + NN + 1]));
+      return ok(s) || NN % 2 === 0 && ROTS.some(r => ok(ap(NN, s, r))); }
+  };
+  // ejercicios que se generan al azar (centros y aristas de los cubos grandes): una mezcla corta que solo desarma esa parte
+  const pick = a => a[Math.random() * a.length | 0];
+  const conj = (sl, mids) => { const a = pick(sl); return a + ' ' + pick(mids) + ' ' + invS(a); };
+  const outer = () => { const f = pick(['R', 'U', 'F', 'L', 'B', 'D']); return f + pick(['', "'", '2']); };
+  const GEN = {
+    cen1: NN => conj(NN === 5 ? ['2R', "2R'", '2L', "2L'", '3R', "3R'"] : ['2R', "2R'", '2L', "2L'"], ['U', "U'", 'U2']),
+    // (2R y 2L' con giros de U en medio solo mezclan el centro de arriba con el de frente)
+    cen2: NN => { const sl = NN === 5 ? ['2R', "2L'", '3R'] : ['2R', "2L'"], o = []; for (let k = 0; k < 3; k++) o.push(conj(sl, ['U', "U'", 'U2']), pick(['U', "U'", 'U2'])); return o.join(' '); },
+    cenAll: NN => { const ax = [[['2R', '2L'].concat(NN === 5 ? ['3R'] : []), ['U', 'D', 'F', 'B']], [['2F', '2B'].concat(NN === 5 ? ['3F'] : []), ['U', 'D', 'R', 'L']], [['2U', '2D'].concat(NN === 5 ? ['3U'] : []), ['R', 'L', 'F', 'B']]], o = [];
+      for (let k = 0; k < 5; k++) { const [sl, fs] = pick(ax), a = pick(sl) + pick(['', "'"]); o.push(a, pick(fs) + pick(['', "'", '2']), invS(a)); } return o.join(' '); },
+    pair: NN => { const o = []; for (let k = 0; k < 3; k++) o.push(outer(), outer(), invS(pick(["Uw R U R' F R' F' R Uw'", "Uw' L' U' L F' L F L' Uw"]))); return o.join(' '); },
+    pairY: NN => { const o = []; for (let k = 0; k < 3; k++) o.push(pick(['U', "U'", 'U2']), invS(pick(["Uw R U R' Uw'", "Uw R U' R' Uw'", "Dw' R U R' Dw", "Dw' R U' R' Dw"]))); return o.join(' '); }
   };
   // un ejercicio: estado de partida (desde el cubo armado en la orientación del método) y los giros para prepararlo
   function make(NN, c, frame, last) {
     const fr = c.fr !== undefined ? c.fr : frame, R = ref(NN, fr);
+    if (c.gen) { let setup, start; for (let k = 0; k < 30; k++) { setup = GEN[c.gen](NN).replace(/\s+/g, ' ').trim(); start = ap(NN, R, setup); if (!CHK[c.chk](NN, start, R)) break; }
+      return {setup, start, R, fr, au: '', chk: c.chk, sol: invS(setup), gen: true}; }
     let au; do { au = AUF[Math.random() * 4 | 0]; } while (au === last && Math.random() < 0.8);
     let body;
     if (c.k === 'c1') body = Array(c.rep || 1).fill(invS(c.a)).join(' ');
@@ -4962,14 +5243,146 @@ const LX = (() => {
   function crossEx(frame) { const R = ref(3, frame), MV = ['U', 'D', 'R', 'L', 'F', 'B'], sq = []; let last = '';
     for (let k = 0; k < 20; k++) { let f; do { f = MV[Math.random() * 6 | 0]; } while (f === last); last = f; sq.push(f + ['', "'", '2'][Math.random() * 3 | 0]); }
     const setup = sq.join(' '), start = ap(3, R, setup); return {setup, start, R, fr: frame, chk: 'cross', sol: crossSolve(start, frame), cross: true}; }
-  return {make, check, invS, ap, ref, crossEx, crossSolve, CHK, norm};
+  /* ---------- analizar un cubo real a medio resolver: en qué paso va y qué caso tiene ---------- */
+  const Y4 = ['', 'y', 'y2', "y'"];
+  const algOf = c => c.k === 'c1' ? Array(c.rep || 1).fill(c.a).join(' ') : c.a;
+  // piezas de la ranura de adelante a la derecha (abajo): la esquina y, en el 3×3, la arista del medio
+  function slotOk(NN, s, R, kind, sx, sz) {
+    const G = geo(NN), mx = Math.max(...G.pieces.map(p => Math.abs(p.p[0]))), X = (sx || 1) * mx, Z = (sz || 1) * mx;
+    const want = []; if (kind !== 'edge') want.push([X, -mx, Z]); if (kind !== 'corner') want.push([X, 0, Z]);
+    return want.every(w => { const pc = G.pieces.find(p => p.p.every((v, i) => Math.abs(v - w[i]) < 0.01)); return !pc || pc.fl.every(f => s[f] === R[f]); });
+  }
+  const slots = (NN, s, R, kind) => [[1, 1], [1, -1], [-1, 1], [-1, -1]].filter(([x, z]) => slotOk(NN, s, R, kind, x, z)).length; // ranuras armadas
+  function caseList(st) { const o = []; (st.cases || []).forEach((g, gi) => g.list.forEach((c, ci) => { if (!c.gen) o.push({gi, ci, c}); })); return o; }
+  function findCase(NN, st, s, R, test) { // primero sin girar el cubo y sin girar la capa de arriba
+    for (const y of Y4) { const t = ap(NN, s, y), Ry = ap(NN, R, y);
+      for (const u of AUF) for (const e of caseList(st)) { const seq = (u + ' ' + algOf(e.c)).trim(); if (test(ap(NN, t, seq), Ry)) return {gi: e.gi, ci: e.ci, c: e.c, y, u, alg: algOf(e.c), seq: ((y ? y + ' ' : '') + seq).trim()}; } }
+    return null;
+  }
+  function analyze1(NN, m, s, R) {
+    const steps = m.steps; let prev = null;
+    for (let si = 0; si < steps.length; si++) { const st = steps[si]; if (!st.goal) continue;
+      if (CHK[st.goal](NN, s, R)) { prev = st.goal; continue; }
+      const res = {si, st, start: s, found: false};
+      if (st.goal === 'cross' && NN === 3) { const sol = crossSolve(s, m.frame); return {...res, found: sol !== null, cross: true, seq: sol || '', alg: sol || ''}; }
+      const pg = prev, n0 = st.slot ? slots(NN, s, R, st.slot) : 0, nz = (a, Ry) => NN % 2 ? norm(NN, a, Ry) : a; // (los algoritmos con giros del cubo entero)
+      const hit = findCase(NN, st, s, R, (a, Ry) => { a = nz(a, Ry); return st.slot ? slots(NN, a, Ry, st.slot) > n0 && (!pg || CHK[pg](NN, a, Ry)) : CHK[st.goal](NN, a, Ry); });
+      if (hit) Object.assign(res, hit, {found: true});
+      // en dos vistas (CFOP): el primer algoritmo de la orientación o de la permutación
+      const l2 = steps.find(x => x.look2 === (st.goal === 'oll' ? 'oll' : st.goal === 'solved' && pg === 'oll' ? 'pll' : ''));
+      if (l2 && NN === 3) { const g0 = {cases: [l2.cases[0]]}, h2 = st.goal === 'oll' ? (CHK.eo(NN, s, R) ? null : findCase(NN, g0, s, R, (a, Ry) => CHK.eo(NN, nz(a, Ry), Ry))) : (CHK.cpc(NN, s, R) ? null : findCase(NN, g0, s, R, (a, Ry) => CHK.cpc(NN, nz(a, Ry), Ry)));
+        res.l2 = {si: steps.indexOf(l2), first: h2 ? {...h2, gi: 0} : null, goal: st.goal}; }
+      return res;
+    }
+    return {solved: true, start: s};
+  }
+  function analyze(NN, m, s0) {
+    const R = ref(NN, m.frame), base = ap(NN, s0, m.frame), cands = NN % 2 ? [norm(NN, base, R)] : ROTS.map(r => ap(NN, base, r));
+    let best = null;
+    for (const s of cands) { const r = analyze1(NN, m, s, R); const sc = r.solved ? 1e9 : r.si * 2 + (r.found ? 1 : 0); if (!best || sc > best.sc) best = {...r, sc}; if (r.solved) break; }
+    return best;
+  }
+  // una resolución completa con el método, paso a paso (para verla en el visor con el nombre de cada paso)
+  const ROTT = /^[xyz]['2]?$/;
+  function twistLL(NN, s, R) { // girar las esquinas de arriba con R' D' R D (método principiante), trayendo cada una con U
+    const out = []; let t = s;
+    for (let k = 0; k < 4; k++) { for (let r = 0; r < 4 && t[NN * NN - 1] !== R[0]; r++) { // la esquina de adelante a la derecha, arriba
+        t = ap(NN, t, "R' D' R D"); out.push("R' D' R D"); }
+      t = ap(NN, t, 'U'); out.push('U'); }
+    return out.join(' ');
+  }
+  // saca de su hueco una pieza que no es la suya (o, si no hay, la de algún hueco sin armar)
+  function popSlot(NN, s, R, kind, tries) {
+    const pop = kind === 'corner' ? "R U R' U'" : kind === 'edge' ? "U R U' R' U' F' U F" : "R U R'", G = geo(NN), mx = Math.max(...G.pieces.map(p => Math.abs(p.p[0]))), q = NN * NN;
+    const at = w => G.pieces.find(p => p.p.every((v, i) => Math.abs(v - w[i]) < 0.01)), Dc = R[3 * q + (NN % 2 ? (q - 1) / 2 : 0)], Uc = R[NN % 2 ? (q - 1) / 2 : 0];
+    let alt = '';
+    for (const y of Y4) { const Ry = ap(NN, R, y), t = ap(NN, s, y); if (slotOk(NN, t, Ry, kind)) continue;
+      const c = at([mx, -mx, mx]), e = NN === 3 ? at([mx, 0, mx]) : null;
+      const wrongC = kind !== 'edge' && c && c.fl.some(f => t[f] === Dc) && !c.fl.every(f => t[f] === Ry[f]), wrongE = kind !== 'corner' && e && !e.fl.some(f => t[f] === Uc || t[f] === Dc) && !e.fl.every(f => t[f] === Ry[f]);
+      if (wrongC || wrongE) return (y + ' ' + pop).trim();
+      if (!alt) alt = (y + ' ' + pop).trim(); }
+    return tries > 1 ? (Y4[tries % 4] + ' ' + pop).trim() : alt;
+  }
+  function walk(NN, m, s0, steps0) {
+    let fr = m.frame || '', s = ap(NN, s0, fr), R = ref(NN, fr), r0 = '';
+    if (NN % 2) s = norm(NN, s, R);
+    else { let best = null; for (const r of ROTS) { const t = ap(NN, s, r), a = analyze1(NN, m, t, R), sc = a.solved ? 1e9 : a.si * 2 + (a.found ? 1 : 0); if (!best || sc > best.sc) best = {t, sc, r}; } s = best.t; r0 = best.r; }
+    const fr0 = () => ((m.frame || '') + ' ' + r0).trim(); // cómo girar el cubo (desde como se escaneó) para empezar
+    const start = s, rot = fr0(), out = [], ph = [], stuck = {}; let guard = 0;
+    const push = (seq, name, si) => { const t = seq.split(/\s+/).filter(Boolean); if (!t.length) return; const a = out.length; out.push(...t); const l = ph[ph.length - 1];
+      if (l && l.name === name) l.b = out.length; else ph.push({name, a, b: out.length, si}); s = ap(NN, s, t.join(' ')); const rot = t.filter(x => ROTT.test(x)); if (rot.length) { fr = (fr + ' ' + rot.join(' ')).trim(); R = ref(NN, fr); } };
+    while (guard++ < 40) {
+      const r = analyze1(NN, m, s, R); if (r.solved) break;
+      const stp = r.st, nm = stp.t;
+      if (r.cross) { push(crossSolve(s, fr) || '', nm, r.si); continue; }
+      if (r.found) { push(r.seq, nm + (stp.slot || /OLL|PLL|Orientar|Permutar/.test(nm) ? ' · ' + r.c.n : ''), r.si); continue; }
+      // atascado: se saca la pieza que está en un hueco equivocado, o se hace el algoritmo del paso desde cualquier lado (como enseña el método)
+      const tries = (stuck[r.si] = (stuck[r.si] || 0) + 1); if (tries > 8) return null;
+      let seq = '', sst = stp;
+      if (stp.goal === 'df' && steps0) { sst = steps0[0]; const b = analyze1(NN, {steps: steps0}, s, R); if (b.found && b.si === 0) { push(b.seq, nm, r.si); continue; } }
+      if (stp.goal === 'solved' && /Girar/.test(nm)) seq = twistLL(NN, s, R);
+      else if (sst.slot) seq = popSlot(NN, s, R, sst.slot, tries);
+      else if (sst.cases) seq = sst.cases[0].list[0].a;
+      if (!seq) return null;
+      push(seq, nm, r.si);
+    }
+    const end = s; if (![0, 1, 2, 3, 4, 5].every(f => { const q = NN * NN; for (let j = 1; j < q; j++) if (end[f * q + j] !== end[f * q]) return false; return true; })) {
+      // falta acomodar la última capa (o la de abajo, en el 2×2)
+      for (const u of AUF) for (const d of ['', 'D', 'D2', "D'"]) { const e = ap(NN, end, (u + ' ' + d).trim()); if ([0, 1, 2, 3, 4, 5].every(f => { const q = NN * NN; for (let j = 1; j < q; j++) if (e[f * q + j] !== e[f * q]) return false; return true; })) { push((u + ' ' + d).trim(), 'Terminar', -1); return {start, rot, moves: out, ph}; } }
+      return null; }
+    return {start, rot, moves: out, ph};
+  }
+  // cubos grandes: centros, aristas y luego como un 3×3 (con sus paridades)
+  function to3(NN, s) { const q = NN * NN, mid = NN >> 1, o = []; for (let f = 0; f < 6; f++) for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) { const rr = r === 0 ? 0 : r === 2 ? NN - 1 : mid, cc = c === 0 ? 0 : c === 2 ? NN - 1 : mid; o.push(s[f * q + rr * NN + cc]); } return o; }
+  function analyzeBig(NN, s0, m3) {
+    const R = ref(NN, ''), q = NN * NN, m = NN - 1; let s = NN % 2 ? norm(NN, s0, R) : s0;
+    const cj = []; for (let r = 1; r < m; r++) for (let c = 1; c < m; c++) cj.push(r * NN + c);
+    const faceDone = t => [0, 1, 2, 3, 4, 5].filter(f => cj.every(j => t[f * q + j] === t[f * q + cj[0]])).length;
+    if (!CHK.centers(NN, s, R)) return {stage: 'centers', done: Math.max(...(NN % 2 ? [s] : ROTS.map(r => ap(NN, s0, r))).map(faceDone))};
+    if (NN % 2 === 0) s = ROTS.map(r => ap(NN, s0, r)).find(t => [0, 1, 2, 3, 4, 5].every(f => t[f * q + NN + 1] === R[f * q + NN + 1])) || s;
+    if (!CHK.paired(NN, s, R)) { // aristas sin emparejar (y, en el 5×5, alguna con las alas al revés: la paridad)
+      const sides = []; for (let f = 0; f < 6; f++) for (const [k, dr] of [[0, 0], [m, 0], [0, 1], [m, 1]]) { const v = []; for (let t = 1; t < m; t++) v.push(s[f * q + (dr ? t * NN + k : k * NN + t)]); sides.push(v); }
+      const bad = sides.filter(v => v.some(x => x !== v[0])).length / 2, flip = NN === 5 && sides.filter(v => v[0] === v[2] && v[0] !== v[1]).length === 2 && bad === 1;
+      return {stage: 'edges', bad: Math.round(bad), parity: flip};
+    }
+    const r3 = analyze(3, m3, to3(NN, s));
+    const par = !r3.solved && !r3.found && (r3.st.goal === 'oll' ? 'oll' : r3.st.goal === 'solved' ? 'pll' : null);
+    return {stage: '3x3', r3, parity: NN === 4 ? par : null, big: ap(NN, s, m3.frame)};
+  }
+  return {make, check, invS, ap, ref, crossEx, crossSolve, CHK, norm, GEN, analyze, analyzeBig, slotOk, walk};
+})();
+/* F2L: los 41 casos agrupados como en las guías, según dónde están la esquina y la arista del par (ranura adelante a la derecha) */
+(() => {
+  const st = LEARN[3].find(m => m.id === 'cfop').steps.find(x => x.id === 'f2l'), G = geo(3), R = LX.ref(3, 'z2'), C = f => R[f * 9 + 4];
+  const cc = [C(3), C(2), C(1)].sort().join(), ec = [C(2), C(1)].sort().join();
+  const GR = [['A', 'Arriba, con el blanco hacia un lado', 'Esquina y arista en la capa de arriba, con el blanco de la esquina mirando a un lado. Se juntan en un par y se mete: son los más frecuentes.'],
+    ['B', 'Arriba, con el blanco hacia arriba', 'Con el blanco arriba, primero se gira la esquina (por ejemplo con R U2 R\') para que quede como un caso del grupo anterior.'],
+    ['C', 'Esquina en su hueco, arista arriba', 'La esquina ya está abajo, en su lugar o girada: se saca junto con la arista para formar el par.'],
+    ['D', 'Arista en su hueco, esquina arriba', 'La arista ya está en la capa del medio: se lleva la esquina encima y se unen, o se saca la arista.'],
+    ['E', 'Las dos en su hueco', 'Están en su lugar pero mal puestas: hay que sacarlas y volver a meterlas bien.']];
+  const by = {}; F2L41.forEach(a => { const s = LX.ap(3, R, LX.invS(a)); let co = null, ed = null;
+    for (const p of G.pieces) { const k = p.fl.map(f => s[f]).sort().join(); if (p.fl.length === 3 && k === cc) co = p; if (p.fl.length === 2 && k === ec) ed = p; }
+    const cU = co.fl.some(f => f < 9), eU = ed.fl.some(f => f < 9), wUp = co.fl.find(f => s[f] === C(3)) < 9;
+    const g = cU && eU ? (wUp ? 'B' : 'A') : !cU && eU ? 'C' : cU ? 'D' : 'E'; (by[g] = by[g] || []).push(a); });
+  let n = 0; st.cases = GR.filter(([k]) => by[k]).map(([k, grp, d]) => ({grp, d, list: by[k].map(a => ({n: 'F2L ' + (++n), a, k: 'll', chk: 'f2l'}))}));
 })();
 
 /* ================= Aprende: métodos paso a paso y práctica de cada algoritmo ================= */
-const LV = {meth: {}, open: {}, pr: null};
+const LV = {meth: {}, open: {}, pr: null, qz: null};
 let scanHook = null; // el escáner, al terminar, le pasa el cubo leído a la práctica («volver al caso»)
+// lo que el alumno ya sabe, sus tiempos y su forma de practicar: solo en este navegador (si no se puede guardar, igual funciona)
+const LSK = 'cubo-aprende-1';
+const LST = (() => { let d = null; try { d = JSON.parse(localStorage.getItem(LSK) || 'null'); } catch (_) { d = null; } d = d && typeof d === 'object' ? d : {}; d.k = d.k && typeof d.k === 'object' ? d.k : {}; d.t = d.t && typeof d.t === 'object' ? d.t : {}; return d; })();
+const lsSave = () => { try { localStorage.setItem(LSK, JSON.stringify(LST)); } catch (_) {} };
+LV.mode = ['guia', 'memo', 'reloj'].includes(LST.mode) ? LST.mode : 'guia';
 const FRTXT = fr => fr === 'z2' ? 'Sostén el cubo con el amarillo arriba y el verde al frente.' : 'Sostén el cubo con el blanco arriba y el verde al frente.';
 const curMeth = () => { const ms = LEARN[N]; return ms.find(x => x.id === LV.meth[N]) || ms[0]; };
+const stepsOf = m => m.tips ? m.steps.concat([{t: 'Trucos para mejorar', g: 'Consejos para ir más rápido y aprender de verdad.', tips: m.tips}]) : m.steps;
+const ckey = (m, c) => N + '|' + m.id + '|' + c.n + '|' + (c.a || c.gen || '');
+const isKnown = (m, c) => !!LST.k[ckey(m, c)];
+const allCases = (m, si) => { const o = []; m.steps.forEach((st, s) => { if (si !== undefined && s !== si) return; (st.cases || []).forEach((g, gi) => g.list.forEach((c, ci) => o.push({si: s, gi, ci, c}))); }); return o; };
+const pick = a => a[Math.random() * a.length | 0];
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.random() * (i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
 // vista desde arriba de la última capa: la cara de arriba y la fila de arriba de cada lado
 function topSVG(s, NN) {
   const q = NN * NN, cell = 30 / NN, o = 8, g = 0.12 * cell; let h = '<svg viewBox="0 0 46 46" aria-hidden="true"><rect x="6.4" y="6.4" width="33.2" height="33.2" rx="3" fill="#15161b"/>';
@@ -4980,105 +5393,227 @@ function topSVG(s, NN) {
   return h + '</svg>';
 }
 const caseBody = c => c.k === 'c1' ? Array(c.rep || 1).fill(LX.invS(c.a)).join(' ') : LX.invS(c.a);
-const caseState = (NN, c, frame) => LX.ap(NN, LX.ref(NN, c.fr !== undefined ? c.fr : frame), caseBody(c));
+// los ejercicios que se generan al azar se dibujan con una mezcla de muestra (siempre la misma mientras la página esté abierta)
+const caseState = (NN, c, frame) => c.gen ? (c._smp && c._smp.N === NN ? c._smp.s : (c._smp = {N: NN, s: LX.make(NN, c, frame).start}).s) : LX.ap(NN, LX.ref(NN, c.fr !== undefined ? c.fr : frame), caseBody(c));
 const dia = (NN, c, s) => c.k === 'll' && NN <= 3 ? topSVG(s, NN) : isoSVG(s, NN);
-const algTxt = c => c.k === 'c1' ? c.a + (c.rep > 1 ? ` (×${c.rep})` : '') : c.a;
+const algTxt = c => c.gen ? 'Mezcla al azar' : c.k === 'c1' ? c.a + (c.rep > 1 ? ` (×${c.rep})` : '') : c.a;
+/* ---------- partes conocidas de los algoritmos (ayudan a memorizarlos) ---------- */
+const TRIG = [["R U R' U R U2 R'", 'Sune'], ["R U2 R' U' R U' R'", 'Antisune'], ["R U R' U'", 'sexy'], ["U R U' R'", 'sexy al revés'], ["R' F R F'", 'martillo'], ["F R' F' R", 'martillo al revés'],
+  ["L' U' L U", 'sexy izquierdo'], ["U' L' U L", 'sexy izquierdo al revés'], ["r U R' U'", 'sexy ancho'], ["R' U' R U", 'sexy invertido'],
+  ["R U R'", ''], ["R U' R'", ''], ["R U2 R'", ''], ["R' U R", ''], ["R' U' R", ''], ["R' U2 R", ''], ["F' U' F", ''], ["F' U F", ''], ["F' U2 F", ''], ["L' U' L", ''], ["L U L'", '']].map(([a, n]) => [a.split(' '), n]);
+function trigSegs(toks, from) { // grupos de giros [desde, hasta) con su nombre
+  const out = []; let i = from;
+  while (i < toks.length) { let hit = null; for (const [t, n] of TRIG) if (t.length > (hit ? hit[0].length : 1) && t.every((x, k) => toks[i + k] === x)) hit = [t, n];
+    if (hit) { out.push({a: i, b: i + hit[0].length, n: hit[1]}); i += hit[0].length; } else { out.push({a: i, b: i + 1, n: null}); i++; } }
+  return out;
+}
+/* ---------- página del método ---------- */
+function progUI(m) {
+  const all = allCases(m), k = all.filter(e => isKnown(m, e.c)).length;
+  $('lprog').innerHTML = !all.length ? '' : k ? `<span>${ico('check')}Te sabes <b>${k}</b> de ${all.length} casos de este método</span>` : `<span>${ico('check')}${all.length} casos para practicar: márcalos con «Me lo sé» cuando te salgan</span>`;
+  $('lrev').hidden = all.length < 2;
+}
 function buildLearn() {
   if (LV.pr && LV.pr.N !== N) closePractice(true);
+  if (LV.qz && LV.qz.N !== N) closeQuiz();
+  if (LV.an !== undefined && $('lanp') && LV.anN !== N) { $('lanp').hidden = true; LV.an = null; } LV.anN = N;
   const ms = LEARN[N], m = curMeth(); LV.meth[N] = m.id;
   $('lttl').textContent = `Aprende a resolver el ${N}×${N}`; $('lintro').textContent = m.intro;
   $('lmeth').innerHTML = ms.map(x => `<button data-id="${x.id}" class="${x.id === m.id ? 'on' : ''}">${x.name}</button>`).join(''); $('lmeth').hidden = ms.length < 2;
+  progUI(m); $('lex').hidden = N > 3;
   const op = LV.open[m.id] || (LV.open[m.id] = new Set());
-  $('lsteps').innerHTML = m.steps.map((st, si) => `<div class="blk lstep${op.has(si) ? ' open' : ''}" data-s="${si}">
-    <button class="lsh" aria-expanded="${op.has(si)}"><span class="ln">${si + 1}</span><span><b>${st.t}</b><small>${st.g}</small></span>${ico('chev')}</button>
+  $('lsteps').innerHTML = stepsOf(m).map((st, si) => `<div class="blk lstep${op.has(si) ? ' open' : ''}${st.tips ? ' ltipst' : ''}" data-s="${si}">
+    <button class="lsh" aria-expanded="${op.has(si)}"><span class="ln">${st.tips ? ico('spark') : si + 1}</span><span><b>${st.t}</b><small>${st.g}</small></span>${ico('chev')}</button>
     <div class="lsb"${op.has(si) ? '' : ' hidden'}>${op.has(si) ? stepBody(m, st, si) : ''}</div></div>`).join('');
 }
 function stepBody(m, st, si) {
+  if (st.tips) return `<ul class="ltips">${st.tips.map(t => `<li>${t}</li>`).join('')}</ul>`;
   let h = st.p.map(t => `<p>${t}</p>`).join('') + (st.tip ? `<p class="tip">${st.tip}</p>` : '');
   const btns = [];
   if (st.x === 'cross') btns.push(`<button class="btn sm cta" data-act="cross" data-s="${si}">${ico('shuffle')}Practicar la cruz</button>`);
   if (st.demo) btns.push(`<button class="btn sm" data-act="demo" data-s="${si}">${ico('play')}Ver un ejemplo en el visor</button>`);
+  const cs = allCases(m, si), quiz = cs.filter(e => !e.c.gen).length >= 3;
+  if (cs.length >= 2) btns.push(`<button class="btn sm" data-act="rand" data-s="${si}">${ico('shuffle')}Practicar al azar</button>`);
+  if (quiz) btns.push(`<button class="btn sm" data-act="quiz" data-s="${si}">${ico('view')}Reconocer casos</button>`);
   if (btns.length) h += `<div class="row">${btns.join('')}</div>`;
   (st.cases || []).forEach((g, gi) => {
-    h += `<div class="lgrp"><h4>${g.grp} · ${g.list.length}</h4><div class="lcases">` + g.list.map((c, ci) => {
-      const on = LV.pr && LV.pr.si === si && LV.pr.gi === gi && LV.pr.ci === ci;
-      return `<button class="lcase${on ? ' on' : ''}" data-s="${si}" data-g="${gi}" data-c="${ci}" title="Practicar este caso">${dia(N, c, caseState(N, c, m.frame))}<b>${c.n}</b><code>${algTxt(c)}</code></button>`;
+    const kn = g.list.filter(c => isKnown(m, c)).length;
+    h += `<div class="lgrp"><h4>${g.grp} · ${g.list.length}${kn ? `<span class="lk">${ico('check')}${kn}</span>` : ''}</h4>${g.d ? `<p class="lgd">${g.d}</p>` : ''}<div class="lcases">` + g.list.map((c, ci) => {
+      const on = LV.pr && LV.pr.si === si && LV.pr.gi === gi && LV.pr.ci === ci, k = isKnown(m, c);
+      return `<button class="lcase${on ? ' on' : ''}${k ? ' known' : ''}" data-s="${si}" data-g="${gi}" data-c="${ci}" title="Practicar este caso">${dia(N, c, caseState(N, c, m.frame))}<b>${c.n}</b><code>${algTxt(c)}</code>${k ? `<span class="kn" title="Te lo sabes">${ico('check')}</span>` : ''}</button>`;
     }).join('') + '</div></div>';
   });
-  if ((st.cases || []).length) h += '<p class="lead">Toca un caso para practicarlo: te digo cómo prepararlo en tu cubo, lo puedes hacer aquí con los botones y, si te equivocas, te devuelvo al caso.</p>';
+  if ((st.cases || []).length) h += '<p class="lead">Toca un caso para practicarlo: te digo cómo prepararlo en tu cubo, lo puedes hacer aquí con los botones y, si te equivocas, te devuelvo al caso. Cuando te salga sin mirar, márcalo con «Me lo sé».</p>';
   return h;
 }
-$('lmeth').onclick = e => { const b = e.target.closest('button'); if (!b) return; LV.meth[N] = b.dataset.id; closePractice(true); buildLearn(); };
+function refreshStep(si) { // vuelve a dibujar un paso abierto (casos aprendidos, caso activo)
+  const m = curMeth(), box = document.querySelector(`.lstep[data-s="${si}"]`); if (!box) return;
+  const body = box.querySelector('.lsb'); if (body && !body.hidden && body.innerHTML) body.innerHTML = stepBody(m, stepsOf(m)[si], si);
+}
+$('lmeth').onclick = e => { const b = e.target.closest('button'); if (!b) return; LV.meth[N] = b.dataset.id; closePractice(true); closeQuiz(); buildLearn(); };
+$('lrev').onclick = () => { const m = curMeth(), pool = allCases(m); if (!pool.length) return; const e = pickFrom(m, pool, null); openStep(e.si); startPractice(e.si, e.gi, e.ci, pool); };
+function openStep(si) { const m = curMeth(), op = LV.open[m.id]; if (op.has(si)) return; op.add(si); const box = document.querySelector(`.lstep[data-s="${si}"]`); if (!box) return;
+  const sh = box.querySelector('.lsh'), body = box.querySelector('.lsb'); box.classList.add('open'); sh.setAttribute('aria-expanded', true); body.hidden = false; body.innerHTML = stepBody(m, stepsOf(m)[si], si); }
 $('lsteps').onclick = e => {
   const m = curMeth();
   const sh = e.target.closest('.lsh');
   if (sh) { const box = sh.parentElement, si = +box.dataset.s, op = LV.open[m.id]; if (op.has(si)) op.delete(si); else op.add(si);
-    const body = box.querySelector('.lsb'), open = op.has(si); box.classList.toggle('open', open); sh.setAttribute('aria-expanded', open); body.hidden = !open; if (open && !body.innerHTML) body.innerHTML = stepBody(m, m.steps[si], si); return; }
+    const body = box.querySelector('.lsb'), open = op.has(si); box.classList.toggle('open', open); sh.setAttribute('aria-expanded', open); body.hidden = !open; if (open && !body.innerHTML) body.innerHTML = stepBody(m, stepsOf(m)[si], si); return; }
   const a = e.target.closest('[data-act]');
-  if (a) { const st = m.steps[+a.dataset.s];
-    if (a.dataset.act === 'cross') return startPractice(+a.dataset.s, -1, -1);
-    if (a.dataset.act === 'demo') { const R = LX.ref(N, m.frame), s0 = LX.ap(N, R, st.demo.setup); tab(1); $('seq').value = st.demo.sol; load(s0, {note: st.demo.note}); setTimeout(() => play(), 450); }
+  if (a) { const si = +a.dataset.s, st = m.steps[si];
+    if (a.dataset.act === 'cross') return startPractice(si, -1, -1);
+    if (a.dataset.act === 'demo') { const R = LX.ref(N, m.frame); return toVisor(LX.ap(N, R, st.demo.setup), st.demo.sol, st.demo.note); }
+    if (a.dataset.act === 'rand') { const pool = allCases(m, si), x = pickFrom(m, pool, null); return startPractice(x.si, x.gi, x.ci, pool); }
+    if (a.dataset.act === 'quiz') return startQuiz(si);
     return; }
   const c = e.target.closest('.lcase'); if (c) startPractice(+c.dataset.s, +c.dataset.g, +c.dataset.c);
 };
+// al azar: primero los que todavía no sabes (y nunca el mismo dos veces seguidas)
+function pickFrom(m, pool, cur) {
+  const others = pool.filter(e => !cur || e.si !== cur.si || e.gi !== cur.gi || e.ci !== cur.ci), cand = others.length ? others : pool, un = cand.filter(e => !isKnown(m, e.c));
+  return pick(un.length ? un : cand);
+}
+/* ---------- llevar al visor (para verlo paso a paso, con pausa y giros hacia atrás) ---------- */
+function toVisor(start, seq, txt, phases, still, short) {
+  if (!seq || !seq.trim()) return;
+  tmCancel(); tab(1); $('seq').value = seq;
+  if (load(start, {note: txt, phases: phases || null})) { $('lback').hidden = false; $('lbackt').textContent = short || txt; if (!still) setTimeout(() => play(), 450); }
+}
+// una resolución completa con el método elegido, con el nombre de cada paso (para verla y seguirla con tu cubo)
+const PHC = [0xffffff, 0x1fa64a, 0xff8a1f, 0xffd500, 0xd62828, 0x1f6fe0, 0x8e93a2];
+function walkVisor(s, intro) {
+  const m = curMeth(), w = N <= 3 ? LX.walk(N, m, s, N === 2 ? LEARN[2][0].steps : null) : null; if (!w || !w.moves.length) return false;
+  const ph = w.ph.map(p => [p.name, p.a, p.b, PHC[(p.si < 0 ? 6 : p.si) % PHC.length]]);
+  toVisor(w.start, w.moves.join(' '), `${intro}${w.rot ? ` Gira el cubo (${w.rot}) para dejarlo como se ve aquí.` : ''} Resuelto con el método ${m.name}, paso a paso: ${w.moves.length} giros.`, ph, true, `Resolución con el método ${m.name}: ${w.moves.length} giros, con el nombre de cada paso. Usa ▶ o avanza giro a giro.`);
+  return true;
+}
+const pickR = a => a[Math.random() * a.length | 0];
+function randScr(n) { const o = []; let l = ''; for (let i = 0; i < n; i++) { let f; do f = pickR('URFDLB'.split('')); while (f === l); l = f; o.push(f + pickR(['', "'", '2'])); } return o.join(' '); }
+$('lex').onclick = () => { if (N > 3) return; const scr = randScr(N === 2 ? 11 : 20), s = LX.ap(N, solvedSt(N), scr);
+  walkVisor(s, `Mezcla de ejemplo: ${scr} (hazla con el cubo armado, blanco arriba y verde al frente).`); };
+$('lbackb').onclick = () => { $('lback').hidden = true; tab(4); if (LV.pr) $('lprac').scrollIntoView({behavior: 'auto', block: 'start'}); };
+$('tabs').addEventListener('click', () => { if (curTab !== 1) $('lback').hidden = true; if (curTab !== 4) tmCancel(); });
 /* ---------- práctica ---------- */
-function prCase(P) { const st = P.m.steps[P.si]; return P.gi < 0 ? {n: 'Cruz', cross: true} : st.cases[P.gi].list[P.ci]; }
-function startPractice(si, gi, ci) {
-  const m = curMeth(); LV.pr = {N, m, si, gi, ci, n: 0, ex: null, moves: [], shown: false, wide: false, solved: false, demo: false};
+function prCase(P) { return P.gi < 0 ? {n: 'Cruz', cross: true} : P.m.steps[P.si].cases[P.gi].list[P.ci]; }
+function startPractice(si, gi, ci, pool) {
+  closeQuiz();
+  const m = curMeth(), grp = gi >= 0 ? m.steps[si].cases[gi].list.map((c, k) => ({si, gi, ci: k, c})) : [];
+  LV.pr = {N, m, si, gi, ci, n: 0, ex: null, moves: [], wide: false, solved: false, demo: false, pool: pool && pool.length > 1 ? pool : grp, mix: !!(pool && pool.length > 1)};
   newEx(); $('lprac').hidden = false; markCase(); $('lprac').scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 function markCase() { document.querySelectorAll('.lcase.on').forEach(b => b.classList.remove('on')); const P = LV.pr; if (!P || P.gi < 0) return; const b = document.querySelector(`.lcase[data-s="${P.si}"][data-g="${P.gi}"][data-c="${P.ci}"]`); if (b) b.classList.add('on'); }
 function newEx() {
   const P = LV.pr, c = prCase(P);
+  tmCancel();
   P.ex = c.cross ? LX.crossEx(P.m.frame) : LX.make(N, c, P.m.frame, P.ex && P.ex.au);
-  P.moves = []; P.n++; P.shown = false; P.solved = false; P.demo = false; P.scan = null;
+  P.moves = []; P.n++; P.solved = false; P.demo = false; P.hints = 0; P.peek = false; P.t0 = 0; P.t1 = 0;
+  // estados después de cada giro de la solución, para seguir el avance y decir cuál es el siguiente
+  P.toks = (P.ex.sol || '').split(/\s+/).filter(Boolean); P.au = !c.cross && P.ex.au ? 1 : 0;
+  P.ps = [P.ex.start]; for (const t of P.toks) P.ps.push(LX.ap(N, P.ps[P.ps.length - 1], t));
+  P.psk = P.ps.map(s => LX.norm(N, s, P.ex.R).join()); P.k = 0; P.on = true;
   prUI(''); pause(); enq(() => learnStage());
 }
-function closePractice(silent) { LV.pr = null; $('lprac').hidden = true; markCase(); if (!silent && curTab === 4) { pause(); enq(() => learnStage()); } }
+function closePractice(silent) { tmCancel(); LV.pr = null; $('lprac').hidden = true; markCase(); if (!silent && curTab === 4) { pause(); enq(() => learnStage()); } }
 function prState() { const P = LV.pr; return applyAllMv(P.ex.start, P.moves); }
+// dónde va el alumno dentro de la solución (−1: se salió del camino)
+function track(P) { const key = LX.norm(N, prState(), P.ex.R).join(); for (let i = P.psk.length - 1; i >= 0; i--) if (P.psk[i] === key) return i; return -1; }
+function halfway(P) { // hizo un cuarto de vuelta de un giro doble (R en vez de R2): le falta el otro
+  const t = P.toks[P.k]; if (!t || !/2$/.test(t)) return false; const key = LX.norm(N, prState(), P.ex.R).join(), b = t.slice(0, -1);
+  return [b, b + "'"].some(x => LX.norm(N, LX.ap(N, P.ps[P.k], x), P.ex.R).join() === key);
+}
+function algHTML(P, show) {
+  if (!P.toks.length) return '';
+  const tk = i => `<span class="tk${show && i < P.k && P.on ? ' dn' : ''}${show && i === P.k && P.on && !P.solved ? ' nx' : ''}">${P.toks[i]}</span>`;
+  let h = '';
+  if (P.au) h += `<span class="tg au" title="gira la capa de arriba">${tk(0)}</span> `;
+  h += trigSegs(P.toks, P.au).map(sg => { const inner = []; for (let i = sg.a; i < sg.b; i++) inner.push(tk(i)); return sg.b - sg.a > 1 ? `<span class="tg"${sg.n ? ` title="${sg.n}"` : ''}>${inner.join(' ')}</span>` : inner[0]; }).join(' ');
+  return h;
+}
+function trigLegend(P) {
+  const seen = new Map(); for (const sg of trigSegs(P.toks, P.au)) if (sg.n && !seen.has(sg.n)) seen.set(sg.n, P.toks.slice(sg.a, sg.b).join(' '));
+  if (!seen.size) return P.au ? 'El primer giro (marcado) es solo para acomodar la capa de arriba.' : '';
+  return 'Por partes: ' + [...seen].map(([n, a]) => `«${n}» = ${a}`).join(' · ') + (P.au ? '. El primer giro solo acomoda la capa de arriba.' : '');
+}
+const fmtLT = ms => (ms / 1000).toFixed(2) + ' s';
+function bestTxt(P) { const r = LST.t[ckey(P.m, prCase(P))]; if (!r || !r.r || !r.r.length) return ''; const a = r.r.slice(-5), av = a.reduce((x, y) => x + y, 0) / a.length;
+  return `Mejor: ${fmtLT(r.b)}${a.length >= 3 ? ` · promedio de ${a.length}: ${fmtLT(av)}` : ''}`; }
 function prUI(stTxt, cls) {
-  const P = LV.pr, c = prCase(P), st = P.m.steps[P.si], ex = P.ex;
-  $('lpk').textContent = `Paso ${P.si + 1} · ${st.t} · ejercicio ${P.n}`;
+  const P = LV.pr, c = prCase(P), st = P.m.steps[P.si], ex = P.ex, mode = LV.mode;
+  $('lpk').textContent = `Paso ${P.si + 1} · ${st.t}${P.mix ? ' · al azar' : ''} · ejercicio ${P.n}`;
   $('lpn').textContent = c.cross ? 'Haz la cruz blanca abajo' : c.n;
-  $('lpdia').innerHTML = c.cross ? isoSVG(ex.start, N) : dia(N, c, ex.start);
+  const kn = !c.cross && isKnown(P.m, c); $('lpknow').hidden = !!c.cross; $('lpknow').classList.toggle('on', kn); $('lpknow').setAttribute('aria-pressed', kn);
+  [...$('lpmode').children].forEach(b => b.classList.toggle('on', b.dataset.m === mode));
+  $('lpdia').innerHTML = c.cross || c.gen ? isoSVG(ex.start, N) : dia(N, c, ex.start);
   $('lpg').innerHTML = (c.cross ? 'Mezcla tu cubo con estos giros y arma la cruz blanca abajo. Luego compara con la cruz más corta.' : st.g) + (c.d ? ' ' + c.d : '');
-  $('lpsetl').textContent = c.cross ? 'Mezcla (desde el cubo armado) · ' + FRTXT(ex.fr) : 'Prepáralo en tu cubo armado · ' + FRTXT(ex.fr);
+  $('lpsetl').textContent = (c.cross || c.gen ? 'Mezcla (desde el cubo armado) · ' : 'Prepáralo en tu cubo armado · ') + FRTXT(ex.fr);
   $('lpset').textContent = ex.setup;
-  const sol = c.cross ? (ex.sol || '') : algTxt(c), pre = !c.cross && ex.au ? `${LX.invS(ex.au)} (gira la capa de arriba) · ` : '';
-  $('lpalg').textContent = c.cross ? `${sol} (${sol ? sol.split(' ').length : 0} giros)` : pre + sol;
-  $('lpalg').classList.toggle('hid', !P.shown); $('lpshow').textContent = P.shown ? 'Ocultar' : 'Mostrar';
-  $('lpalg').previousElementSibling.textContent = c.cross ? 'Cruz más corta' : 'Algoritmo';
-  const s = $('lpst'); s.className = 'lp-st' + (cls ? ' ' + cls : ''); s.innerHTML = stTxt || (P.moves.length ? `${P.moves.length} giro${P.moves.length > 1 ? 's' : ''}: <code>${fmtMoves(P.moves)}</code>` : 'Hazlo en tu cubo, o aquí con los botones (o tu teclado: U D R L F B, Mayús = al revés).');
+  const show = mode === 'guia' || P.peek || P.solved;
+  $('lpalgl').textContent = c.cross ? 'Cruz más corta' : c.gen ? 'Una forma de hacerlo' : 'Algoritmo';
+  $('lpalg').innerHTML = algHTML(P, mode === 'guia') + (c.cross ? ` <small>(${P.toks.length} giros)</small>` : '');
+  $('lpalg').classList.toggle('hid', !show);
+  $('lptrg').textContent = show && !c.cross && !c.gen ? trigLegend(P) : ''; $('lptrg').hidden = !$('lptrg').textContent;
+  $('lpshow').hidden = mode === 'guia'; $('lpshow').textContent = P.peek ? 'Ocultar' : 'Mostrar';
+  $('lphint').hidden = mode !== 'memo';
+  $('lptmw').hidden = mode !== 'reloj';
+  if (mode === 'reloj') { if (!P.t0) $('lptm').textContent = '0.00 s'; $('lpbest').textContent = bestTxt(P); $('lptime').textContent = !P.t0 ? 'Empezar' : !P.t1 ? 'Listo' : 'Otra vez'; }
+  const s = $('lpst'); s.className = 'lp-st' + (cls ? ' ' + cls : '');
+  if (stTxt) s.innerHTML = stTxt;
+  else if (mode === 'guia') s.innerHTML = !P.moves.length ? `Haz el giro marcado${P.toks[0] ? ` (<code>${P.toks[0]}</code>)` : ''} en tu cubo o con los botones de abajo (o tu teclado: U D R L F B, Mayús = al revés).`
+    : P.on ? `Vas bien: ${P.k} de ${P.toks.length}. Sigue con <code>${P.toks[P.k]}</code>.`
+    : halfway(P) ? `Te falta otro cuarto de vuelta para completar <code>${P.toks[P.k]}</code>.`
+    : `Ese giro no era el del algoritmo. Deshazlo (<code>${fmtMoves(invMoves([P.moves[P.moves.length - 1]]))}</code>) o toca «Volver al caso».`;
+  else if (mode === 'memo') s.innerHTML = P.moves.length ? `${P.moves.length} giro${P.moves.length > 1 ? 's' : ''}: <code>${fmtMoves(P.moves)}</code>` : 'Hazlo de memoria, en tu cubo o con los botones. Si te trabas, pide una pista.';
+  else s.innerHTML = P.moves.length ? `${P.moves.length} giro${P.moves.length > 1 ? 's' : ''}: <code>${fmtMoves(P.moves)}</code>` : 'El tiempo corre desde tu primer giro con los botones. Si lo haces en tu cubo, toca «Empezar» y luego «Listo».';
   $('lpundo').disabled = $('lpback').disabled = !P.moves.length;
-  $('lprand').hidden = P.gi < 0 || st.cases[P.gi].list.length < 2;
+  $('lprand').hidden = P.pool.length < 2; $('lprand').innerHTML = ico('shuffle') + (P.mix ? 'Otro caso' : 'Otro caso del grupo');
+  $('lpvset').disabled = !ex.setup; $('lpvalg').disabled = !P.toks.length;
   prKeys();
 }
 function prKeys() {
   const P = LV.pr, w = P.wide && N > 2 ? 'w' : '', faces = 'URFDLB'.split('');
   let h = faces.map(f => `<button data-m="${f}${w}" class="f">${f}${w}</button>`).join('') + faces.map(f => `<button data-m="${f}${w}'">${f}${w}'</button>`).join('') + faces.map(f => `<button data-m="${f}${w}2">${f}${w}2</button>`).join('');
-  const ex = (N >= 4 ? ["2R", "2R'", "2L", "2L'", "2U", "2U'"] : []).concat(N % 2 ? ["M", "M'", "E", "E'", "S", "S'"] : []).concat(["x", "x'", "y", "y'", "z", "z'"]);
+  const ex = (N >= 4 ? ["2R", "2R'", "2L", "2L'", "2U", "2U'"] : []).concat(N === 5 ? ["3R", "3R'"] : []).concat(N % 2 ? ["M", "M'", "E", "E'", "S", "S'"] : []).concat(N % 2 ? ["x", "x'", "y", "y'", "z", "z'"] : []); // (en el 2×2 y el 4×4 no hay centros fijos: girar el cubo confundiría la comprobación)
   h += ex.map(t => `<button data-m="${t}">${t}</button>`).join('');
   $('lpkeys').innerHTML = h; $('lpw').hidden = N === 2; $('lpw').classList.toggle('on', !!w); $('lpw').setAttribute('aria-pressed', !!w);
 }
 function prMove(m) {
   const P = LV.pr; if (!P) return;
+  if (N % 2 === 0 && 'xyz'.includes(m[0])) { prUI('En el 2×2 y el 4×4 practica sin girar el cubo entero (así sé cómo lo tienes).', 'info'); return; }
+  if (LV.mode === 'reloj' && !P.t0 && !P.solved) tmStart();
   enq(() => turn(m[0], m[1], m[2])); P.moves.push(m); P.demo = false;
   $('mvlbl').textContent = lbl(m); $('mvnext').textContent = describe(m);
-  const s = prState(), ok = LX.check(N, P.ex, s);
-  if (ok) { if (!P.solved) P.solvedAt = P.moves.length; P.solved = true; const k = P.solvedAt, ideal = prCase(P).cross ? (P.ex.sol ? P.ex.sol.split(' ').length : 0) : 0;
-    prUI(`¡Bien hecho! Lo lograste en ${k} giro${k > 1 ? 's' : ''}${ideal && k > ideal ? ` (la más corta tenía ${ideal})` : ''}. Pulsa «Otro ejercicio» para seguir.`, 'ok'); return; }
+  afterMove();
+}
+function afterMove() {
+  const P = LV.pr, ok = LX.check(N, P.ex, prState()), k = track(P);
+  if (k >= 0) { P.k = k; P.on = true; } else P.on = false;
+  if (ok) { if (!P.solved) { P.solvedAt = P.moves.length; P.solved = true; P.k = P.toks.length; P.on = true; } const n = P.solvedAt, c = prCase(P), ideal = c.cross ? P.toks.length : 0;
+    let extra = '';
+    if (LV.mode === 'reloj' && P.t0) { const dt = P.t1 ? P.t1 - P.t0 : tmStop(true); extra = ` Tiempo: <b>${fmtLT(dt)}</b>.`; }
+    else if (LV.mode === 'memo') extra = P.hints ? ` Usaste ${P.hints} pista${P.hints > 1 ? 's' : ''}: repítelo hasta hacerlo sin ninguna.` : P.peek ? '' : ' ¡Sin pistas!';
+    const sugg = !c.cross && !isKnown(P.m, c) && LV.mode !== 'guia' && !P.hints && !P.peek ? ' Si ya te sale siempre así, márcalo con «Me lo sé».' : '';
+    prUI(`¡Bien hecho! Lo lograste en ${n} giro${n > 1 ? 's' : ''}${ideal && n > ideal ? ` (la más corta tenía ${ideal})` : ''}.${extra}${sugg} Pulsa «Otro ejercicio» para seguir.`, 'ok'); return; }
   P.solved = false;
   prUI();
 }
 $('lpkeys').onclick = e => { const b = e.target.closest('button[data-m]'); if (b && LV.pr) prMove(parse(b.dataset.m)[0]); };
 $('lpw').onclick = () => { if (!LV.pr) return; LV.pr.wide = !LV.pr.wide; prKeys(); };
 $('lpx').onclick = () => closePractice();
-$('lpshow').onclick = () => { const P = LV.pr; if (!P) return; P.shown = !P.shown; $('lpalg').classList.toggle('hid', !P.shown); $('lpshow').textContent = P.shown ? 'Ocultar' : 'Mostrar'; };
+$('lpmode').onclick = e => { const b = e.target.closest('button[data-m]'), P = LV.pr; if (!b || !P || b.dataset.m === LV.mode) return; LV.mode = LST.mode = b.dataset.m; lsSave(); tmCancel();
+  // al cambiar la forma de practicar, el ejercicio vuelve a empezar desde el caso
+  P.peek = false; P.hints = 0; P.t0 = P.t1 = 0; if (P.moves.length) { P.moves = []; P.solved = false; P.demo = false; P.k = 0; P.on = true; pause(); enq(() => learnStage()); } prUI(); };
+$('lpshow').onclick = () => { const P = LV.pr; if (!P) return; P.peek = !P.peek; prUI(); };
+$('lphint').innerHTML = ico('spark') + 'Pista';
+$('lphint').onclick = () => { const P = LV.pr; if (!P || P.solved) return; P.hints++;
+  const msg = !P.on ? `Te desviaste del algoritmo: deshaz <code>${fmtMoves(simplifyMv(invMoves(P.moves.slice())).slice(0, 1))}</code> o toca «Volver al caso».` : P.toks[P.k] ? `Siguiente giro: <code>${P.toks[P.k]}</code> (pista ${P.hints}).` : '';
+  prUI(msg, 'info'); };
+$('lpknow').onclick = () => { const P = LV.pr; if (!P) return; const c = prCase(P); if (c.cross) return; const k = ckey(P.m, c); if (LST.k[k]) delete LST.k[k]; else LST.k[k] = 1; lsSave();
+  progUI(P.m); refreshStep(P.si); markCase(); prUI(LST.k[k] ? '¡Anotado! Al practicar al azar te mostraré primero los que aún no sabes.' : 'Quitado de los que sabes.', 'info'); };
 $('lpnext').innerHTML = ico('next') + 'Otro ejercicio'; $('lpnext').onclick = () => { if (LV.pr) newEx(); };
-$('lprand').innerHTML = ico('shuffle') + 'Otro caso del grupo';
-$('lprand').onclick = () => { const P = LV.pr; if (!P || P.gi < 0) return; const L = P.m.steps[P.si].cases[P.gi].list; let k; do { k = Math.random() * L.length | 0; } while (k === P.ci && L.length > 1); P.ci = k; markCase(); newEx(); };
+$('lprand').onclick = () => { const P = LV.pr; if (!P || P.pool.length < 2) return; const e = pickFrom(P.m, P.pool, P);
+  if (e.si !== P.si) { P.si = e.si; openStep(e.si); } P.gi = e.gi; P.ci = e.ci; markCase(); newEx(); };
 $('lpundo').innerHTML = ico('undo') + 'Deshacer';
-$('lpundo').onclick = () => { const P = LV.pr; if (!P || !P.moves.length) return; const m = invMoves([P.moves.pop()])[0]; enq(() => turn(m[0], m[1], m[2])); P.solved = LX.check(N, P.ex, prState()); prUI(); };
+$('lpundo').onclick = () => { const P = LV.pr; if (!P || !P.moves.length) return; const m = invMoves([P.moves.pop()])[0]; enq(() => turn(m[0], m[1], m[2])); P.demo = false; afterMove(); };
 // volver al caso: los giros hechos al revés y simplificados (los mismos sirven en tu cubo)
 function simplifyMv(ms) {
   const out = [];
@@ -5091,15 +5626,61 @@ $('lpback').innerHTML = ico('first') + 'Volver al caso';
 $('lpback').onclick = () => {
   const P = LV.pr; if (!P || !P.moves.length) return;
   const back = simplifyMv(invMoves(P.moves)); pause(); for (const m of back) enq(() => turn(m[0], m[1], m[2]));
-  P.moves = []; P.solved = false; P.demo = false;
+  P.moves = []; P.solved = false; P.demo = false; P.k = 0; P.on = true; tmCancel();
   prUI(back.length ? `De vuelta al caso con ${back.length} giro${back.length > 1 ? 's' : ''}: <code>${fmtMoves(back)}</code> (si lo hiciste en tu cubo, haz esos mismos giros).` : 'Ya estás en el caso.', 'info');
 };
 $('lpdemo').innerHTML = ico('play') + 'Ver cómo se hace';
 $('lpdemo').onclick = () => {
-  const P = LV.pr; if (!P) return; const c = prCase(P), sol = c.cross ? (P.ex.sol || '') : P.ex.sol; if (!sol) return;
-  pause(); P.moves = []; enq(() => learnStage()); const ms = parse(sol); for (const m of ms) enq(() => turn(m[0], m[1], m[2]));
-  P.moves = ms.slice(); P.solved = true; P.demo = true; prUI(`Así se hace: <code>${fmtMoves(ms)}</code>. Pulsa «Volver al caso» para intentarlo tú.`, 'info');
+  const P = LV.pr; if (!P || !P.toks.length) return; tmCancel();
+  pause(); P.moves = []; enq(() => learnStage()); const ms = parse(P.toks.join(' ')); for (const m of ms) enq(() => turn(m[0], m[1], m[2]));
+  P.moves = ms.slice(); P.solved = true; P.solvedAt = ms.length; P.demo = true; P.k = P.toks.length; P.on = true;
+  prUI(`Así se hace: <code>${fmtMoves(ms)}</code>. Pulsa «Volver al caso» para intentarlo tú.`, 'info');
 };
+$('lpvset').onclick = () => { const P = LV.pr; if (!P) return; const c = prCase(P); toVisor(LX.ref(N, P.ex.fr), P.ex.setup, `${c.cross ? 'Mezcla para la cruz' : 'Cómo preparar «' + c.n + '»'} desde el cubo armado. ${FRTXT(P.ex.fr)}`); };
+$('lpvalg').onclick = () => { const P = LV.pr; if (!P || !P.toks.length) return; const c = prCase(P); toVisor(P.ex.start, P.toks.join(' '), c.cross ? 'La cruz más corta para esta mezcla.' : `Cómo se resuelve «${c.n}», giro a giro.`); };
+/* ---------- contra reloj ---------- */
+function tmTick() { const P = LV.pr; if (!P || !P.t0 || P.t1) return; $('lptm').textContent = fmtLT(performance.now() - P.t0); requestAnimationFrame(tmTick); }
+function tmStart() { const P = LV.pr; if (!P || P.t0) return; P.t0 = performance.now(); P.t1 = 0; $('lptime').textContent = 'Listo'; requestAnimationFrame(tmTick); }
+function tmStop(rec) { const P = LV.pr; if (!P || !P.t0 || P.t1) return 0; P.t1 = performance.now(); const dt = P.t1 - P.t0; $('lptm').textContent = fmtLT(dt);
+  if (rec && dt > 150) { const k = ckey(P.m, prCase(P)), r = LST.t[k] = LST.t[k] || {b: dt, r: []}; r.b = Math.min(r.b || dt, dt); r.r = (r.r || []).concat([Math.round(dt)]).slice(-12); lsSave(); }
+  $('lpbest').textContent = bestTxt(P); $('lptime').textContent = 'Otra vez'; return dt; }
+function tmCancel() { const P = LV.pr; if (P && P.t0 && !P.t1) { P.t0 = 0; $('lptm').textContent = '0.00 s'; $('lptime').textContent = 'Empezar'; } }
+$('lptime').onclick = () => { const P = LV.pr; if (!P) return;
+  if (!P.t0) { tmStart(); prUI('¡Ya! Toca «Listo» cuando termines (o hazlo con los botones y se detiene solo).', 'info'); }
+  else if (!P.t1) { const dt = tmStop(true); prUI(`Tiempo: <b>${fmtLT(dt)}</b>. ${bestTxt(P)}`, 'ok'); }
+  else newEx(); };
+/* ---------- reconocer casos: se muestra el caso (desde cualquier lado) y se elige cuál es ---------- */
+function startQuiz(si) {
+  const m = curMeth(), pool = allCases(m, si).filter(e => !e.c.gen); if (pool.length < 3) return;
+  closePractice(true);
+  LV.qz = {N, m, si, pool, n: 0, ok: 0, streak: 0, cur: null, byName: pool.every(e => !/^(F2L|Caso) \d+$/.test(e.c.n))};
+  $('lquiz').hidden = false; qNext(); $('lquiz').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
+function closeQuiz() { LV.qz = null; $('lquiz').hidden = true; }
+const qLab = (Q, e) => Q.byName ? e.c.n : algTxt(e.c);
+function qNext() {
+  const Q = LV.qz; let e, guard = 0; do { e = pick(Q.pool); } while (Q.cur && e === Q.cur && ++guard < 20);
+  Q.cur = e; Q.done = false; const ex = LX.make(N, e.c, Q.m.frame);
+  const others = shuffle(Q.pool.filter(x => x !== e && x.gi === e.gi)).concat(shuffle(Q.pool.filter(x => x.gi !== e.gi))), opts = [e];
+  for (const x of others) { if (opts.length >= 4) break; if (!opts.some(o => qLab(Q, o) === qLab(Q, x))) opts.push(x); }
+  Q.opts = shuffle(opts);
+  $('lqk').textContent = `Reconoce el caso · ${Q.m.steps[Q.si].t}`;
+  $('lqq').textContent = Q.byName ? '¿Qué caso es?' : '¿Qué algoritmo lo resuelve?';
+  $('lqdia').innerHTML = dia(N, e.c, ex.start);
+  $('lqopts').innerHTML = Q.opts.map((o, k) => `<button class="lq-o" data-k="${k}">${Q.byName ? `<b>${o.c.n}</b>` : `<code>${algTxt(o.c)}</code>`}</button>`).join('');
+  $('lqst').className = 'lp-st'; $('lqst').textContent = e.c.k === 'll' && N <= 3 ? 'Es la capa de arriba vista desde arriba (con la fila de arriba de cada lado), girada al azar. Elige.' : 'Elige la opción correcta.';
+  $('lqprac').hidden = true; $('lqnext').innerHTML = ico('next') + 'Saltar'; qScore();
+}
+function qScore() { const Q = LV.qz; $('lqscore').textContent = Q.n ? `${Q.ok} de ${Q.n} bien${Q.streak > 1 ? ` · racha de ${Q.streak}` : ''}` : ''; }
+$('lqopts').onclick = e => { const b = e.target.closest('.lq-o'), Q = LV.qz; if (!b || !Q || Q.done) return;
+  const o = Q.opts[+b.dataset.k], right = o === Q.cur; Q.done = true; Q.n++; if (right) { Q.ok++; Q.streak++; } else Q.streak = 0;
+  [...$('lqopts').children].forEach((x, k) => { x.classList.toggle('ok', Q.opts[k] === Q.cur); x.classList.toggle('bad', !right && x === b); x.disabled = true; });
+  const c = Q.cur.c; $('lqst').className = 'lp-st ' + (right ? 'ok' : 'info');
+  $('lqst').innerHTML = (right ? '¡Correcto! ' : `Era «${c.n}». `) + `<code>${algTxt(c)}</code>` + (c.d ? ` · ${c.d}` : '');
+  $('lqprac').hidden = false; $('lqnext').innerHTML = ico('next') + 'Siguiente'; qScore(); };
+$('lqnext').onclick = () => { if (LV.qz) qNext(); };
+$('lqprac').onclick = () => { const Q = LV.qz; if (!Q) return; const e = Q.cur; openStep(e.si); startPractice(e.si, e.gi, e.ci); };
+$('lqx').onclick = () => closeQuiz();
 /* ---------- volver al caso desde tu cubo escaneado ---------- */
 // cada casilla del cubo actual se renombra con la cara donde está esa misma pieza en el caso: resolver eso lleva al caso
 function relLabel(NN, cur, tgt) {
@@ -5139,11 +5720,78 @@ $('lpscan').onclick = () => {
     if (!LV.pr || LV.pr !== P) return;
     if (!route) { prUI('No pude calcular el camino de vuelta con lo que leí. Revisa el escaneo o vuelve a armar el cubo y prepara el caso otra vez.', ''); return; }
     pause(); P.moves = []; enq(() => { showState(cur); }); for (const m of route) enq(() => turn(m[0], m[1], m[2]));
-    P.solved = false;
+    P.solved = false; P.k = 0; P.on = true;
     prUI(route.length ? `Para volver al caso, en tu cubo (${FRTXT(P.ex.fr).replace('Sostén el cubo con ', '').replace('.', '')}) haz ${route.length} giros: <code>${fmtMoves(route)}</code>` : 'Tu cubo ya está en el caso.', 'info');
   };
   tab(2); openScan();
 };
+/* ---------- analizar mi cubo: en qué paso vas, qué caso tienes y qué hacer (con el cubo escaneado o pintado en Resolver) ---------- */
+const isSolvedSt = s => { const q = N * N; for (let f = 0; f < 6; f++) for (let j = 1; j < q; j++) if (s[f * q + j] !== s[f * q]) return false; return true; };
+function anOpen() { closePractice(true); closeQuiz(); $('lanp').hidden = false; $('lanp').scrollIntoView({behavior: 'smooth', block: 'start'}); }
+$('lanx').onclick = () => { $('lanp').hidden = true; LV.an = null; };
+$('lana').onclick = () => { const s = st.slice(); if (s.includes(BLANK) || isSolvedSt(s)) anAsk(s.includes(BLANK)); else anShow(s); };
+const SCANB = () => `<button class="btn sm" data-an="scan">${ico('camera')}Escanear mi cubo</button>`;
+function anAsk(blank) {
+  anOpen(); LV.an = null; $('lank').textContent = 'Tu cubo'; $('lann').textContent = 'Primero necesito ver tu cubo'; $('landia').innerHTML = '';
+  $('lanp').querySelector('.lp-case').classList.add('nodia');
+  $('lantxt').innerHTML = `<p>${blank ? 'Al cubo de Resolver le faltan casillas por pintar.' : 'El cubo de Resolver está armado.'} Escanea tu cubo con la cámara (o píntalo en Resolver) y vuelve a tocar «Analizar mi cubo».</p>`;
+  $('lanbtn').innerHTML = `<button class="btn sm cta" data-an="scan">${ico('camera')}Escanear mi cubo</button><button class="btn sm" data-an="paint">${ico('brush')}Pintarlo en Resolver</button>`;
+}
+const stepIdx = (m, re) => m.steps.findIndex(x => re.test(x.t));
+const outerOnly = a => a.split(/\s+/).every(t => /^[URFDLBxyz]['2]?$/.test(t)); // en los cubos grandes, el visor solo puede repetir giros de caras exteriores
+function caseHTML(r, m, note) {
+  let h = `<p>Tienes el caso <b>«${r.c.n}»</b>.${r.c.d ? ' ' + r.c.d : ''}</p><p class="lp-g">${FRTXT(m.frame)}${note ? ' ' + note : ''}</p><ol class="lan-steps">`;
+  if (r.y) h += `<li>Gira todo el cubo: <code>${r.y}</code></li>`;
+  if (r.u) h += `<li>Gira la capa de arriba: <code>${r.u}</code></li>`;
+  h += `<li>Haz: <code>${r.alg}</code></li></ol>`;
+  if (r.l2 && r.l2.first) { const f = r.l2.first; h += `<p class="tip">Si usas las dos vistas: primero «${f.c.n}» (${[f.y, f.u, f.alg].filter(Boolean).join(' · ')})${r.l2.goal === 'oll' ? ' y luego el caso de esquinas que quede' : ' y luego el de aristas'}.</p>`; }
+  return h;
+}
+function anShow(s) {
+  const m = curMeth(); anOpen(); LV.an = null; LV.anS = s.slice();
+  let title = '', txt = '', btns = '', dg = isoSVG(s, N), an = null;
+  $('lank').textContent = `Tu cubo · método ${m.name}`;
+  if (N <= 3) {
+    const r = LX.analyze(N, m, s);
+    if (!r || r.solved) { title = '¡Tu cubo ya está resuelto!'; txt = '<p>Mézclalo y prueba otra vez, o practica los casos que aún no sabes con «Repasar al azar».</p>'; }
+    else {
+      const stp = r.st, held = r.y ? LX.ap(N, r.start, r.y) : r.start; title = `Vas en el paso ${r.si + 1}: ${stp.t}`; dg = r.found && r.c ? dia(N, r.c, held) : isoSVG(r.start, N);
+      an = {si: r.si, gi: r.gi, ci: r.ci, vstart: r.start, vseq: r.seq, vtxt: r.cross ? 'Tu cruz blanca más corta.' : r.found ? `Tu cubo: caso «${r.c.n}».` : ''};
+      if (r.cross) { const k = r.seq ? r.seq.split(' ').length : 0; txt = `<p>Tu cruz blanca más corta tiene <b>${k} giro${k === 1 ? '' : 's'}</b>: <code>${r.seq}</code></p><p class="lp-g">${FRTXT(m.frame)} Intenta encontrarla tú antes de mirarla en el visor.</p>`;
+        btns = `<button class="btn sm cta" data-an="visor">${ico('play')}Ver en el visor</button>`; }
+      else if (r.found) { txt = caseHTML(r, m, stp.slot === 'pair' ? 'El par va en la ranura de adelante a la derecha.' : stp.slot ? 'La pieza va adelante a la derecha.' : '');
+        btns = `<button class="btn sm cta" data-an="visor">${ico('play')}Ver en el visor</button><button class="btn sm" data-an="prac">${ico('shuffle')}Practicar este caso</button>`; }
+      else { txt = `<p>${stp.stuck || 'No reconozco un caso de este paso. Revisa que los colores estén bien leídos y sigue la explicación del paso.'}</p>`; an.vseq = ''; }
+      btns += `<button class="btn sm" data-an="step">${ico('book')}Ver el paso</button><button class="btn sm" data-an="walk">${ico('next')}Resolverlo todo paso a paso</button>`;
+    }
+  } else {
+    const m3 = LEARN[3].find(x => x.id === 'cfop'), r = LX.analyzeBig(N, s, m3);
+    if (r.stage === 'centers') { const si = stepIdx(m, /entros/); title = 'Vas en los centros'; txt = `<p>Llevas <b>${r.done} de 6</b> centros armados. Arma barras y únelas con capas internas sin romper los centros terminados.</p>`; an = {si}; btns = `<button class="btn sm" data-an="step">${ico('book')}Ver el paso</button>`; }
+    else if (r.stage === 'edges') { const si = r.parity ? stepIdx(m, /Paridad/) : stepIdx(m, /ristas/); an = {si, gi: 0, ci: 0};
+      title = r.parity ? 'Paridad: una arista con las alas al revés' : 'Vas en las aristas';
+      txt = r.parity ? '<p>Todo está emparejado salvo una arista con las dos alas cambiadas: es la paridad del 5×5. Ponla adelante arriba y haz el algoritmo de paridad.</p>' : `<p>Centros listos. Falta${r.bad === 1 ? '' : 'n'} <b>${r.bad}</b> arista${r.bad === 1 ? '' : 's'} por emparejar.</p>`;
+      btns = (r.parity ? `<button class="btn sm cta" data-an="prac">${ico('shuffle')}Practicar la paridad</button>` : '') + `<button class="btn sm" data-an="step">${ico('book')}Ver el paso</button>`; }
+    else if (r.r3.solved) { title = '¡Tu cubo ya está resuelto!'; txt = '<p>Mézclalo y prueba otra vez.</p>'; }
+    else if (r.parity) { const si = stepIdx(m, /Paridad|3×3/), stp = m.steps[si], gi = (stp.cases || []).findIndex(g => /Paridad/.test(g.grp)), ci = r.parity === 'oll' ? 0 : 1; an = {si, gi, ci};
+      title = r.parity === 'oll' ? 'Paridad OLL' : 'Paridad PLL'; dg = isoSVG(r.big, N);
+      txt = r.parity === 'oll' ? '<p>Al orientar la última capa queda una sola arista volteada: es la paridad OLL. Ponla adelante arriba y haz el algoritmo de paridad; luego sigue como en el 3×3.</p>' : '<p>Al final quedan dos aristas cambiadas: es la paridad PLL. Haz su algoritmo y termina la capa de arriba como en el 3×3.</p>';
+      btns = `<button class="btn sm cta" data-an="prac">${ico('shuffle')}Practicar la paridad</button><button class="btn sm" data-an="step">${ico('book')}Ver el paso</button>`; }
+    else { const r3 = r.r3, si = stepIdx(m, /3×3/); title = `Como un 3×3 · ${r3.st.t}`; dg = isoSVG(r.big, N); an = {si, vstart: r.big, vseq: r3.found && outerOnly(r3.seq) ? r3.seq : '', vtxt: r3.found && r3.c ? `Tu cubo: caso «${r3.c.n}» del 3×3.` : 'Tu cruz blanca más corta.'};
+      txt = r3.cross ? `<p>Centros y aristas listos. Tu cruz blanca más corta: <code>${r3.seq}</code></p><p class="lp-g">${FRTXT('z2')}</p>` : r3.found ? caseHTML(r3, m3, 'Gira solo las capas de afuera.') : `<p>${r3.st.stuck || 'Sigue con el paso del 3×3.'}</p>`;
+      if (an.vseq) btns = `<button class="btn sm cta" data-an="visor">${ico('play')}Ver en el visor</button>`;
+      btns += `<button class="btn sm" data-an="step">${ico('book')}Ver el paso</button>`; }
+  }
+  LV.an = an; $('lann').textContent = title; $('landia').innerHTML = dg; $('lantxt').innerHTML = txt; $('lanp').querySelector('.lp-case').classList.remove('nodia');
+  $('lanbtn').innerHTML = btns + SCANB();
+  const vb = $('lanbtn').querySelector('[data-an="visor"]'); if (vb && !(an && an.vseq)) vb.remove();
+}
+$('lanbtn').onclick = e => { const b = e.target.closest('[data-an]'); if (!b) return; const a = b.dataset.an, R = LV.an;
+  if (a === 'scan') { scanHook = s => { tab(4); anShow(s); }; tab(2); openScan(); }
+  else if (a === 'paint') tab(2);
+  else if (a === 'walk' && LV.anS) { if (!walkVisor(LV.anS, 'Tu cubo, tal como lo leí.')) $('lantxt').insertAdjacentHTML('beforeend', '<p class="tip">No pude armar una resolución completa con este método desde aquí: revisa que los colores estén bien.</p>'); }
+  else if (a === 'visor' && R && R.vseq) toVisor(R.vstart, R.vseq, R.vtxt);
+  else if (a === 'prac' && R && R.si >= 0 && R.gi >= 0) { openStep(R.si); startPractice(R.si, R.gi, R.ci); }
+  else if (a === 'step' && R && R.si >= 0) { $('lanp').hidden = true; openStep(R.si); const box = document.querySelector(`.lstep[data-s="${R.si}"]`); if (box) box.scrollIntoView({behavior: 'smooth', block: 'start'}); } };
 
 $('scth').addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.th[data-sel]')) { e.preventDefault(); e.target.click(); } });
 
@@ -5158,10 +5806,10 @@ TS.load(() => { T.sel = tl().length - 1; if (curTab === 3) { tView(); tUI(); } }
 setTimeout(() => Pool.warm(3), 1200);
 // gancho de pruebas: solo al abrir el archivo localmente, nunca en la página publicada
 if (location.protocol === 'file:' || location.hostname === 'localhost') window.__cubo = {Pool, phasesOf: () => phases, facelets: () => { const o = Array(6 * N * N); stk.forEach(s => { o[facelet(s)] = s.userData.c; }); return o; },
-  state: () => st.slice(), size: () => N, scanInfo: () => scn && {n: scn.shots.length, src: scn.src, busy: scn.busy, vrun: scn.vrun, noLive: scn.noLive, ev: scn.ev && scn.ev.state, stat: scn.stat},
+  state: () => st.slice(), size: () => N, replay: shots => { scn = {shots}; $('smsg').textContent = ''; try { finishScan(); } catch (e) { return {err: String(e)}; } if (scn) closeScan(); return {res: st.slice(), dud: [...dud], txt: $('smsg').textContent}; }, scanInfo: () => scn && {n: scn.shots.length, src: scn.src, busy: scn.busy, vrun: scn.vrun, noLive: scn.noLive, ev: scn.ev && scn.ev.state, stat: scn.stat},
   scanCell: (i, j) => { const s = scn.shots[i], r = scv.getBoundingClientRect(), k = r.width / DET, [x, y] = gridPts(s.g, k, (j % N + .5) / N - .5, ((j / N | 0) + .5) / N - .5); return {x: r.left + x, y: r.top + y, lab: s.labs[j]}; },
   screenOf: p => { const v = new THREE.Vector3(...p); v.project(cam); const r = cv.getBoundingClientRect(); return [r.left + (v.x + 1) / 2 * r.width, r.top + (1 - v.y) / 2 * r.height]; }, home: () => { Object.assign(view, HOME); Object.assign(goal, HOME); redraw(); }};
-if (window.__cubo) window.__learn = () => ({rel: async k => { const P = LV.pr, F = "URFDLB", ms = []; for (let j = 0; j < k; j++) ms.push(F[Math.random() * 6 | 0] + ["", "'", "2"][Math.random() * 3 | 0]); const cur = LX.ap(N, P.ex.start, ms.join(" ")), t0 = Date.now(), r = await relRoute(N, cur, P.ex.start); return {ok: !!r, len: r ? r.length : -1, ms: Date.now() - t0, mix: ms.join(" ")}; }, chk: () => { const P = LV.pr; return {now: LX.check(N, P.ex, prState()), sol: LX.check(N, P.ex, applyAllMv(P.ex.start, parse(P.ex.sol))), st: prState().join(""), moves: fmtMoves(P.moves)}; }, move: t => prMove(parse(t)[0]), atStart: () => !!LV.pr && !LV.pr.moves.length, pr: () => LV.pr && {ex: LV.pr.ex, moves: LV.pr.moves.length}});
+if (window.__cubo) window.__learn = () => ({rel: async k => { const P = LV.pr, F = "URFDLB", ms = []; for (let j = 0; j < k; j++) ms.push(F[Math.random() * 6 | 0] + ["", "'", "2"][Math.random() * 3 | 0]); const cur = LX.ap(N, P.ex.start, ms.join(" ")), t0 = Date.now(), r = await relRoute(N, cur, P.ex.start); return {ok: !!r, len: r ? r.length : -1, ms: Date.now() - t0, mix: ms.join(" ")}; }, chk: () => { const P = LV.pr; return {now: LX.check(N, P.ex, prState()), sol: LX.check(N, P.ex, applyAllMv(P.ex.start, parse(P.ex.sol))), st: prState().join(""), moves: fmtMoves(P.moves)}; }, move: t => prMove(parse(t)[0]), atStart: () => !!LV.pr && !LV.pr.moves.length, pr: () => LV.pr && {ex: LV.pr.ex, moves: LV.pr.moves.length, toks: LV.pr.toks, k: LV.pr.k, on: LV.pr.on, si: LV.pr.si, gi: LV.pr.gi, ci: LV.pr.ci, name: prCase(LV.pr).n}, qz: () => LV.qz && {right: LV.qz.opts.indexOf(LV.qz.cur), n: LV.qz.opts.length}, store: () => JSON.stringify(LST), lx: () => LX, learn: () => LEARN, an: s => anShow(s), N: () => N});
 
 /* ================= app instalable (solo en la página propia con https, p. ej. GitHub Pages; nunca dentro del artefacto) ================= */
 (() => {
@@ -5181,7 +5829,14 @@ if (window.__cubo) window.__learn = () => ({rel: async k => { const P = LV.pr, F
   const installed = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone;
   addEventListener('beforeinstallprompt', e => { e.preventDefault(); ask = e; if (!installed()) b.hidden = false; });
   addEventListener('appinstalled', () => { b.hidden = true; ask = null; toast('App instalada: ábrela desde su ícono'); });
-  b.addEventListener('click', async () => { if (!ask) return; ask.prompt(); try { await ask.userChoice; } catch (_) {} ask = null; b.hidden = true; });
+  // en iPhone y iPad no existe ese aviso del navegador: el botón explica cómo agregarla a la pantalla de inicio
+  const ua = navigator.userAgent || '', ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1), safari = ios && !/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua);
+  if (ios && !installed()) b.hidden = false;
+  b.addEventListener('click', async () => {
+    if (!ask) { if (!ios) return;
+      toast(safari ? 'Para instalarla: toca Compartir (el cuadrado con la flecha ↑) y luego «Agregar a inicio». Quedará como una app, con su ícono.' : 'Para instalarla en iPhone, abre este link en Safari, toca Compartir (el cuadrado con la flecha ↑) y luego «Agregar a inicio».', 'Entendido', () => {});
+      $('toast').classList.add('wide'); clearTimeout(toastT); toastT = setTimeout(() => $('toast').classList.remove('on'), 14000); return; }
+    ask.prompt(); try { await ask.userChoice; } catch (_) {} ask = null; b.hidden = true; });
 })();
 
 })();
